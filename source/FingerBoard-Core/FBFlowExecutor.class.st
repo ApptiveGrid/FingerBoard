@@ -36,11 +36,6 @@ FBFlowExecutor >> executeNode: aFBNode [
 	aFBNode executeIn: self
 ]
 
-{ #category : #'as yet unclassified' }
-FBFlowExecutor >> finish: aFBStartEvent next: aFBNode [ 
-	self shouldBeImplemented.
-]
-
 { #category : #initialization }
 FBFlowExecutor >> initialize [ 
 	super initialize.
@@ -52,6 +47,11 @@ FBFlowExecutor >> initialize [
 FBFlowExecutor >> instance: aFBFlowInstance [ 
 	instance := aFBFlowInstance.
 	pending add: instance start
+]
+
+{ #category : #'as yet unclassified' }
+FBFlowExecutor >> valueAtNode: aFBNode put: anObject [
+	(activations at: aFBNode) value: anObject 
 ]
 
 { #category : #'as yet unclassified' }

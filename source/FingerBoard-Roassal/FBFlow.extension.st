@@ -3,7 +3,6 @@ Extension { #name : #FBFlow }
 { #category : #'*FingerBoard-Roassal' }
 FBFlow >> flowRoassalScript [
 	^ [ :canvas | | allNodes |
-		self halt.
 		allNodes := self allNodes.
 		allNodes do: [ :each | 
 			canvas add: (each asRoassalShape @ RSLabeled @ RSDraggable @ RSPopup ) ].

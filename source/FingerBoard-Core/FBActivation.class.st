@@ -2,11 +2,18 @@ Class {
 	#name : #FBActivation,
 	#superclass : #Object,
 	#instVars : [
+		'timestamp',
 		'node',
 		'value'
 	],
 	#category : #'FingerBoard-Core'
 }
+
+{ #category : #initialization }
+FBActivation >> initialize [ 
+	super initialize.
+	timestamp := DateAndTime now
+]
 
 { #category : #accessing }
 FBActivation >> node: aFBNode [

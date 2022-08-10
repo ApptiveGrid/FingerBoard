@@ -6,14 +6,16 @@ Class {
 
 { #category : #tests }
 FBFlowTest >> gatewayedFlow [ 
-	| start end bigger smaller gateway |
+	| start end bigger smaller gateway value |
 	start := FBStartEvent new.
+	value := FBTestTask new.
+	start addOutgoingNode: value.
 	bigger := FBTask new.
 	smaller := FBTask new.
 	gateway := FBExclusiveGateway new
-	 addOutgoingNode: bigger withCondition: [:x | x notNil ];
-	 addOutgoingNode: smaller withCondition: [:x | x isNil ].
-	start addOutgoingNode: gateway.
+	 addOutgoingNode: bigger withCondition: [:x | x < 5 ];
+	 addOutgoingNode: smaller withCondition: [:x | x >= 5 ].
+	value addOutgoingNode: gateway.
 	end := FBEndEvent new.
 	bigger addOutgoingNode: end.
 	smaller addOutgoingNode: end.

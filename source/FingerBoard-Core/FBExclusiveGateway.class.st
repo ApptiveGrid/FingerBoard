@@ -6,12 +6,11 @@ Class {
 
 { #category : #converting }
 FBExclusiveGateway >> asRoassalShape [
-	^ RSBox new 
-		size: 100;
-		color: (Color orange alpha: 0.5);
-		cornerRadius: 15;
+	^ RSPolygon new
+		points: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50);
+		color: (Color blue alpha: 0.5);
 		model: self;
-		yourself
+		yourself.
 ]
 
 { #category : #'as yet unclassified' }
