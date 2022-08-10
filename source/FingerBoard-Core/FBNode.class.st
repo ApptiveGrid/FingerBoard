@@ -9,14 +9,25 @@ Class {
 }
 
 { #category : #connecting }
+FBNode >> addIncoming: aFBTransition [ 
+	incoming add: aFBTransition.
+]
+
+{ #category : #connecting }
 FBNode >> addOutgoing: aFBTransition [ 
-	outgoing add: aFBTransition 
+	outgoing add: aFBTransition.
+	aFBTransition target addIncoming: aFBTransition 
 ]
 
 { #category : #connecting }
 FBNode >> addOutgoingNode: aFBNode [ 
 	self addOutgoing: (FBTransition source: self target: aFBNode).
 	^ aFBNode 
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> executeIn: aFBFlowExecutor [ 
+	self subclassResponsibility  
 ]
 
 { #category : #'as yet unclassified' }

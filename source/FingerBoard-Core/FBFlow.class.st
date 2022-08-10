@@ -26,6 +26,12 @@ FBFlow >> end [
 		end := start findEnd ]
 ]
 
+{ #category : #'instance creation' }
+FBFlow >> newInstance [
+	^ FBFlowInstance new 
+		flow: self
+]
+
 { #category : #accessing }
 FBFlow >> start [
 	^ start

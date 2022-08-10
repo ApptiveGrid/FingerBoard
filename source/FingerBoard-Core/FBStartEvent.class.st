@@ -8,3 +8,8 @@ Class {
 FBStartEvent >> acceptFingerBoard: aFBVisitor [ 
 	^ aFBVisitor visitStartEvent: self 
 ]
+
+{ #category : #'as yet unclassified' }
+FBStartEvent >> executeIn: aFBFlowExecutor [ 
+	aFBFlowExecutor addPending: outgoing first target
+]

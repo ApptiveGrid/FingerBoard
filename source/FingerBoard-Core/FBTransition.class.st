@@ -21,6 +21,11 @@ FBTransition >> acceptFingerBoard: aVisitor [
 ]
 
 { #category : #accessing }
+FBTransition >> source [
+	^ source
+]
+
+{ #category : #accessing }
 FBTransition >> source: aFBNode [
 	source := aFBNode
 ]

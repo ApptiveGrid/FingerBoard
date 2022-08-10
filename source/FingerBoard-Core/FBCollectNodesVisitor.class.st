@@ -10,7 +10,7 @@ Class {
 { #category : #accesing }
 FBCollectNodesVisitor >> nodes [
 	^ nodes ifNil: [ 
-		nodes := OrderedCollection new ]
+		nodes := Set new ]
 ]
 
 { #category : #visiting }

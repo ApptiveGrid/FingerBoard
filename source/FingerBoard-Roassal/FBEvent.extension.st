@@ -3,8 +3,8 @@ Extension { #name : #FBEvent }
 { #category : #'*FingerBoard-Roassal' }
 FBEvent >> asRoassalShape [
 	^ RSEllipse new 
-		size: 100; 
-		color: (Color red alpha: 0.5);
+		size: 30; 
+		color: (Color black alpha: 0.8);
 		model: self;
 		yourself.
 ]
