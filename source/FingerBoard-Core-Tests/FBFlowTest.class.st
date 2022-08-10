@@ -39,7 +39,7 @@ FBFlowTest >> testCreateFlow [
 	end := intermediate addOutgoingNode: FBEndEvent new.
 	flow := FBFlow new 
 		start: start.
-	self assert: flow end equals: end
+	self assert: flow end equals: end.
 
 ]
 

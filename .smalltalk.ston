@@ -1,0 +1,10 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'FingerBoard',
+      #platforms : [ #pharo ],
+      #directory : 'source',
+      #onConflict : #useIncoming
+    }
+  ]
+}
