@@ -50,6 +50,21 @@ FBNode >> initialize [
 	outgoing := OrderedCollection new
 ]
 
+{ #category : #'as yet unclassified' }
+FBNode >> inspectionFlow [
+	<inspectorPresentationOrder: 0 title: 'flow'>
+	^ SpRoassal3InspectorPresenter  new 
+		canvas: (FBFlowMapBuilder new 
+			nodes: self neighbourNodes;
+			build )
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> neighbourNodes [
+	^ ((incoming collect: #source), (outgoing collect: #target)) add: self; yourself
+]
+
 { #category : #accessing }
 FBNode >> outgoing [
 	^ outgoing
