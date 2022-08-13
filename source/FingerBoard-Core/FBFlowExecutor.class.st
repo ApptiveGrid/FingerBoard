@@ -19,6 +19,11 @@ FBFlowExecutor >> completed [
 	instance state: #completed
 ]
 
+{ #category : #executing }
+FBFlowExecutor >> execute [
+	^ self executeWith: nil
+]
+
 { #category : #'as yet unclassified' }
 FBFlowExecutor >> executeNode: aFBNode with: anObject [
 	| activation |
