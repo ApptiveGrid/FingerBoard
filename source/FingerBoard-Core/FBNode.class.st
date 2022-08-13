@@ -26,7 +26,7 @@ FBNode >> addOutgoingNode: aFBNode [
 ]
 
 { #category : #'as yet unclassified' }
-FBNode >> executeIn: aFBFlowExecutor [ 
+FBNode >> executeIn: aFBActivation [ 
 	self subclassResponsibility  
 ]
 

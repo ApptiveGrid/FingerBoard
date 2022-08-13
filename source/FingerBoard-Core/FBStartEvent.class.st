@@ -10,6 +10,6 @@ FBStartEvent >> acceptFingerBoard: aFBVisitor [
 ]
 
 { #category : #'as yet unclassified' }
-FBStartEvent >> executeIn: aFBFlowExecutor [ 
-	aFBFlowExecutor addPending: outgoing first target
+FBStartEvent >> executeIn: aFBActivation [ 
+	aFBActivation followTransition: outgoing first.
 ]

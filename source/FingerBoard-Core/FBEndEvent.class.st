@@ -5,6 +5,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-FBEndEvent >> executeIn: aFBFlowExecutor [ 
-	aFBFlowExecutor completed
+FBEndEvent >> executeIn: aFBActivation [ 
+	aFBActivation executor completed
 ]

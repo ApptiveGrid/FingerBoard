@@ -14,11 +14,11 @@ FBExclusiveGateway >> asRoassalShape [
 ]
 
 { #category : #'as yet unclassified' }
-FBExclusiveGateway >> executeIn: aFBExecutor [ 
+FBExclusiveGateway >> executeIn: aFBActivation [ 
 	| value next |
-	value := aFBExecutor valueForNode: incoming first source.
 	next := outgoing 
-		detect: [ :each | each condition value: value ]
+		detect: [ :each | each condition value: aFBActivation argument ]
 		ifNone: [ Error signal: 'conditions do not match' ].
-	aFBExecutor addPending: next target
+	aFBActivation followTransition: next.
+
 ]

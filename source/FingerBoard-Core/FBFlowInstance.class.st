@@ -20,6 +20,12 @@ FBFlowInstance >> execute [
 	self executor execute
 ]
 
+{ #category : #executing }
+FBFlowInstance >> executeWith: anObject [
+	state := #running.
+	self executor executeWith: anObject
+]
+
 { #category : #finalization }
 FBFlowInstance >> executor [ 
 	^ executor ifNil: [

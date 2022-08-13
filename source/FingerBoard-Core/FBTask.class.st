@@ -5,6 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-FBTask >> executeIn: aFBFlowExecutor [ 
-	aFBFlowExecutor addPending: outgoing first target
+FBTask >> executeIn: aFBActivation [ 
+	aFBActivation followTransition: outgoing first.
+
 ]

@@ -5,9 +5,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-FBTestTask >> executeIn: aFBExecutor [ 
-	super executeIn: aFBExecutor.
-	aFBExecutor valueAtNode: self put: self value
+FBTestTask >> executeIn: aFBActivation [ 
+	| value |
+	super executeIn: aFBActivation.
+	value := self value.
+	aFBActivation value: value.
+	^ value
 ]
 
 { #category : #accessing }

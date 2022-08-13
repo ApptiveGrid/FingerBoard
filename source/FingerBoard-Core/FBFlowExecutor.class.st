@@ -19,27 +19,33 @@ FBFlowExecutor >> completed [
 	instance state: #completed
 ]
 
-{ #category : #execution }
-FBFlowExecutor >> execute [
-	| node |
-	[ pending isEmpty ] whileFalse: [
-		node := pending removeFirst. 
-		self executeNode: node ]
+{ #category : #'as yet unclassified' }
+FBFlowExecutor >> executeNode: aFBNode with: anObject [
+	| activation |
+	activation := self newActivation 
+		node: aFBNode;
+		argument: anObject.
+	activations add: activation.
+	^ activation invoke
+"	aFBNode executeIn: self"
 	
 ]
 
-{ #category : #'as yet unclassified' }
-FBFlowExecutor >> executeNode: aFBNode [ 
-	activations 
-		at: aFBNode 
-		put: (FBActivation new node: aFBNode ).
-	aFBNode executeIn: self
+{ #category : #executing }
+FBFlowExecutor >> executeWith: anObject [
+	| node lastValue argument |
+	lastValue := anObject.
+	[ pending isEmpty ] whileFalse: [
+		node := pending removeFirst. 
+		argument := lastValue.
+		lastValue := self executeNode: node with: argument ]
+	
 ]
 
 { #category : #initialization }
 FBFlowExecutor >> initialize [ 
 	super initialize.
-	activations := OrderedDictionary new.
+	activations := OrderedCollection new.
 	pending := OrderedCollection new
 ]
 
@@ -50,11 +56,7 @@ FBFlowExecutor >> instance: aFBFlowInstance [
 ]
 
 { #category : #'as yet unclassified' }
-FBFlowExecutor >> valueAtNode: aFBNode put: anObject [
-	(activations at: aFBNode) value: anObject 
-]
-
-{ #category : #'as yet unclassified' }
-FBFlowExecutor >> valueForNode: aFBNode [
-	^ (activations at: aFBNode) value
+FBFlowExecutor >> newActivation [ 
+	^ FBActivation new
+		executor: self
 ]
