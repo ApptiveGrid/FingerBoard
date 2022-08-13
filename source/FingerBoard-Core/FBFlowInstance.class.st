@@ -44,6 +44,17 @@ FBFlowInstance >> initialize [
 	state := #initialized
 ]
 
+{ #category : #'as yet unclassified' }
+FBFlowInstance >> inspectionFlow [
+	<inspectorPresentationOrder: 0 title: 'flow'>
+	^ SpRoassal3InspectorPresenter  new 
+		canvas: (FBFlowMapBuilder new 
+			nodes: flow allNodes;
+			activations: executor activations;
+			build )
+		yourself
+]
+
 { #category : #accessing }
 FBFlowInstance >> start [
 	^ flow start

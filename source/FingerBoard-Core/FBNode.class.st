@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'incoming',
-		'outgoing'
+		'outgoing',
+		'name'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -58,6 +59,16 @@ FBNode >> inspectionFlow [
 			nodes: self neighbourNodes;
 			build )
 		yourself
+]
+
+{ #category : #accessing }
+FBNode >> name [
+	^ name
+]
+
+{ #category : #accessing }
+FBNode >> name: aString [ 
+	name := aString
 ]
 
 { #category : #'as yet unclassified' }

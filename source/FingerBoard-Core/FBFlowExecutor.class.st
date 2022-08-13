@@ -9,6 +9,11 @@ Class {
 	#category : #'FingerBoard-Core'
 }
 
+{ #category : #accessing }
+FBFlowExecutor >> activations [
+	^ activations
+]
+
 { #category : #adding }
 FBFlowExecutor >> addPending: aFBNode [ 
 	pending add: aFBNode 

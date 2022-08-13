@@ -8,11 +8,12 @@ Class {
 FBFlowTest >> gatewayedFlow [ 
 	| start end bigger smaller gateway value |
 	start := FBStartEvent new.
-	value := FBTestTask new.
+	value := FBTestTask new name: 'generate random number'.
 	start addOutgoingNode: value.
-	bigger := FBTask new.
-	smaller := FBTask new.
+	bigger := FBTask new name: 'bigger'.
+	smaller := FBTask new name: 'smaller'.
 	gateway := FBExclusiveGateway new
+	 name: '>= 5 | < 5';
 	 addOutgoingNode: bigger withCondition: [:x | x >= 5 ];
 	 addOutgoingNode: smaller withCondition: [:x | x < 5 ].
 	value addOutgoingNode: gateway.

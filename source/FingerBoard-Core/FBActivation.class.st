@@ -50,6 +50,11 @@ FBActivation >> invoke [
 ]
 
 { #category : #accessing }
+FBActivation >> node [
+	^ node
+]
+
+{ #category : #accessing }
 FBActivation >> node: aFBNode [
 	node := aFBNode
 ]
