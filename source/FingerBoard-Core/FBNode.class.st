@@ -26,6 +26,11 @@ FBNode >> addOutgoingNode: aFBNode [
 	^ aFBNode 
 ]
 
+{ #category : #converting }
+FBNode >> asRoassalShape [
+	^ RSLabel new text: 'N/A'
+]
+
 { #category : #'as yet unclassified' }
 FBNode >> executeIn: aFBActivation [ 
 	self subclassResponsibility  

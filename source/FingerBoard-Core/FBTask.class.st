@@ -7,5 +7,6 @@ Class {
 { #category : #'as yet unclassified' }
 FBTask >> executeIn: aFBActivation [ 
 	aFBActivation followTransition: outgoing first.
+	aFBActivation done.
 
 ]

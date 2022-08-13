@@ -6,7 +6,9 @@ Class {
 		'node',
 		'value',
 		'argument',
-		'executor'
+		'executor',
+		'state',
+		'environment'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -19,6 +21,24 @@ FBActivation >> argument [
 { #category : #accessing }
 FBActivation >> argument: anObject [
 	argument := anObject 
+]
+
+{ #category : #'as yet unclassified' }
+FBActivation >> done [
+	state := #done
+]
+
+{ #category : #accessing }
+FBActivation >> environment [
+	^ environment ifNil: [ 
+		environment := FBEnvironment new activation: self ]
+]
+
+{ #category : #accessing }
+FBActivation >> environmentAt: key put: anObject [ 
+	self environment  
+		at: key 
+		put: anObject
 ]
 
 { #category : #accessing }
@@ -40,11 +60,13 @@ FBActivation >> followTransition: aTransition [
 { #category : #initialization }
 FBActivation >> initialize [ 
 	super initialize.
-	timestamp := DateAndTime now
+	timestamp := DateAndTime now.
+	state := #initialized
 ]
 
 { #category : #'as yet unclassified' }
 FBActivation >> invoke [
+	state := #executing.
 	node executeIn: self.
 	^ value
 ]
@@ -57,6 +79,11 @@ FBActivation >> node [
 { #category : #accessing }
 FBActivation >> node: aFBNode [
 	node := aFBNode
+]
+
+{ #category : #accessing }
+FBActivation >> previous [
+	^ executor activationBefore: self 
 ]
 
 { #category : #printing }
@@ -73,6 +100,25 @@ FBActivation >> printOn: aStream [
 { #category : #accessing }
 FBActivation >> returnValue: anInteger [ 
 	self shouldBeImplemented.
+]
+
+{ #category : #'as yet unclassified' }
+FBActivation >> stateBorder [
+	| map |
+	map := { 
+		#initialized -> Color green.
+		#executing -> Color yellow.
+		#suspended -> Color red.
+		#done -> Color blue } asDictionary.
+	^ RSBorder new 
+		width: 2; 
+		color: ((map at: state) alpha: 0.8)
+]
+
+{ #category : #'as yet unclassified' }
+FBActivation >> suspend [
+	state := #suspended.
+	executor addWaiting: node
 ]
 
 { #category : #accessing }

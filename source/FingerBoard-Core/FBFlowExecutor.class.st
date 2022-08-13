@@ -4,10 +4,17 @@ Class {
 	#instVars : [
 		'instance',
 		'pending',
-		'activations'
+		'activations',
+		'suspended'
 	],
 	#category : #'FingerBoard-Core'
 }
+
+{ #category : #'as yet unclassified' }
+FBFlowExecutor >> activationBefore: aFBActivation [ 
+
+	^ activations before: aFBActivation 
+]
 
 { #category : #accessing }
 FBFlowExecutor >> activations [
@@ -17,6 +24,11 @@ FBFlowExecutor >> activations [
 { #category : #adding }
 FBFlowExecutor >> addPending: aFBNode [ 
 	pending add: aFBNode 
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> addWaiting: aNode [
+	suspended add: aNode
 ]
 
 { #category : #adding }
@@ -56,7 +68,8 @@ FBFlowExecutor >> executeWith: anObject [
 FBFlowExecutor >> initialize [ 
 	super initialize.
 	activations := OrderedCollection new.
-	pending := OrderedCollection new
+	pending := OrderedCollection new.
+	suspended := OrderedCollection new
 ]
 
 { #category : #accessing }

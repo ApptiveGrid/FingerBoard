@@ -6,5 +6,6 @@ Class {
 
 { #category : #'as yet unclassified' }
 FBEndEvent >> executeIn: aFBActivation [ 
+	aFBActivation done.
 	aFBActivation executor completed
 ]

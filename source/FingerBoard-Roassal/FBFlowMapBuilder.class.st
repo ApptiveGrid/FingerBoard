@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : #accessing }
+FBFlowMapBuilder >> activations [
+
+	^ activations ifNil: [ activations := OrderedCollection new ]
+]
+
+{ #category : #accessing }
 FBFlowMapBuilder >> activations: aCollection [ 
 	activations := aCollection 
 ]
@@ -30,8 +36,9 @@ FBFlowMapBuilder >> renderIn: canvas [
 
 	nodes do: [ :each | | shape |
 		shape := each asRoassalShape @ RSDraggable @ RSPopup.
-		(activations anySatisfy: [ :activation | activation node = each ]) ifTrue: [ 
-			shape border: (RSBorder new width: 2; color: (Color red alpha: 0.5)) ].
+		self activations 
+			detect: [ :activation | activation node = each ]
+			ifFound: [ :activation | shape border: activation stateBorder ].
 		each name 
 			ifNotNil: [ shape @ (RSLabeled new text: each name; middle; fontSize: 6; lowColor: Color black ) ].
 	canvas add: shape ] .
