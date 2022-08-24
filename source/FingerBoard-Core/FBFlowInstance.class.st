@@ -34,6 +34,11 @@ FBFlowInstance >> executor [
 ]
 
 { #category : #accessing }
+FBFlowInstance >> flow [
+	^ flow
+]
+
+{ #category : #accessing }
 FBFlowInstance >> flow: aFBFlow [ 
 	flow := aFBFlow 
 ]
