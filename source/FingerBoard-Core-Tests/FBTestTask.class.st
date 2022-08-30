@@ -5,12 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-FBTestTask >> runIn: aFBActivation [ 
+FBTestTask >> evaluateIn: aFBActivation [ 
 	| value |
-	super runIn: aFBActivation.
+	super evaluateIn: aFBActivation.
 	value := self value.
 	aFBActivation value: value.
-	aFBActivation done.
 	^ value
 ]
 
