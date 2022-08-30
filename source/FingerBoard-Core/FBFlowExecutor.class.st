@@ -4,14 +4,31 @@ Class {
 	#instVars : [
 		'instance',
 		'pending',
-		'activations'
+		'activations',
+		'suspended'
 	],
 	#category : #'FingerBoard-Core'
 }
 
+{ #category : #'as yet unclassified' }
+FBFlowExecutor >> activationBefore: aFBActivation [ 
+
+	^ activations before: aFBActivation 
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> activations [
+	^ activations
+]
+
 { #category : #adding }
 FBFlowExecutor >> addPending: aFBNode [ 
 	pending add: aFBNode 
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> addWaiting: aNode [
+	suspended add: aNode
 ]
 
 { #category : #adding }
@@ -19,28 +36,39 @@ FBFlowExecutor >> completed [
 	instance state: #completed
 ]
 
-{ #category : #execution }
+{ #category : #executing }
 FBFlowExecutor >> execute [
-	| node |
-	[ pending isEmpty ] whileFalse: [
-		node := pending removeFirst. 
-		self executeNode: node ]
-	
+	^ self executeWith: nil
 ]
 
 { #category : #'as yet unclassified' }
-FBFlowExecutor >> executeNode: aFBNode [ 
-	activations 
-		at: aFBNode 
-		put: (FBActivation new node: aFBNode ).
-	aFBNode executeIn: self
+FBFlowExecutor >> executeNode: aFBNode with: anObject [
+	| activation |
+	activation := self newActivation 
+		node: aFBNode;
+		argument: anObject.
+	activations add: activation.
+	^ activation invoke
+	
+]
+
+{ #category : #executing }
+FBFlowExecutor >> executeWith: anObject [
+	| node lastValue argument |
+	lastValue := anObject.
+	[ pending isEmpty ] whileFalse: [
+		node := pending removeFirst. 
+		argument := lastValue.
+		lastValue := self executeNode: node with: argument ]
+	
 ]
 
 { #category : #initialization }
 FBFlowExecutor >> initialize [ 
 	super initialize.
-	activations := OrderedDictionary new.
-	pending := OrderedCollection new
+	activations := OrderedCollection new.
+	pending := OrderedCollection new.
+	suspended := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -50,11 +78,12 @@ FBFlowExecutor >> instance: aFBFlowInstance [
 ]
 
 { #category : #'as yet unclassified' }
-FBFlowExecutor >> valueAtNode: aFBNode put: anObject [
-	(activations at: aFBNode) value: anObject 
+FBFlowExecutor >> newActivation [ 
+	^ FBActivation new
+		executor: self
 ]
 
-{ #category : #'as yet unclassified' }
-FBFlowExecutor >> valueForNode: aFBNode [
-	^ (activations at: aFBNode) value
+{ #category : #accessing }
+FBFlowExecutor >> pending [
+	^ pending
 ]

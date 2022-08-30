@@ -4,7 +4,7 @@ Extension { #name : #FBTask }
 FBTask >> asRoassalShape [
 	^ RSBox new 
 		size: 100;
-		color: (Color orange alpha: 0.5);
+		color: (Color lightOrange);
 		cornerRadius: 15;
 		model: self;
 		yourself

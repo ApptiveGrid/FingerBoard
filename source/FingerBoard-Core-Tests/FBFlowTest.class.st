@@ -1,34 +1,15 @@
 Class {
 	#name : #FBFlowTest,
-	#superclass : #TestCase,
+	#superclass : #FBTest,
 	#category : #'FingerBoard-Core-Tests'
 }
 
 { #category : #tests }
-FBFlowTest >> gatewayedFlow [ 
-	| start end bigger smaller gateway value |
-	start := FBStartEvent new.
-	value := FBTestTask new.
-	start addOutgoingNode: value.
-	bigger := FBTask new.
-	smaller := FBTask new.
-	gateway := FBExclusiveGateway new
-	 addOutgoingNode: bigger withCondition: [:x | x < 5 ];
-	 addOutgoingNode: smaller withCondition: [:x | x >= 5 ].
-	value addOutgoingNode: gateway.
-	end := FBEndEvent new.
-	bigger addOutgoingNode: end.
-	smaller addOutgoingNode: end.
-	^ FBFlow new start: start
-]
-
-{ #category : #tests }
-FBFlowTest >> simpleFlow [ 
-	| start end intermediate |
-	start := FBStartEvent new.
-	intermediate := start addOutgoingNode: FBTask new.
-	end := intermediate addOutgoingNode: FBEndEvent new.
-	^ FBFlow new start: start
+FBFlowTest >> testAllNodes [ 
+	| flow |
+	flow := self simpleFlow. 
+	self assert: flow allNodes size equals: 3.
+	self assert: flow end class equals: FBEndEvent 
 ]
 
 { #category : #tests }
@@ -47,7 +28,7 @@ FBFlowTest >> testCreateFlow [
 FBFlowTest >> testExecuteGatewayedFlow [ 
 	| instance |
 	instance := self gatewayedFlow newInstance.
-	instance execute.
+	instance executeWith: 7.
 	self assert: instance atEnd 
 ]
 

@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #accessing }
+FBFlowInstance >> activations [
+	^ self executor activations
+]
+
+{ #category : #accessing }
 FBFlowInstance >> atEnd [
 	^ state = #completed
 ]
@@ -20,11 +25,22 @@ FBFlowInstance >> execute [
 	self executor execute
 ]
 
+{ #category : #executing }
+FBFlowInstance >> executeWith: anObject [
+	state := #running.
+	self executor executeWith: anObject
+]
+
 { #category : #finalization }
 FBFlowInstance >> executor [ 
 	^ executor ifNil: [
 		executor := FBFlowExecutor new 
 			instance: self ]
+]
+
+{ #category : #accessing }
+FBFlowInstance >> flow [
+	^ flow
 ]
 
 { #category : #accessing }
@@ -36,6 +52,22 @@ FBFlowInstance >> flow: aFBFlow [
 FBFlowInstance >> initialize [ 
 	super initialize.
 	state := #initialized
+]
+
+{ #category : #'as yet unclassified' }
+FBFlowInstance >> inspectionFlow [
+	<inspectorPresentationOrder: 0 title: 'flow'>
+	^ SpRoassal3InspectorPresenter  new 
+		canvas: (FBFlowMapBuilder new 
+			nodes: flow allNodes;
+			activations: self executor activations;
+			build )
+		yourself
+]
+
+{ #category : #accessing }
+FBFlowInstance >> pending [
+	^ self executor pending
 ]
 
 { #category : #accessing }

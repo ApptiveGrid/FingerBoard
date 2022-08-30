@@ -20,6 +20,13 @@ FBTransition >> acceptFingerBoard: aVisitor [
 	^ aVisitor visitTransition: self
 ]
 
+{ #category : #printing }
+FBTransition >> printOn: aStream [ 
+	source printOn: aStream.
+	aStream << ' -> '.
+	target printOn: aStream
+]
+
 { #category : #accessing }
 FBTransition >> source [
 	^ source

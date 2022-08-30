@@ -3,10 +3,17 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'incoming',
-		'outgoing'
+		'outgoing',
+		'name'
 	],
 	#category : #'FingerBoard-Core'
 }
+
+{ #category : #testing }
+FBNode class >> isAbstract [
+
+	^ true
+]
 
 { #category : #connecting }
 FBNode >> addIncoming: aFBTransition [ 
@@ -25,9 +32,21 @@ FBNode >> addOutgoingNode: aFBNode [
 	^ aFBNode 
 ]
 
+{ #category : #converting }
+FBNode >> asRoassalShape [
+	^ RSLabel new text: 'N/A'
+]
+
 { #category : #'as yet unclassified' }
-FBNode >> executeIn: aFBFlowExecutor [ 
-	self subclassResponsibility  
+FBNode >> evaluateIn: aFBActivation [
+	self subclassResponsibility 
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> executeIn: aFBActivation [ 
+	self prepareIn: aFBActivation.
+	self evaluateIn: aFBActivation.
+	self postProcessIn: aFBActivation 
 ]
 
 { #category : #'as yet unclassified' }
@@ -50,7 +69,41 @@ FBNode >> initialize [
 	outgoing := OrderedCollection new
 ]
 
+{ #category : #'as yet unclassified' }
+FBNode >> inspectionFlow [
+	<inspectorPresentationOrder: 0 title: 'flow'>
+	^ SpRoassal3InspectorPresenter  new 
+		canvas: (FBFlowMapBuilder new 
+			nodes: self neighbourNodes;
+			build )
+		yourself
+]
+
+{ #category : #accessing }
+FBNode >> name [
+	^ name
+]
+
+{ #category : #accessing }
+FBNode >> name: aString [ 
+	name := aString
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> neighbourNodes [
+	^ ((incoming collect: #source), (outgoing collect: #target)) add: self; yourself
+]
+
 { #category : #accessing }
 FBNode >> outgoing [
 	^ outgoing
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> postProcessIn: aFBActivation [ 
+	aFBActivation done
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> prepareIn: aFBActivation [
 ]
