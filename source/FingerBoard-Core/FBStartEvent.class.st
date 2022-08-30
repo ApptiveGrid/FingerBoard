@@ -4,6 +4,12 @@ Class {
 	#category : #'FingerBoard-Core'
 }
 
+{ #category : #'instance creation' }
+FBStartEvent class >> typeName [
+
+	^ #start
+]
+
 { #category : #visiting }
 FBStartEvent >> acceptFingerBoard: aFBVisitor [ 
 	^ aFBVisitor visitStartEvent: self 
