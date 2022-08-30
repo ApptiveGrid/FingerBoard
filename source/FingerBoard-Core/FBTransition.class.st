@@ -15,9 +15,21 @@ FBTransition class >> source: aSourceNode target: aTargetNode [
 		target: aTargetNode
 ]
 
+{ #category : #associating }
+FBTransition >> -> aNode [ 
+	^ target -> aNode
+]
+
 { #category : #visiting }
 FBTransition >> acceptFingerBoard: aVisitor [ 
 	^ aVisitor visitTransition: self
+]
+
+{ #category : #adding }
+FBTransition >> addTo: aFBNode [
+	source := aFBNode.
+	aFBNode addOutgoing: self.
+	^ target
 ]
 
 { #category : #printing }

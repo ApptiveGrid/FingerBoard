@@ -29,3 +29,19 @@ FBFlowInstanceTest >> testCreateFlowInstance [
 	self assert: flowInstance pending first class equals: FBStartEvent  
 
 ]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testSimpleWaitCompletion [
+	| instance |
+	instance := self simpleWaitFlow newInstance. 
+	instance executeWith: 3.
+	self assert: instance isComplete 
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testSimpleWaitSuspension [ 
+	| instance |
+	instance := self simpleWaitFlow newInstance. 
+	instance executeWith: 2.
+	self deny: instance isComplete 
+]

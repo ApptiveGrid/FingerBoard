@@ -15,6 +15,18 @@ FBNode class >> isAbstract [
 	^ true
 ]
 
+{ #category : #'instance creation' }
+FBNode class >> named: aString [ 
+	^ self new 
+		name: aString
+]
+
+{ #category : #associating }
+FBNode >> -> aNode [ 
+	^ aNode addTo: self.
+
+]
+
 { #category : #connecting }
 FBNode >> addIncoming: aFBTransition [ 
 	incoming add: aFBTransition.
@@ -30,6 +42,12 @@ FBNode >> addOutgoing: aFBTransition [
 FBNode >> addOutgoingNode: aFBNode [ 
 	self addOutgoing: (FBTransition source: self target: aFBNode).
 	^ aFBNode 
+]
+
+{ #category : #adding }
+FBNode >> addTo: aFBNode [
+	aFBNode addOutgoingNode: self.
+	^ self
 ]
 
 { #category : #converting }
@@ -106,4 +124,11 @@ FBNode >> postProcessIn: aFBActivation [
 
 { #category : #'as yet unclassified' }
 FBNode >> prepareIn: aFBActivation [
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> when: aBlock [ 
+	^ FBConditionalTransition new 
+		target: self;
+		condition: aBlock
 ]

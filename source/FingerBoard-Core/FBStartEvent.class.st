@@ -22,3 +22,9 @@ FBStartEvent >> evaluateIn: aFBActivation [
 	the next node"
 	aFBActivation value: aFBActivation argument.
 ]
+
+{ #category : #initialization }
+FBStartEvent >> initialize [ 
+	super initialize.
+	name := 'start'
+]

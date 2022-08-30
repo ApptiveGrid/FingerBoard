@@ -34,7 +34,8 @@ FBFlow >> newInstance [
 
 { #category : #accessing }
 FBFlow >> start [
-	^ start
+	^ start ifNil: [ 
+		start := FBStartEvent named: #start ]
 ]
 
 { #category : #accessing }

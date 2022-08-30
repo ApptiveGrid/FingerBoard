@@ -14,3 +14,9 @@ FBEndEvent class >> typeName [
 FBEndEvent >> evaluateIn: aFBActivation [ 
 	aFBActivation executor completed
 ]
+
+{ #category : #initialization }
+FBEndEvent >> initialize [ 
+	super initialize.
+	name := 'end'
+]

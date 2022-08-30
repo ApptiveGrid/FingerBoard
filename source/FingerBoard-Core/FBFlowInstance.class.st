@@ -65,6 +65,11 @@ FBFlowInstance >> inspectionFlow [
 		yourself
 ]
 
+{ #category : #testing }
+FBFlowInstance >> isComplete [ 
+	^ state = #completed
+]
+
 { #category : #accessing }
 FBFlowInstance >> pending [
 	^ self executor pending
