@@ -11,7 +11,6 @@ FBEndEvent class >> typeName [
 ]
 
 { #category : #'as yet unclassified' }
-FBEndEvent >> executeIn: aFBActivation [ 
-	aFBActivation done.
+FBEndEvent >> evaluateIn: aFBActivation [ 
 	aFBActivation executor completed
 ]

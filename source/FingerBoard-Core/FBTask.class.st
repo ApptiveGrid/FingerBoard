@@ -5,8 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-FBTask >> executeIn: aFBActivation [ 
+FBTask >> evaluateIn: aFBActivation [ 
 	aFBActivation followTransition: outgoing first.
-	aFBActivation done.
-
+	
 ]

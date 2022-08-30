@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #accessing }
+FBFlowInstance >> activations [
+	^ self executor activations
+]
+
+{ #category : #accessing }
 FBFlowInstance >> atEnd [
 	^ state = #completed
 ]
@@ -58,6 +63,11 @@ FBFlowInstance >> inspectionFlow [
 			activations: executor activations;
 			build )
 		yourself
+]
+
+{ #category : #accessing }
+FBFlowInstance >> pending [
+	^ self executor pending
 ]
 
 { #category : #accessing }

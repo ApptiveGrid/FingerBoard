@@ -38,8 +38,15 @@ FBNode >> asRoassalShape [
 ]
 
 { #category : #'as yet unclassified' }
+FBNode >> evaluateIn: aFBActivation [
+	self subclassResponsibility 
+]
+
+{ #category : #'as yet unclassified' }
 FBNode >> executeIn: aFBActivation [ 
-	self subclassResponsibility  
+	self prepareIn: aFBActivation.
+	self evaluateIn: aFBActivation.
+	self postProcessIn: aFBActivation 
 ]
 
 { #category : #'as yet unclassified' }
@@ -90,4 +97,13 @@ FBNode >> neighbourNodes [
 { #category : #accessing }
 FBNode >> outgoing [
 	^ outgoing
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> postProcessIn: aFBActivation [ 
+	aFBActivation done
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> prepareIn: aFBActivation [
 ]

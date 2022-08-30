@@ -49,7 +49,6 @@ FBFlowExecutor >> executeNode: aFBNode with: anObject [
 		argument: anObject.
 	activations add: activation.
 	^ activation invoke
-"	aFBNode executeIn: self"
 	
 ]
 
@@ -82,4 +81,9 @@ FBFlowExecutor >> instance: aFBFlowInstance [
 FBFlowExecutor >> newActivation [ 
 	^ FBActivation new
 		executor: self
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> pending [
+	^ pending
 ]

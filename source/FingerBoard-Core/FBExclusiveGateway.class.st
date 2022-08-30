@@ -20,12 +20,10 @@ FBExclusiveGateway >> asRoassalShape [
 ]
 
 { #category : #'as yet unclassified' }
-FBExclusiveGateway >> executeIn: aFBActivation [ 
+FBExclusiveGateway >> evaluateIn: aFBActivation [ 
 	| next |
 	next := outgoing 
 		detect: [ :each | each condition value: aFBActivation argument ]
 		ifNone: [ Error signal: 'conditions do not match' ].
-	aFBActivation followTransition: next.
-	aFBActivation done
-
+	aFBActivation followTransition: next
 ]
