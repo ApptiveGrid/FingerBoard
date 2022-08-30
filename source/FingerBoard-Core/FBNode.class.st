@@ -9,6 +9,12 @@ Class {
 	#category : #'FingerBoard-Core'
 }
 
+{ #category : #testing }
+FBNode class >> isAbstract [
+
+	^ true
+]
+
 { #category : #connecting }
 FBNode >> addIncoming: aFBTransition [ 
 	incoming add: aFBTransition.

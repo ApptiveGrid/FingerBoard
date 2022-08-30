@@ -4,6 +4,12 @@ Class {
 	#category : #'FingerBoard-Core'
 }
 
+{ #category : #'instance creation' }
+FBExclusiveGateway class >> typeName [
+
+	^ #exclusiveGateway
+]
+
 { #category : #converting }
 FBExclusiveGateway >> asRoassalShape [
 	^ RSPolygon new
