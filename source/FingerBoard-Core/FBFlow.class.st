@@ -2,8 +2,8 @@ Class {
 	#name : #FBFlow,
 	#superclass : #Object,
 	#instVars : [
-		'start',
-		'end'
+		'name',
+		'start'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -22,8 +22,20 @@ FBFlow >> allNodes [
 
 { #category : #accessing }
 FBFlow >> end [
-	^ end ifNil: [ 
-		end := start findEnd ]
+	start ifNil: [ Error signal: 'Cannot find end without a start node being present' ].
+	^ start findEnd
+]
+
+{ #category : #accessing }
+FBFlow >> name [
+
+	^ name
+]
+
+{ #category : #accessing }
+FBFlow >> name: anObject [
+
+	name := anObject
 ]
 
 { #category : #'instance creation' }
