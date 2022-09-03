@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'incoming',
 		'outgoing',
-		'name'
+		'name',
+		'id'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -80,9 +81,15 @@ FBNode >> hasOutgoing [
 	^ outgoing notEmpty
 ]
 
+{ #category : #accessing }
+FBNode >> id [
+	^ id
+]
+
 { #category : #initialization }
 FBNode >> initialize [ 
 	super initialize.
+	id := UUID new asString36.
 	incoming := OrderedCollection new.
 	outgoing := OrderedCollection new
 ]
