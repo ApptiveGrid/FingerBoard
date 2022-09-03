@@ -22,7 +22,7 @@ FBFlow >> allNodes [
 
 { #category : #accessing }
 FBFlow >> end [
-	start ifNotNil: [ Error signal: 'Cannot find end without a start node being present' ].
+	start ifNil: [ Error signal: 'Cannot find end without a start node being present' ].
 	^ start findEnd
 ]
 
