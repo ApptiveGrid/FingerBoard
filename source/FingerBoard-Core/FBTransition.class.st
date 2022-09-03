@@ -16,8 +16,8 @@ FBTransition class >> source: aSourceNode target: aTargetNode [
 ]
 
 { #category : #associating }
-FBTransition >> -> aNode [ 
-	^ target -> aNode
+FBTransition >> --> aNode [ 
+	^ target --> aNode
 ]
 
 { #category : #visiting }

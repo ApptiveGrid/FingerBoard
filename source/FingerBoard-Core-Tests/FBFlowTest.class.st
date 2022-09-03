@@ -29,6 +29,7 @@ FBFlowTest >> testExecuteGatewayedFlow [
 	| instance |
 	instance := self gatewayedFlow newInstance.
 	instance executeWith: 7.
+	instance inspect.
 	self assert: instance atEnd 
 ]
 

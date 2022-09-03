@@ -13,9 +13,9 @@ FBTest >> gatewayedFlow [
 	smaller := FBTask named: 'smaller'.
 	end := FBEndEvent new.
 	gateway := (FBExclusiveGateway named: '>= 5 | < 5').
-	gateway -> (bigger when: [:x | x >= 5 ]) -> end.
-	gateway -> (smaller when: [:x | x < 5 ]) -> end.
-	start -> value -> gateway.
+	gateway --> (bigger when: [:x | x >= 5 ]) --> end.
+	gateway --> (smaller when: [:x | x < 5 ]) --> end.
+	start --> value --> gateway.
 	^ FBFlow new start: start
 ]
 
@@ -52,6 +52,6 @@ FBTest >> simpleWaitFlow [
 	start := FBStartEvent new.
 	end := FBEndEvent new.
 	wait := FBPluggableWait new condition: [ :x | x odd ].
-	start -> wait -> end.
+	start --> wait --> end.
 	^ FBFlow new start: start
 ]

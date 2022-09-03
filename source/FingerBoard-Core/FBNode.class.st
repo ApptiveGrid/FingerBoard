@@ -22,7 +22,7 @@ FBNode class >> named: aString [
 ]
 
 { #category : #associating }
-FBNode >> -> aNode [ 
+FBNode >> --> aNode [ 
 	^ aNode addTo: self.
 
 ]
