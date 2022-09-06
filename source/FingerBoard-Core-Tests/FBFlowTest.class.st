@@ -55,3 +55,20 @@ FBFlowTest >> testExecuteSimpleFlow [
 	instance execute.
 	self assert: instance atEnd 
 ]
+
+{ #category : #tests }
+FBFlowTest >> testNodeWithId [
+	| flow id |
+	flow := self simpleFlow.
+	id := flow start id.
+	self assert: (flow nodeWithId: id) equals: flow start
+]
+
+{ #category : #tests }
+FBFlowTest >> testNodeWithIdError [
+	| flow |
+	flow := self simpleFlow.
+	self 
+		should: [ flow nodeWithId: #bogus ]
+		raise: FBNodeNotFound 
+]

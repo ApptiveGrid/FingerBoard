@@ -55,6 +55,13 @@ FBFlow >> newInstance [
 		flow: self
 ]
 
+{ #category : #'as yet unclassified' }
+FBFlow >> nodeWithId: aString [ 
+	^ nodesMap 
+		at: aString 
+		ifAbsent: [ FBNodeNotFound signal: 'Node with id ', aString asString, ' not found' ]
+]
+
 { #category : #accessing }
 FBFlow >> nodes [
 	^ nodesMap values
