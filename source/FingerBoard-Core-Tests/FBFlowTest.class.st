@@ -8,7 +8,7 @@ Class {
 FBFlowTest >> testAllNodes [ 
 	| flow |
 	flow := self simpleFlow. 
-	self assert: flow allNodes size equals: 3.
+	self assert: flow nodes size equals: 3.
 	self assert: flow end class equals: FBEndEvent 
 ]
 
@@ -21,6 +21,22 @@ FBFlowTest >> testCreateFlow [
 	flow := FBFlow new 
 		start: start.
 	self assert: flow end equals: end.
+	self assert: flow nodes size equals: 3.
+
+]
+
+{ #category : #tests }
+FBFlowTest >> testCreateFlowEarlyStart [
+	| start end intermediate flow |
+	start := FBStartEvent new.
+	flow := FBFlow new 
+		start: start.
+	intermediate := FBNode new.
+	end := intermediate addOutgoingNode: FBEndEvent new.
+	start addOutgoingNode: intermediate.
+	
+	self assert: flow end equals: end.
+	self assert: flow nodes size equals: 3.
 
 ]
 
