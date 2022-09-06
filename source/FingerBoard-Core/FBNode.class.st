@@ -113,6 +113,18 @@ FBNode >> id [
 	^ id
 ]
 
+{ #category : #accessing }
+FBNode >> incoming [
+
+	^ incoming
+]
+
+{ #category : #accessing }
+FBNode >> incomingNodes [
+
+	^ incoming collect: #source
+]
+
 { #category : #initialization }
 FBNode >> initialize [ 
 	super initialize.
@@ -149,6 +161,12 @@ FBNode >> neighbourNodes [
 { #category : #accessing }
 FBNode >> outgoing [
 	^ outgoing
+]
+
+{ #category : #accessing }
+FBNode >> outgoingNodes [
+
+	^ outgoing collect: #target
 ]
 
 { #category : #'as yet unclassified' }
