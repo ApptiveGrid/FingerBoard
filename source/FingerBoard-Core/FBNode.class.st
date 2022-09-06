@@ -97,8 +97,8 @@ FBNode >> flow [
 
 { #category : #initialization }
 FBNode >> flow: aFBFlow [ 
-	flow := aFBFlow.
-	flow addNode: self.
+	flow ifNil: [.
+		aFBFlow addNode: self ].
 	self propagateFlow 
 
 ]
@@ -172,6 +172,11 @@ FBNode >> propagateFlow [
 		each target flow isNil ifTrue: [
 			each target flow: flow.
 			each target propagateFlow ] ]
+]
+
+{ #category : #initialization }
+FBNode >> setFlow: aFlow [ 
+	flow := aFlow
 ]
 
 { #category : #'as yet unclassified' }

@@ -18,7 +18,11 @@ FBFlow >> acceptFingerBoard: aFBVisitor [
 FBFlow >> addNode: aFBNode [
 	nodesMap 
 		at: aFBNode id 
-		ifAbsentPut: aFBNode 
+		ifAbsentPut: [ 
+			aFBNode setFlow: self.
+			aFBNode ]
+	
+	 
 ]
 
 { #category : #accessing }
