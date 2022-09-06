@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'name',
 		'start',
-		'nodes'
+		'nodesMap'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -16,17 +16,9 @@ FBFlow >> acceptFingerBoard: aFBVisitor [
 
 { #category : #adding }
 FBFlow >> addNode: aFBNode [
-	nodes 
+	nodesMap 
 		at: aFBNode id 
 		ifAbsentPut: aFBNode 
-]
-
-{ #category : #helpers }
-FBFlow >> allNodes [
-	^ "FBCollectNodesVisitor new 
-		visit: self;
-		nodes"
-		nodes
 ]
 
 { #category : #accessing }
@@ -38,7 +30,7 @@ FBFlow >> end [
 { #category : #initialization }
 FBFlow >> initialize [ 
 	super initialize.
-	nodes := OrderedDictionary new
+	nodesMap := OrderedDictionary new
 ]
 
 { #category : #accessing }
@@ -61,7 +53,7 @@ FBFlow >> newInstance [
 
 { #category : #accessing }
 FBFlow >> nodes [
-	^ nodes
+	^ nodesMap values
 ]
 
 { #category : #accessing }
