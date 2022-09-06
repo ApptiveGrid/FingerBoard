@@ -37,8 +37,7 @@ FBNode >> addIncoming: aFBTransition [
 	new transition"
 	(flow isNil and: [ aFBTransition source flow notNil ])
 		ifTrue: [ 
-			self flow: aFBTransition source flow.
-			self propagateFlow ] 
+			self flow: aFBTransition source flow ] 
 ]
 
 { #category : #connecting }
@@ -51,8 +50,7 @@ FBNode >> addOutgoing: aFBTransition [
 
 	(flow isNil and: [ aFBTransition target flow notNil ])
 		ifTrue: [ 
-			self flow: aFBTransition target flow.
-			self propagateFlow ] 
+			self flow: aFBTransition target flow ] 
 ]
 
 { #category : #connecting }
@@ -101,6 +99,7 @@ FBNode >> flow [
 FBNode >> flow: aFBFlow [ 
 	flow := aFBFlow.
 	flow addNode: self.
+	self propagateFlow 
 
 ]
 
