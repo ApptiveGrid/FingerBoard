@@ -35,7 +35,7 @@ FBTransition >> addTo: aFBNode [
 { #category : #printing }
 FBTransition >> printOn: aStream [ 
 	source printOn: aStream.
-	aStream << ' -> '.
+	aStream << ' --> '.
 	target printOn: aStream
 ]
 

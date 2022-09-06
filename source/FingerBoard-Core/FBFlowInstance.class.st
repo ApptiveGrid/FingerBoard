@@ -59,7 +59,7 @@ FBFlowInstance >> inspectionFlow [
 	<inspectorPresentationOrder: 0 title: 'flow'>
 	^ SpRoassal3InspectorPresenter  new 
 		canvas: (FBFlowMapBuilder new 
-			nodes: flow allNodes;
+			nodes: flow nodes;
 			activations: self executor activations;
 			build )
 		yourself

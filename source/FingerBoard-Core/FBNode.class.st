@@ -5,7 +5,8 @@ Class {
 		'incoming',
 		'outgoing',
 		'name',
-		'id'
+		'id',
+		'flow'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -31,12 +32,25 @@ FBNode >> --> aNode [
 { #category : #connecting }
 FBNode >> addIncoming: aFBTransition [ 
 	incoming add: aFBTransition.
+	"nodes can be connected in multiple ways not necessarily early connected
+	to the start node. So we try to propagate the flow whenever there is a 
+	new transition"
+	(flow isNil and: [ aFBTransition source flow notNil ])
+		ifTrue: [ 
+			self flow: aFBTransition source flow ] 
 ]
 
 { #category : #connecting }
 FBNode >> addOutgoing: aFBTransition [ 
 	outgoing add: aFBTransition.
-	aFBTransition target addIncoming: aFBTransition 
+	aFBTransition target addIncoming: aFBTransition.
+	"nodes can be connected in multiple ways not necessarily early connected
+	to the start node. So we try to propagate the flow whenever there is a 
+	new transition"
+
+	(flow isNil and: [ aFBTransition target flow notNil ])
+		ifTrue: [ 
+			self flow: aFBTransition target flow ] 
 ]
 
 { #category : #connecting }
@@ -74,6 +88,19 @@ FBNode >> findEnd [
 	outgoing do: [ :transition |
 		(transition target findEnd ifNotNil: [:end | ^ end ]) ].
 	^ nil
+]
+
+{ #category : #accessing }
+FBNode >> flow [
+	^ flow 
+]
+
+{ #category : #initialization }
+FBNode >> flow: aFBFlow [ 
+	flow := aFBFlow.
+	flow addNode: self.
+	self propagateFlow 
+
 ]
 
 { #category : #testing }
@@ -131,6 +158,20 @@ FBNode >> postProcessIn: aFBActivation [
 
 { #category : #'as yet unclassified' }
 FBNode >> prepareIn: aFBActivation [
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> propagateFlow [
+	"try setting the flow in the neighbor nodes. This can bubble
+	up and down to be sure every node has a flow set"
+	incoming do: [ :each |
+		each source flow isNil ifTrue: [
+			each source flow: flow.
+			each source propagateFlow ] ].
+	outgoing do: [ :each |
+		each target flow isNil ifTrue: [
+			each target flow: flow.
+			each target propagateFlow ] ]
 ]
 
 { #category : #'as yet unclassified' }
