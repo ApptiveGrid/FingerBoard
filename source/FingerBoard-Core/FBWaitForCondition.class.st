@@ -15,7 +15,7 @@ FBWaitForCondition >> condition: aBlock [
 { #category : #'as yet unclassified' }
 FBWaitForCondition >> evaluateIn: aFBActivation [
 	(condition value: aFBActivation argument)
-		ifTrue: [ aFBActivation followTransition: outgoing first ]
+		ifTrue: [ aFBActivation followAll: outgoing ]
 		ifFalse: [ aFBActivation waitForNode: self ]
 ]
 

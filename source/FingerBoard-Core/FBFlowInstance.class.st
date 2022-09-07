@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'flow',
-		'state',
 		'executor'
 	],
 	#category : #'FingerBoard-Core'
@@ -16,19 +15,19 @@ FBFlowInstance >> activations [
 
 { #category : #accessing }
 FBFlowInstance >> atEnd [
-	^ state = #completed
+	^ executor atEnd
 ]
 
 { #category : #executing }
 FBFlowInstance >> execute [
-	state := #running.
 	self executor execute
 ]
 
 { #category : #executing }
 FBFlowInstance >> executeWith: anObject [
-	state := #running.
-	self executor executeWith: anObject
+	self executor 
+		initialValue: anObject;
+		execute
 ]
 
 { #category : #finalization }
@@ -48,10 +47,15 @@ FBFlowInstance >> flow: aFBFlow [
 	flow := aFBFlow 
 ]
 
+{ #category : #accessing }
+FBFlowInstance >> initialValue: anObject [
+	self executor initialValue: anObject
+]
+
 { #category : #initialization }
 FBFlowInstance >> initialize [ 
 	super initialize.
-	state := #initialized
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -67,7 +71,17 @@ FBFlowInstance >> inspectionFlow [
 
 { #category : #testing }
 FBFlowInstance >> isComplete [ 
-	^ state = #completed
+	^ executor isComplete
+]
+
+{ #category : #accessing }
+FBFlowInstance >> nextNode [
+	^ self nextTransition target
+]
+
+{ #category : #accessing }
+FBFlowInstance >> nextTransition [
+	^ executor firstPending
 ]
 
 { #category : #accessing }
@@ -80,14 +94,7 @@ FBFlowInstance >> start [
 	^ flow start
 ]
 
-{ #category : #accessing }
-FBFlowInstance >> state [
-
-	^ state
-]
-
-{ #category : #accessing }
-FBFlowInstance >> state: anObject [
-
-	state := anObject
+{ #category : #executing }
+FBFlowInstance >> step [
+	^ self executor step
 ]

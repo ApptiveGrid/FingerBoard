@@ -28,3 +28,8 @@ FBStartEvent >> initialize [
 	super initialize.
 	name := 'start'
 ]
+
+{ #category : #accessing }
+FBStartEvent >> target [
+	^ self
+]

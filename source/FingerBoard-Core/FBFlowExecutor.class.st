@@ -5,7 +5,9 @@ Class {
 		'instance',
 		'pending',
 		'activations',
-		'suspended'
+		'suspended',
+		'initialValue',
+		'state'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -31,14 +33,21 @@ FBFlowExecutor >> addWaiting: aNode [
 	suspended add: aNode
 ]
 
+{ #category : #accessing }
+FBFlowExecutor >> atEnd [
+	^ state = #completed
+]
+
 { #category : #adding }
 FBFlowExecutor >> completed [
-	instance state: #completed
+	state := #completed
 ]
 
 { #category : #executing }
 FBFlowExecutor >> execute [
-	^ self executeWith: nil
+	[ pending isEmpty ] whileFalse: [
+		self step ]
+	
 ]
 
 { #category : #'as yet unclassified' }
@@ -54,13 +63,23 @@ FBFlowExecutor >> executeNode: aFBNode with: anObject [
 
 { #category : #executing }
 FBFlowExecutor >> executeWith: anObject [
-	| node lastValue argument |
+	| transition lastValue argument |
 	lastValue := anObject.
 	[ pending isEmpty ] whileFalse: [
-		node := pending removeFirst. 
+		transition := pending removeFirst. 
 		argument := lastValue.
-		lastValue := self executeNode: node with: argument ]
+		lastValue := self executeNode: transition with: argument ]
 	
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> firstPending [
+	^ pending first
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> initialValue: anObject [
+	initialValue := anObject
 ]
 
 { #category : #initialization }
@@ -68,13 +87,19 @@ FBFlowExecutor >> initialize [
 	super initialize.
 	activations := OrderedCollection new.
 	pending := OrderedCollection new.
-	suspended := OrderedCollection new
+	suspended := OrderedCollection new.
+	state := #initialized
 ]
 
 { #category : #accessing }
 FBFlowExecutor >> instance: aFBFlowInstance [ 
 	instance := aFBFlowInstance.
 	pending add: instance start
+]
+
+{ #category : #testing }
+FBFlowExecutor >> isComplete [ 
+	^ state = #completed
 ]
 
 { #category : #'as yet unclassified' }
@@ -86,4 +111,33 @@ FBFlowExecutor >> newActivation [
 { #category : #accessing }
 FBFlowExecutor >> pending [
 	^ pending
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> state [
+
+	^ state
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> state: anObject [
+
+	state := anObject
+]
+
+{ #category : #executing }
+FBFlowExecutor >> step [
+	| transition argument next |
+	transition := pending removeFirst. 
+	(state = #initialized) 
+		ifTrue: [ 
+			argument := initialValue.
+			next := transition.
+			state := #running.
+			 ]
+		ifFalse: [ 
+			argument := (self activations reverse 
+				detect: [ :each | each node = transition source ]) value.
+			next := transition target ].
+	self executeNode: next with: argument
 ]

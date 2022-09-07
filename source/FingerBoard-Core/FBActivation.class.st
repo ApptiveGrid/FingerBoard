@@ -53,8 +53,14 @@ FBActivation >> executor: aFBFlowExecutor [
 ]
 
 { #category : #'as yet unclassified' }
+FBActivation >> followAll: aCollection [
+	aCollection do: [ :transition |
+		 executor addPending: transition ]
+]
+
+{ #category : #'as yet unclassified' }
 FBActivation >> followTransition: aTransition [
-	executor addPending: aTransition target
+	executor addPending: aTransition
 ]
 
 { #category : #initialization }

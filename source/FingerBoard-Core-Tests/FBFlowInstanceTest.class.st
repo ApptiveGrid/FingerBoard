@@ -16,8 +16,9 @@ FBFlowInstanceTest >> testActivationsAreDone [
 FBFlowInstanceTest >> testCompleted [
 	| flowInstance |
 	flowInstance := self simpleFlow newInstance.
-	flowInstance executeWith: nil.
-	self assert: flowInstance state equals: #completed.
+	flowInstance initialValue: 7.
+	flowInstance execute.
+	self assert: flowInstance isComplete.
 	self assert: flowInstance atEnd equals: true
 ]
 
@@ -44,4 +45,19 @@ FBFlowInstanceTest >> testSimpleWaitSuspension [
 	instance := self simpleWaitFlow newInstance. 
 	instance executeWith: 2.
 	self deny: instance isComplete 
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testStepping [
+	| flowInstance |
+	flowInstance := self simpleFlow newInstance.
+	flowInstance initialValue: 7.
+	self assert: flowInstance nextNode class equals: FBStartEvent.
+	flowInstance step.
+	self assert: flowInstance nextNode class equals: FBTask.
+	flowInstance step.
+	self assert: flowInstance nextNode class equals: FBEndEvent.
+	flowInstance step.
+	self assert: flowInstance isComplete.
+	self assert: flowInstance atEnd equals: true
 ]

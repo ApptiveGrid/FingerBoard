@@ -2,11 +2,11 @@ Class {
 	#name : #FBNode,
 	#superclass : #Object,
 	#instVars : [
-		'incoming',
-		'outgoing',
-		'name',
 		'id',
-		'flow'
+		'name',
+		'flow',
+		'incoming',
+		'outgoing'
 	],
 	#category : #'FingerBoard-Core'
 }
