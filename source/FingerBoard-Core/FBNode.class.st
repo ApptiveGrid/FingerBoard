@@ -71,6 +71,12 @@ FBNode >> asRoassalShape [
 ]
 
 { #category : #'as yet unclassified' }
+FBNode >> detach [
+	incoming do: #detach.
+	outgoing do: #detach.
+]
+
+{ #category : #'as yet unclassified' }
 FBNode >> evaluateIn: aFBActivation [
 	self subclassResponsibility 
 ]
@@ -190,6 +196,16 @@ FBNode >> propagateFlow [
 		each target flow isNil ifTrue: [
 			each target flow: flow.
 			each target propagateFlow ] ]
+]
+
+{ #category : #removing }
+FBNode >> removeIncoming: aFBTransition [ 
+	incoming remove: aFBTransition 
+]
+
+{ #category : #removing }
+FBNode >> removeOutgoing: aFBTransition [ 
+	outgoing remove: aFBTransition 
 ]
 
 { #category : #initialization }

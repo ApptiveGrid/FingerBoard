@@ -32,6 +32,12 @@ FBTransition >> addTo: aFBNode [
 	^ target
 ]
 
+{ #category : #'as yet unclassified' }
+FBTransition >> detach [ 
+	source removeOutgoing: self.
+	target removeIncoming: self.
+]
+
 { #category : #printing }
 FBTransition >> printOn: aStream [ 
 	source printOn: aStream.

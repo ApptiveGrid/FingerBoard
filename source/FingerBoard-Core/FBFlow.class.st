@@ -25,6 +25,11 @@ FBFlow >> addNode: aFBNode [
 	 
 ]
 
+{ #category : #removing }
+FBFlow >> basicRemoveNode: aNode [ 
+	nodesMap removeKey: aNode id
+]
+
 { #category : #accessing }
 FBFlow >> end [
 	start ifNil: [ Error signal: 'Cannot find end without a start node being present' ].
@@ -69,7 +74,8 @@ FBFlow >> nodes [
 
 { #category : #removing }
 FBFlow >> removeNode: aNode [ 
-	nodesMap removeKey: aNode id
+	aNode detach.
+	self basicRemoveNode: aNode
 ]
 
 { #category : #accessing }
