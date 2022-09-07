@@ -67,6 +67,11 @@ FBFlow >> nodes [
 	^ nodesMap values
 ]
 
+{ #category : #removing }
+FBFlow >> removeNode: aNode [ 
+	nodesMap removeKey: aNode id
+]
+
 { #category : #accessing }
 FBFlow >> start [
 	^ start ifNil: [ 

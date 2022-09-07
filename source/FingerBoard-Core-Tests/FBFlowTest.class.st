@@ -72,3 +72,12 @@ FBFlowTest >> testNodeWithIdError [
 		should: [ flow nodeWithId: #bogus ]
 		raise: FBNodeNotFound 
 ]
+
+{ #category : #tests }
+FBFlowTest >> testRemoveNode [
+	| flow intermediate |
+	flow := self simpleFlow.
+	intermediate := flow start outgoing first target.
+	flow removeNode: intermediate.
+	self assert: flow nodes size equals: 2
+]
