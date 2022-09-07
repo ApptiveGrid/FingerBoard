@@ -199,6 +199,12 @@ FBNode >> propagateFlow [
 ]
 
 { #category : #removing }
+FBNode >> remove [ 
+	self detach.
+	flow basicRemoveNode: self.
+]
+
+{ #category : #removing }
 FBNode >> removeIncoming: aFBTransition [ 
 	incoming remove: aFBTransition 
 ]
