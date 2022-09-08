@@ -15,6 +15,11 @@ FBStartEvent >> acceptFingerBoard: aFBVisitor [
 	^ aFBVisitor visitStartEvent: self 
 ]
 
+{ #category : #accessing }
+FBStartEvent >> behaviorClass [
+	^ FBStartEventBehavior
+]
+
 { #category : #'as yet unclassified' }
 FBStartEvent >> evaluateIn: aFBActivation [ 
 	aFBActivation followTransition: outgoing first.
