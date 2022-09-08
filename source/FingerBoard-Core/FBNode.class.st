@@ -134,7 +134,7 @@ FBNode >> incomingNodes [
 { #category : #initialization }
 FBNode >> initialize [ 
 	super initialize.
-	id := UUID new asString36.
+	id := FBIdGenerator current newId.
 	incoming := OrderedCollection new.
 	outgoing := OrderedCollection new
 ]

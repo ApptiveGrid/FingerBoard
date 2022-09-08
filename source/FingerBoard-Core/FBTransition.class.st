@@ -45,16 +45,10 @@ FBTransition >> id [
 	^ id
 ]
 
-{ #category : #accessing }
-FBTransition >> id: anObject [
-
-	id := anObject
-]
-
 { #category : #initialization }
 FBTransition >> initialize [ 
 	super initialize.
-	id := UUID new asString36.
+	id := FBIdGenerator current newId
 ]
 
 { #category : #printing }
