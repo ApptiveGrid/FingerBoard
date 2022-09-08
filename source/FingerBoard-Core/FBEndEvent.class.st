@@ -11,7 +11,7 @@ FBEndEvent class >> typeName [
 ]
 
 { #category : #accessing }
-FBEndEvent >> behaviorClass [
+FBEndEvent >> defaultBehaviorClass [
 	^ FBEndEventBehavior
 ]
 

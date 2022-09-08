@@ -16,7 +16,7 @@ FBStartEvent >> acceptFingerBoard: aFBVisitor [
 ]
 
 { #category : #accessing }
-FBStartEvent >> behaviorClass [
+FBStartEvent >> defaultBehaviorClass [
 	^ FBStartEventBehavior
 ]
 

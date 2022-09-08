@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #accessing }
-FBTask >> behaviorClass [
+FBTask >> defaultBehaviorClass [
 	^ FBTaskBehavior
 ]
 
