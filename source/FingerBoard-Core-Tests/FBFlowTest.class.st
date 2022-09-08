@@ -90,3 +90,11 @@ FBFlowTest >> testRemoveNodeFlow [
 	flow removeNode: intermediate.
 	self assert: flow nodes size equals: 2
 ]
+
+{ #category : #tests }
+FBFlowTest >> testTransitionWithId [
+	| flow transition |
+	flow := self simpleFlow.
+	transition := flow start outgoing first.
+	self assert: (flow transitionWithId: transition id) equals: transition
+]

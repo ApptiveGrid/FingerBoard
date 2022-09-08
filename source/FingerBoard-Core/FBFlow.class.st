@@ -62,9 +62,16 @@ FBFlow >> newInstance [
 
 { #category : #'as yet unclassified' }
 FBFlow >> nodeWithId: aString [ 
+	^ self 
+		nodeWithId: aString  
+		ifAbsent: [ FBNodeNotFound signal: 'Node with id ', aString asString, ' not found' ]
+]
+
+{ #category : #'as yet unclassified' }
+FBFlow >> nodeWithId: aString ifAbsent: aBlock [
 	^ nodesMap 
 		at: aString 
-		ifAbsent: [ FBNodeNotFound signal: 'Node with id ', aString asString, ' not found' ]
+		ifAbsent: aBlock
 ]
 
 { #category : #accessing }
@@ -90,4 +97,20 @@ FBFlow >> start [
 FBFlow >> start: aFBStartEvent [ 
 	aFBStartEvent flow: self.
 	start := aFBStartEvent 
+]
+
+{ #category : #querying }
+FBFlow >> transitionWithId: aString [ 
+	^ self 
+		transitionWithId: aString 
+		ifAbsent: [ FBTranstionNotFound signal: 'transition with id ', aString asString, ' not found' ]
+]
+
+{ #category : #querying }
+FBFlow >> transitionWithId: aString ifAbsent: aBlock [
+	nodesMap do: [ :node | 
+		node outgoing 
+			detect: [ :each | each id = aString ]
+			ifFound: [ :transition | ^ transition ] ].
+	^ aBlock value
 ]

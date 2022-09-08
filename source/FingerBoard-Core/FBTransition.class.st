@@ -2,6 +2,7 @@ Class {
 	#name : #FBTransition,
 	#superclass : #Object,
 	#instVars : [
+		'id',
 		'source',
 		'target'
 	],
@@ -36,6 +37,24 @@ FBTransition >> addTo: aFBNode [
 FBTransition >> detach [ 
 	source removeOutgoing: self.
 	target removeIncoming: self.
+]
+
+{ #category : #accessing }
+FBTransition >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+FBTransition >> id: anObject [
+
+	id := anObject
+]
+
+{ #category : #initialization }
+FBTransition >> initialize [ 
+	super initialize.
+	id := UUID new asString36.
 ]
 
 { #category : #printing }
