@@ -10,6 +10,11 @@ FBEndEvent class >> typeName [
 	^ #end
 ]
 
+{ #category : #accessing }
+FBEndEvent >> defaultBehaviorClass [
+	^ FBEndEventBehavior
+]
+
 { #category : #'as yet unclassified' }
 FBEndEvent >> evaluateIn: aFBActivation [ 
 	aFBActivation executor completed

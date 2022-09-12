@@ -57,7 +57,10 @@ FBFlowExecutor >> executeNode: aFBNode with: anObject [
 		node: aFBNode;
 		argument: anObject.
 	activations add: activation.
-	^ activation invoke
+	^ aFBNode behaviorClass new
+		activation: activation;
+		execute
+	"^ activation invoke"
 	
 ]
 

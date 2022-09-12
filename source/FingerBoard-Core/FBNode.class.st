@@ -6,7 +6,8 @@ Class {
 		'name',
 		'flow',
 		'incoming',
-		'outgoing'
+		'outgoing',
+		'behaviorClass'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -68,6 +69,24 @@ FBNode >> addTo: aFBNode [
 { #category : #converting }
 FBNode >> asRoassalShape [
 	^ RSLabel new text: 'N/A'
+]
+
+{ #category : #accessing }
+FBNode >> behaviorClass [
+
+	^ behaviorClass ifNil: [ 
+		behaviorClass := self defaultBehaviorClass ]
+]
+
+{ #category : #accessing }
+FBNode >> behaviorClass: anObject [
+
+	behaviorClass := anObject
+]
+
+{ #category : #accessing }
+FBNode >> defaultBehaviorClass [
+	self subclassResponsibility 
 ]
 
 { #category : #'as yet unclassified' }
