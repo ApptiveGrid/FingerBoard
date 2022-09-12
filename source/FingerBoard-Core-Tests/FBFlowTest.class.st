@@ -92,6 +92,17 @@ FBFlowTest >> testRemoveNodeFlow [
 ]
 
 { #category : #tests }
+FBFlowTest >> testRemoveTransitionWithId [
+	| flow transition t |
+	flow := self simpleFlow.
+	transition := flow start outgoing first.
+	self assert: (flow transitionWithId: transition id) equals: transition.
+	transition detach.
+	t := flow transitionWithId: transition id ifAbsent: nil.
+	self assert: t isNil
+]
+
+{ #category : #tests }
 FBFlowTest >> testTransitionWithId [
 	| flow transition |
 	flow := self simpleFlow.
