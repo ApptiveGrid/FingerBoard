@@ -30,6 +30,13 @@ FBNode >> --> aNode [
 
 ]
 
+{ #category : #'instance creation' }
+FBNode >> activateWith: anFBActivation [ 
+	^ self behaviorClass new
+		activation: anFBActivation;
+		execute	
+]
+
 { #category : #connecting }
 FBNode >> addIncoming: aFBTransition [ 
 	incoming add: aFBTransition.
@@ -96,18 +103,6 @@ FBNode >> detach [
 ]
 
 { #category : #'as yet unclassified' }
-FBNode >> evaluateIn: aFBActivation [
-	self subclassResponsibility 
-]
-
-{ #category : #'as yet unclassified' }
-FBNode >> executeIn: aFBActivation [ 
-	self prepareIn: aFBActivation.
-	self evaluateIn: aFBActivation.
-	self postProcessIn: aFBActivation 
-]
-
-{ #category : #'as yet unclassified' }
 FBNode >> findEnd [
 	(self isKindOf: FBEndEvent) ifTrue: [ ^ self ]. 
 	outgoing do: [ :transition |
@@ -169,6 +164,11 @@ FBNode >> inspectionFlow [
 ]
 
 { #category : #accessing }
+FBNode >> lastValueIn: aFBFlowExecutor [ 
+	^ aFBFlowExecutor lastValueOf: self
+]
+
+{ #category : #accessing }
 FBNode >> name [
 	^ name
 ]
@@ -192,15 +192,6 @@ FBNode >> outgoing [
 FBNode >> outgoingNodes [
 
 	^ outgoing collect: #target
-]
-
-{ #category : #'as yet unclassified' }
-FBNode >> postProcessIn: aFBActivation [ 
-	aFBActivation done
-]
-
-{ #category : #'as yet unclassified' }
-FBNode >> prepareIn: aFBActivation [
 ]
 
 { #category : #'as yet unclassified' }

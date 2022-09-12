@@ -59,6 +59,12 @@ FBActivation >> followAll: aCollection [
 ]
 
 { #category : #'as yet unclassified' }
+FBActivation >> followAllOutgoing [
+	self node outgoing do: [ :transition |
+		 executor addPending: transition ]
+]
+
+{ #category : #'as yet unclassified' }
 FBActivation >> followTransition: aTransition [
 	executor addPending: aTransition
 ]
@@ -68,13 +74,6 @@ FBActivation >> initialize [
 	super initialize.
 	timestamp := DateAndTime now.
 	state := #initialized
-]
-
-{ #category : #'as yet unclassified' }
-FBActivation >> invoke [
-	state := #executing.
-	node executeIn: self.
-	^ value
 ]
 
 { #category : #accessing }

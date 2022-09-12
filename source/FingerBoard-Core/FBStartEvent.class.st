@@ -20,18 +20,20 @@ FBStartEvent >> defaultBehaviorClass [
 	^ FBStartEventBehavior
 ]
 
-{ #category : #'as yet unclassified' }
-FBStartEvent >> evaluateIn: aFBActivation [ 
-	aFBActivation followTransition: outgoing first.
-	"a start event is an entry event that should pass its argument to 
-	the next node"
-	aFBActivation value: aFBActivation argument.
-]
-
 { #category : #initialization }
 FBStartEvent >> initialize [ 
 	super initialize.
 	name := 'start'
+]
+
+{ #category : #accessing }
+FBStartEvent >> lastValueIn: aFBFlowExecutor [ 
+	^ aFBFlowExecutor initialValue 
+]
+
+{ #category : #accessing }
+FBStartEvent >> source [
+	^ self 
 ]
 
 { #category : #accessing }

@@ -12,14 +12,12 @@ FBWaitForCondition >> condition: aBlock [
 	condition := aBlock 
 ]
 
-{ #category : #'as yet unclassified' }
-FBWaitForCondition >> evaluateIn: aFBActivation [
-	(condition value: aFBActivation argument)
-		ifTrue: [ aFBActivation followAll: outgoing ]
-		ifFalse: [ aFBActivation waitForNode: self ]
+{ #category : #accessing }
+FBWaitForCondition >> defaultBehaviorClass [
+	^ FBWaitForConditionBehavior 
 ]
 
 { #category : #'as yet unclassified' }
-FBWaitForCondition >> postProcessIn: aFBActivation [ 
-	"we do not automatically follow the flow is we might have to wait"
+FBWaitForCondition >> evaluateConditionWith: anObject [
+	^ condition value: anObject 
 ]

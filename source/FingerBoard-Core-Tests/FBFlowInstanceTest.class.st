@@ -8,7 +8,7 @@ Class {
 FBFlowInstanceTest >> testActivationsAreDone [
 	| flowInstance |
 	flowInstance := self simpleFlow newInstance.
-	flowInstance executeWith: nil.
+	flowInstance initialValue: nil.
 	self assert: (flowInstance activations allSatisfy: [ :each | each state = #done ])
 ]
 
@@ -35,7 +35,8 @@ FBFlowInstanceTest >> testCreateFlowInstance [
 FBFlowInstanceTest >> testSimpleWaitCompletion [
 	| instance |
 	instance := self simpleWaitFlow newInstance. 
-	instance executeWith: 3.
+	instance initialValue: 3.
+	instance execute.
 	self assert: instance isComplete 
 ]
 
@@ -43,7 +44,8 @@ FBFlowInstanceTest >> testSimpleWaitCompletion [
 FBFlowInstanceTest >> testSimpleWaitSuspension [ 
 	| instance |
 	instance := self simpleWaitFlow newInstance. 
-	instance executeWith: 2.
+	instance initialValue: 2.
+	instance execute.
 	self deny: instance isComplete 
 ]
 

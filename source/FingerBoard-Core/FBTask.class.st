@@ -8,9 +8,3 @@ Class {
 FBTask >> defaultBehaviorClass [
 	^ FBTaskBehavior
 ]
-
-{ #category : #'as yet unclassified' }
-FBTask >> evaluateIn: aFBActivation [ 
-	aFBActivation followAll: outgoing.
-	
-]

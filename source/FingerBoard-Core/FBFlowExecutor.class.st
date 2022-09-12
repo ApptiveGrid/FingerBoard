@@ -50,34 +50,14 @@ FBFlowExecutor >> execute [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-FBFlowExecutor >> executeNode: aFBNode with: anObject [
-	| activation |
-	activation := self newActivation 
-		node: aFBNode;
-		argument: anObject.
-	activations add: activation.
-	^ aFBNode behaviorClass new
-		activation: activation;
-		execute
-	"^ activation invoke"
-	
-]
-
-{ #category : #executing }
-FBFlowExecutor >> executeWith: anObject [
-	| transition lastValue argument |
-	lastValue := anObject.
-	[ pending isEmpty ] whileFalse: [
-		transition := pending removeFirst. 
-		argument := lastValue.
-		lastValue := self executeNode: transition with: argument ]
-	
-]
-
 { #category : #accessing }
 FBFlowExecutor >> firstPending [
 	^ pending first
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> initialValue [
+	^ initialValue
 ]
 
 { #category : #accessing }
@@ -105,6 +85,12 @@ FBFlowExecutor >> isComplete [
 	^ state = #completed
 ]
 
+{ #category : #accessing }
+FBFlowExecutor >> lastValueOf: aFBNode [
+	^ (self activations reverse 
+				detect: [ :each | each node = aFBNode ]) value.
+]
+
 { #category : #'as yet unclassified' }
 FBFlowExecutor >> newActivation [ 
 	^ FBActivation new
@@ -130,17 +116,13 @@ FBFlowExecutor >> state: anObject [
 
 { #category : #executing }
 FBFlowExecutor >> step [
-	| transition argument next |
+	| transition activation |
 	transition := pending removeFirst. 
 	(state = #initialized) 
-		ifTrue: [ 
-			argument := initialValue.
-			next := transition.
-			state := #running.
-			 ]
-		ifFalse: [ 
-			argument := (self activations reverse 
-				detect: [ :each | each node = transition source ]) value.
-			next := transition target ].
-	self executeNode: next with: argument
+		ifTrue: [ state := #running ].
+	activation := self newActivation 
+		node: transition target;
+		argument: (transition source lastValueIn: self).
+	activations add: activation.
+	^ transition target activateWith: activation 
 ]

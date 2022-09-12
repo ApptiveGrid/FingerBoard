@@ -39,11 +39,7 @@ FBExclusiveGateway >> asRoassalShape [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-FBExclusiveGateway >> evaluateIn: aFBActivation [ 
-	| next |
-	next := outgoing 
-		detect: [ :each | each condition value: aFBActivation argument ]
-		ifNone: [ Error signal: 'conditions do not match' ].
-	aFBActivation followTransition: next
+{ #category : #accessing }
+FBExclusiveGateway >> defaultBehaviorClass [
+	^ FBExclusiveGatewayBehavior 
 ]
