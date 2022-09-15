@@ -20,28 +20,28 @@ FBTest >> gatewayedFlow [
 ]
 
 { #category : #tests }
-FBTest >> gatewayedFlowX [
-	| start end bigger smaller gateway value |
-	start := FBStartEvent new.
-	value := FBTestTask named: 'generate random number'.
-	start addOutgoingNode: value.
-	bigger := FBTask named: 'bigger'.
-	smaller := FBTask named: 'smaller'.
-	gateway := (FBExclusiveGateway named: '>= 5 | < 5')
-	 addOutgoingNode: bigger withCondition: [:x | x >= 5 ];
-	 addOutgoingNode: smaller withCondition: [:x | x < 5 ].
-	value addOutgoingNode: gateway.
-	end := FBEndEvent new.
-	bigger addOutgoingNode: end.
-	smaller addOutgoingNode: end.
-	^ FBFlow new start: start
-]
-
-{ #category : #tests }
 FBTest >> simpleFlow [ 
 	| start end intermediate |
 	start := FBStartEvent new.
 	intermediate := start addOutgoingNode: (FBTask named: 'simple task').
+	end := intermediate addOutgoingNode: FBEndEvent new.
+	^ FBFlow new start: start
+]
+
+{ #category : #tests }
+FBTest >> simpleFlowWithError [
+	| start end intermediate |
+	start := FBStartEvent new.
+	intermediate := start addOutgoingNode: (FBErrorTestTask  named: 'simple task').
+	end := intermediate addOutgoingNode: FBEndEvent new.
+	^ FBFlow new start: start
+]
+
+{ #category : #tests }
+FBTest >> simpleFlowWithSystemError [
+	| start end intermediate |
+	start := FBStartEvent new.
+	intermediate := start addOutgoingNode: (FBSystemErrorTestTask  named: 'simple task').
 	end := intermediate addOutgoingNode: FBEndEvent new.
 	^ FBFlow new start: start
 ]

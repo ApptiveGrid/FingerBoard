@@ -32,6 +32,66 @@ FBFlowInstanceTest >> testCreateFlowInstance [
 ]
 
 { #category : #tests }
+FBFlowInstanceTest >> testFlowAnnouncements [ 
+	| flowInstance events |
+	flowInstance := self simpleFlow newInstance.
+	flowInstance initialValue: 7. 
+	events := OrderedCollection new.
+	flowInstance announcer 
+		when: FBNodeActivationStarted  do: [ :e | events add: e ].
+	flowInstance execute.
+	self assert: events size equals: flowInstance flow nodes size 
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testFlowAnnouncementsWithError [
+	| flowInstance events |
+	flowInstance := self simpleFlowWithError newInstance.
+	flowInstance initialValue: 7.
+	events := OrderedCollection new.
+	flowInstance announcer 
+		when: FBFlowEvent do: [ :e | events add: e ].
+	flowInstance execute.
+	self assert: events last class equals: FBNodeActivationErrored.
+	self assert: flowInstance activations last state equals: #error 
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
+	| flowInstance events |
+	flowInstance := self simpleFlowWithSystemError newInstance.
+	flowInstance initialValue: 7.
+	events := OrderedCollection new.
+	flowInstance announcer 
+		when: FBFlowEvent do: [ :e | events add: e ].
+	self 
+		should: [ flowInstance execute ]
+		raise: ZeroDivide.
+	self assert: events size equals: 7 
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testListActivationEvents [
+	| flowInstance events |
+	flowInstance := self simpleFlow newInstance.
+	flowInstance initialValue: 7. 
+	flowInstance execute.
+	events := flowInstance eventsOfActivation: flowInstance activations second.
+	self assert: events size equals: 2
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testListNodeEvents [
+	| flowInstance events node |
+	flowInstance := self simpleFlow newInstance.
+	flowInstance initialValue: 7. 
+	flowInstance execute.
+	node := flowInstance flow nodes second.
+	events := flowInstance eventsOfNode: node.
+	self assert: events size equals: 2
+]
+
+{ #category : #tests }
 FBFlowInstanceTest >> testSimpleWaitCompletion [
 	| instance |
 	instance := self simpleWaitFlow newInstance. 

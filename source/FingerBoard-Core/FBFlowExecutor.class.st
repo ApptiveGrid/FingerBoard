@@ -2,7 +2,7 @@ Class {
 	#name : #FBFlowExecutor,
 	#superclass : #Object,
 	#instVars : [
-		'instance',
+		'flowInstance',
 		'pending',
 		'activations',
 		'suspended',
@@ -11,6 +11,11 @@ Class {
 	],
 	#category : #'FingerBoard-Core'
 }
+
+{ #category : #convenience }
+FBFlowExecutor >> activate: activation [ 
+	activation activate
+]
 
 { #category : #'as yet unclassified' }
 FBFlowExecutor >> activationBefore: aFBActivation [ 
@@ -56,6 +61,18 @@ FBFlowExecutor >> firstPending [
 ]
 
 { #category : #accessing }
+FBFlowExecutor >> flowInstance [
+
+	^ flowInstance
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> flowInstance: aFBFlowInstance [ 
+	flowInstance := aFBFlowInstance.
+	pending add: flowInstance start
+]
+
+{ #category : #accessing }
 FBFlowExecutor >> initialValue [
 	^ initialValue
 ]
@@ -72,12 +89,6 @@ FBFlowExecutor >> initialize [
 	pending := OrderedCollection new.
 	suspended := OrderedCollection new.
 	state := #initialized
-]
-
-{ #category : #accessing }
-FBFlowExecutor >> instance: aFBFlowInstance [ 
-	instance := aFBFlowInstance.
-	pending add: instance start
 ]
 
 { #category : #testing }
@@ -116,13 +127,17 @@ FBFlowExecutor >> state: anObject [
 
 { #category : #executing }
 FBFlowExecutor >> step [
-	| transition activation |
-	transition := pending removeFirst. 
+	| transition activation lastValue |
 	(state = #initialized) 
-		ifTrue: [ state := #running ].
+		ifTrue: [ 
+			flowInstance addEvent: FBFlowInstanceStarted new.
+			state := #running ].
+	transition := pending removeFirst. 
+	lastValue := transition source lastValueIn: self.
+	flowInstance addEvent: (FBTransitionFollowed new transition: transition; value: lastValue).
 	activation := self newActivation 
 		node: transition target;
-		argument: (transition source lastValueIn: self).
+		argument: lastValue.
 	activations add: activation.
-	^ transition target activateWith: activation 
+	self activate: activation 
 ]

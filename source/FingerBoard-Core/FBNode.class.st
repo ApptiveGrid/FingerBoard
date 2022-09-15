@@ -194,6 +194,11 @@ FBNode >> outgoingNodes [
 	^ outgoing collect: #target
 ]
 
+{ #category : #printing }
+FBNode >> printOn: aStream [ 
+	aStream << 'node name=' << name asString
+]
+
 { #category : #'as yet unclassified' }
 FBNode >> propagateFlow [
 	"try setting the flow in the neighbor nodes. This can bubble
@@ -227,6 +232,11 @@ FBNode >> removeOutgoing: aFBTransition [
 { #category : #initialization }
 FBNode >> setFlow: aFlow [ 
 	flow := aFlow
+]
+
+{ #category : #accessing }
+FBNode >> value [ 
+	^ nil
 ]
 
 { #category : #'as yet unclassified' }

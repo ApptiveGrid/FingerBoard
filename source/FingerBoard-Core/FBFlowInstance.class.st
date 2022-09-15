@@ -2,8 +2,11 @@ Class {
 	#name : #FBFlowInstance,
 	#superclass : #Object,
 	#instVars : [
+		'id',
 		'flow',
-		'executor'
+		'executor',
+		'announcer',
+		'events'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -14,8 +17,46 @@ FBFlowInstance >> activations [
 ]
 
 { #category : #accessing }
+FBFlowInstance >> activationsOfNode: aFBNode [
+	^ self activations select: [ :each | each node = aFBNode ]
+]
+
+{ #category : #events }
+FBFlowInstance >> addEvent: aFBFlowEvent [
+	self events add: (aFBFlowEvent flowInstance: self).
+	self announce: aFBFlowEvent 
+]
+
+{ #category : #announcements }
+FBFlowInstance >> announce: aFBModelEvent [
+	self announcer announce: aFBModelEvent 
+]
+
+{ #category : #accessing }
+FBFlowInstance >> announcer [
+	^ announcer ifNil: [ 
+		announcer := Announcer new ]
+]
+
+{ #category : #accessing }
 FBFlowInstance >> atEnd [
 	^ executor atEnd
+]
+
+{ #category : #accessing }
+FBFlowInstance >> events [
+	^ events ifNil: [ 
+		events := OrderedCollection new ]
+]
+
+{ #category : #accessing }
+FBFlowInstance >> eventsOfActivation: aFBActivation [ 
+	^ self events select: [ :each | (each isKindOf: FBNodeActivationEvent) and: [ each activation = aFBActivation ] ]
+]
+
+{ #category : #events }
+FBFlowInstance >> eventsOfNode: aFBNode [
+	^ (self activationsOfNode: aFBNode) flatCollect: [ :each | each events ]
 ]
 
 { #category : #executing }
@@ -34,7 +75,7 @@ FBFlowInstance >> executeWith: anObject [
 FBFlowInstance >> executor [ 
 	^ executor ifNil: [
 		executor := FBFlowExecutor new 
-			instance: self ]
+			flowInstance: self ]
 ]
 
 { #category : #accessing }
@@ -48,6 +89,18 @@ FBFlowInstance >> flow: aFBFlow [
 ]
 
 { #category : #accessing }
+FBFlowInstance >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+FBFlowInstance >> id: anObject [
+
+	id := anObject
+]
+
+{ #category : #accessing }
 FBFlowInstance >> initialValue: anObject [
 	self executor initialValue: anObject
 ]
@@ -55,7 +108,7 @@ FBFlowInstance >> initialValue: anObject [
 { #category : #initialization }
 FBFlowInstance >> initialize [ 
 	super initialize.
-
+	id := FBIdGenerator current newId
 ]
 
 { #category : #'as yet unclassified' }
@@ -87,6 +140,11 @@ FBFlowInstance >> nextTransition [
 { #category : #accessing }
 FBFlowInstance >> pending [
 	^ self executor pending
+]
+
+{ #category : #printing }
+FBFlowInstance >> printOn: aStream [ 
+	aStream << 'flow instance id=' << id asString
 ]
 
 { #category : #accessing }
