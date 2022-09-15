@@ -71,6 +71,28 @@ FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
 ]
 
 { #category : #tests }
+FBFlowInstanceTest >> testListActivationEvents [
+	| flowInstance events |
+	flowInstance := self simpleFlow newInstance.
+	flowInstance initialValue: 7. 
+	flowInstance execute.
+	events := flowInstance eventsOfActivation: flowInstance activations second.
+	self assert: events size equals: 2
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testListNodeEvents [
+	| flowInstance events node |
+	flowInstance := self simpleFlow newInstance.
+	flowInstance initialValue: 7. 
+	flowInstance execute.
+	node := flowInstance flow nodes second.
+	self halt.
+	events := flowInstance eventsOfNode: node.
+	self assert: events size equals: 2
+]
+
+{ #category : #tests }
 FBFlowInstanceTest >> testSimpleWaitCompletion [
 	| instance |
 	instance := self simpleWaitFlow newInstance. 

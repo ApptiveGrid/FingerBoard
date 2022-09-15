@@ -16,6 +16,11 @@ FBFlowInstance >> activations [
 	^ self executor activations
 ]
 
+{ #category : #accessing }
+FBFlowInstance >> activationsOfNode: aFBNode [
+	^ self activations select: [ :each | each node = aFBNode ]
+]
+
 { #category : #events }
 FBFlowInstance >> addEvent: aFBFlowEvent [
 	self events add: (aFBFlowEvent flowInstance: self).
@@ -43,6 +48,16 @@ FBFlowInstance >> atEnd [
 FBFlowInstance >> events [
 	^ events ifNil: [ 
 		events := OrderedCollection new ]
+]
+
+{ #category : #accessing }
+FBFlowInstance >> eventsOfActivation: aFBActivation [ 
+	^ self events select: [ :each | (each isKindOf: FBNodeActivationEvent) and: [ each activation = aFBActivation ] ]
+]
+
+{ #category : #events }
+FBFlowInstance >> eventsOfNode: aFBNode [
+	^ (self activationsOfNode: aFBNode) flatCollect: [ :each | each events ]
 ]
 
 { #category : #executing }

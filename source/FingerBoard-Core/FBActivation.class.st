@@ -70,6 +70,11 @@ FBActivation >> errored [
 	state := #error
 ]
 
+{ #category : #events }
+FBActivation >> events [
+	^ self flowInstance eventsOfActivation: self
+]
+
 { #category : #accessing }
 FBActivation >> executor [
 
