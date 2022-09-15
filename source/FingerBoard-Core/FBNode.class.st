@@ -98,8 +98,8 @@ FBNode >> defaultBehaviorClass [
 
 { #category : #'as yet unclassified' }
 FBNode >> detach [
-	incoming do: #detach.
-	outgoing do: #detach.
+	incoming copy do: #detach.
+	outgoing copy do: #detach.
 ]
 
 { #category : #'as yet unclassified' }
