@@ -32,6 +32,30 @@ FBFlowInstanceTest >> testCreateFlowInstance [
 ]
 
 { #category : #tests }
+FBFlowInstanceTest >> testFlowAnnouncements [ 
+	| flowInstance events |
+	flowInstance := self simpleFlow newInstance.
+	flowInstance initialValue: 7. 
+	events := OrderedCollection new.
+	flowInstance announcer 
+		when: FBNodeActivationStarted  do: [ :e | events add: e ].
+	flowInstance execute.
+	self assert: events size equals: flowInstance flow nodes size 
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testFlowAnnouncementsWithError [
+	| flowInstance events |
+	flowInstance := self simpleFlowWithError newInstance.
+	flowInstance initialValue: 7.
+	events := OrderedCollection new.
+	flowInstance announcer 
+		when: FBFlowEvent do: [ :e | events add: e ].
+	flowInstance execute.
+	self assert: events size equals: flowInstance flow nodes size 
+]
+
+{ #category : #tests }
 FBFlowInstanceTest >> testSimpleWaitCompletion [
 	| instance |
 	instance := self simpleWaitFlow newInstance. 

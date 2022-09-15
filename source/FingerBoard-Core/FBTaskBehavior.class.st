@@ -6,7 +6,7 @@ Class {
 
 { #category : #execution }
 FBTaskBehavior >> execute [ 
+	activation value: self node value.
 	activation followAll: self outgoing.
-	activation value: self node value
 	
 ]

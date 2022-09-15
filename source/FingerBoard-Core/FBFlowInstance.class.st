@@ -2,8 +2,10 @@ Class {
 	#name : #FBFlowInstance,
 	#superclass : #Object,
 	#instVars : [
+		'id',
 		'flow',
-		'executor'
+		'executor',
+		'announcer'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -11,6 +13,18 @@ Class {
 { #category : #accessing }
 FBFlowInstance >> activations [
 	^ self executor activations
+]
+
+{ #category : #announcements }
+FBFlowInstance >> announce: aFBModelEvent [
+	aFBModelEvent apptiveEmit.
+	self announcer announce: aFBModelEvent 
+]
+
+{ #category : #accessing }
+FBFlowInstance >> announcer [
+	^ announcer ifNil: [ 
+		announcer := Announcer new ]
 ]
 
 { #category : #accessing }
@@ -34,7 +48,7 @@ FBFlowInstance >> executeWith: anObject [
 FBFlowInstance >> executor [ 
 	^ executor ifNil: [
 		executor := FBFlowExecutor new 
-			instance: self ]
+			flowInstance: self ]
 ]
 
 { #category : #accessing }
@@ -48,6 +62,18 @@ FBFlowInstance >> flow: aFBFlow [
 ]
 
 { #category : #accessing }
+FBFlowInstance >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+FBFlowInstance >> id: anObject [
+
+	id := anObject
+]
+
+{ #category : #accessing }
 FBFlowInstance >> initialValue: anObject [
 	self executor initialValue: anObject
 ]
@@ -55,7 +81,7 @@ FBFlowInstance >> initialValue: anObject [
 { #category : #initialization }
 FBFlowInstance >> initialize [ 
 	super initialize.
-
+	id := FBIdGenerator current newId
 ]
 
 { #category : #'as yet unclassified' }
@@ -87,6 +113,11 @@ FBFlowInstance >> nextTransition [
 { #category : #accessing }
 FBFlowInstance >> pending [
 	^ self executor pending
+]
+
+{ #category : #printing }
+FBFlowInstance >> printOn: aStream [ 
+	aStream << 'flow instance id=' << id asString
 ]
 
 { #category : #accessing }

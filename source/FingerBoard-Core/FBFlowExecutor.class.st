@@ -12,6 +12,20 @@ Class {
 	#category : #'FingerBoard-Core'
 }
 
+{ #category : #convenience }
+FBFlowExecutor >> activate: activation [ 
+	instance announce: (FBNodeActivationStarted new flowInstance: instance; activation: activation).
+	[ [ activation activate.
+	  instance announce: (FBNodeActivationDone new flowInstance: instance; activation: activation) ]
+		on: FBError  
+		do: [ :error | 
+			instance announce: (FBNodeActivationErrored new flowInstance: instance; activation: activation; activationError: error description) ] ]
+		on: Error 
+		do: [ :error | 
+			instance announce: (FBNodeActivationErrored new flowInstance: instance;activation: activation; activationError: error description).
+			"error pass" ]
+]
+
 { #category : #'as yet unclassified' }
 FBFlowExecutor >> activationBefore: aFBActivation [ 
 
@@ -56,6 +70,12 @@ FBFlowExecutor >> firstPending [
 ]
 
 { #category : #accessing }
+FBFlowExecutor >> flowInstance: aFBFlowInstance [ 
+	instance := aFBFlowInstance.
+	pending add: instance start
+]
+
+{ #category : #accessing }
 FBFlowExecutor >> initialValue [
 	^ initialValue
 ]
@@ -72,12 +92,6 @@ FBFlowExecutor >> initialize [
 	pending := OrderedCollection new.
 	suspended := OrderedCollection new.
 	state := #initialized
-]
-
-{ #category : #accessing }
-FBFlowExecutor >> instance: aFBFlowInstance [ 
-	instance := aFBFlowInstance.
-	pending add: instance start
 ]
 
 { #category : #testing }
@@ -116,13 +130,17 @@ FBFlowExecutor >> state: anObject [
 
 { #category : #executing }
 FBFlowExecutor >> step [
-	| transition activation |
-	transition := pending removeFirst. 
+	| transition activation lastValue |
 	(state = #initialized) 
-		ifTrue: [ state := #running ].
+		ifTrue: [ 
+			instance announce: (FBFlowInstanceStarted new flowInstance: instance).
+			state := #running ].
+	transition := pending removeFirst. 
+	lastValue := transition source lastValueIn: self.
+	instance announce: (FBTransitionFollowed new flowInstance: instance; transition: transition; value: lastValue).
 	activation := self newActivation 
 		node: transition target;
-		argument: (transition source lastValueIn: self).
+		argument: lastValue.
 	activations add: activation.
-	^ transition target activateWith: activation 
+	self activate: activation 
 ]
