@@ -87,7 +87,6 @@ FBFlowInstanceTest >> testListNodeEvents [
 	flowInstance initialValue: 7. 
 	flowInstance execute.
 	node := flowInstance flow nodes second.
-	self halt.
 	events := flowInstance eventsOfNode: node.
 	self assert: events size equals: 2
 ]
