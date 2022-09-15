@@ -29,7 +29,6 @@ FBFlowInstance >> addEvent: aFBFlowEvent [
 
 { #category : #announcements }
 FBFlowInstance >> announce: aFBModelEvent [
-	aFBModelEvent apptiveEmit.
 	self announcer announce: aFBModelEvent 
 ]
 
