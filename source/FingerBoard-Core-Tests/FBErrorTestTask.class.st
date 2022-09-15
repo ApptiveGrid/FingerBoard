@@ -6,5 +6,7 @@ Class {
 
 { #category : #accessing }
 FBErrorTestTask >> value [
-	^ 1/0
+	^ [ 1/0 ]
+		on: Error 
+	 	do: [ :error | FBError signal: 'execution went wrong' ]
 ]

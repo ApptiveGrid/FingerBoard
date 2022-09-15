@@ -52,7 +52,22 @@ FBFlowInstanceTest >> testFlowAnnouncementsWithError [
 	flowInstance announcer 
 		when: FBFlowEvent do: [ :e | events add: e ].
 	flowInstance execute.
-	self assert: events size equals: flowInstance flow nodes size 
+	self assert: events last class equals: FBNodeActivationErrored.
+	self assert: flowInstance activations last state equals: #error 
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
+	| flowInstance events |
+	flowInstance := self simpleFlowWithSystemError newInstance.
+	flowInstance initialValue: 7.
+	events := OrderedCollection new.
+	flowInstance announcer 
+		when: FBFlowEvent do: [ :e | events add: e ].
+	self 
+		should: [ flowInstance execute ]
+		raise: ZeroDivide.
+	self assert: events size equals: 7 
 ]
 
 { #category : #tests }

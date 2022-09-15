@@ -15,7 +15,26 @@ Class {
 
 { #category : #activation }
 FBActivation >> activate [ 
-	node activateWith: self
+	self addEvent: FBNodeActivationStarted new.
+	[ [  node activateWith: self.
+	  self addEvent: FBNodeActivationDone new ]
+		on: FBError  
+		do: [ :error |
+			self 
+				errored;
+				addEvent: (FBNodeActivationErrored new activationError: error description) ] ]
+		on: Error 
+		do: [ :error | 
+			self 
+				errored;
+				addEvent: (FBNodeActivationErrored new activationError: error description).
+			error pass ]
+	
+]
+
+{ #category : #events }
+FBActivation >> addEvent: aFBFlowEvent [
+	self flowInstance addEvent: (aFBFlowEvent activation: self)
 ]
 
 { #category : #accessing }
@@ -46,6 +65,11 @@ FBActivation >> environmentAt: key put: anObject [
 		put: anObject
 ]
 
+{ #category : #'as yet unclassified' }
+FBActivation >> errored [ 
+	state := #error
+]
+
 { #category : #accessing }
 FBActivation >> executor [
 
@@ -55,6 +79,11 @@ FBActivation >> executor [
 { #category : #accessing }
 FBActivation >> executor: aFBFlowExecutor [ 
 	executor := aFBFlowExecutor 
+]
+
+{ #category : #events }
+FBActivation >> flowInstance [
+	^ executor flowInstance 
 ]
 
 { #category : #'as yet unclassified' }
@@ -79,6 +108,11 @@ FBActivation >> initialize [
 	super initialize.
 	timestamp := DateAndTime now.
 	state := #initialized
+]
+
+{ #category : #accessing }
+FBActivation >> instance [
+	^ executor flowInstance
 ]
 
 { #category : #accessing }

@@ -5,7 +5,8 @@ Class {
 		'id',
 		'flow',
 		'executor',
-		'announcer'
+		'announcer',
+		'events'
 	],
 	#category : #'FingerBoard-Core'
 }
@@ -13,6 +14,12 @@ Class {
 { #category : #accessing }
 FBFlowInstance >> activations [
 	^ self executor activations
+]
+
+{ #category : #events }
+FBFlowInstance >> addEvent: aFBFlowEvent [
+	self events add: (aFBFlowEvent flowInstance: self).
+	self announce: aFBFlowEvent 
 ]
 
 { #category : #announcements }
@@ -30,6 +37,12 @@ FBFlowInstance >> announcer [
 { #category : #accessing }
 FBFlowInstance >> atEnd [
 	^ executor atEnd
+]
+
+{ #category : #accessing }
+FBFlowInstance >> events [
+	^ events ifNil: [ 
+		events := OrderedCollection new ]
 ]
 
 { #category : #executing }

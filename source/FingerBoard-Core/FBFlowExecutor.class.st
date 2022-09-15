@@ -2,7 +2,7 @@ Class {
 	#name : #FBFlowExecutor,
 	#superclass : #Object,
 	#instVars : [
-		'instance',
+		'flowInstance',
 		'pending',
 		'activations',
 		'suspended',
@@ -14,16 +14,7 @@ Class {
 
 { #category : #convenience }
 FBFlowExecutor >> activate: activation [ 
-	instance announce: (FBNodeActivationStarted new flowInstance: instance; activation: activation).
-	[ [ activation activate.
-	  instance announce: (FBNodeActivationDone new flowInstance: instance; activation: activation) ]
-		on: FBError  
-		do: [ :error | 
-			instance announce: (FBNodeActivationErrored new flowInstance: instance; activation: activation; activationError: error description) ] ]
-		on: Error 
-		do: [ :error | 
-			instance announce: (FBNodeActivationErrored new flowInstance: instance;activation: activation; activationError: error description).
-			"error pass" ]
+	activation activate
 ]
 
 { #category : #'as yet unclassified' }
@@ -70,9 +61,15 @@ FBFlowExecutor >> firstPending [
 ]
 
 { #category : #accessing }
+FBFlowExecutor >> flowInstance [
+
+	^ flowInstance
+]
+
+{ #category : #accessing }
 FBFlowExecutor >> flowInstance: aFBFlowInstance [ 
-	instance := aFBFlowInstance.
-	pending add: instance start
+	flowInstance := aFBFlowInstance.
+	pending add: flowInstance start
 ]
 
 { #category : #accessing }
@@ -133,11 +130,11 @@ FBFlowExecutor >> step [
 	| transition activation lastValue |
 	(state = #initialized) 
 		ifTrue: [ 
-			instance announce: (FBFlowInstanceStarted new flowInstance: instance).
+			flowInstance addEvent: FBFlowInstanceStarted new.
 			state := #running ].
 	transition := pending removeFirst. 
 	lastValue := transition source lastValueIn: self.
-	instance announce: (FBTransitionFollowed new flowInstance: instance; transition: transition; value: lastValue).
+	flowInstance addEvent: (FBTransitionFollowed new transition: transition; value: lastValue).
 	activation := self newActivation 
 		node: transition target;
 		argument: lastValue.

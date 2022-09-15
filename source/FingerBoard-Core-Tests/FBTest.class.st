@@ -38,6 +38,15 @@ FBTest >> simpleFlowWithError [
 ]
 
 { #category : #tests }
+FBTest >> simpleFlowWithSystemError [
+	| start end intermediate |
+	start := FBStartEvent new.
+	intermediate := start addOutgoingNode: (FBSystemErrorTestTask  named: 'simple task').
+	end := intermediate addOutgoingNode: FBEndEvent new.
+	^ FBFlow new start: start
+]
+
+{ #category : #tests }
 FBTest >> simpleWaitFlow [ 
 	| start end wait |
 	start := FBStartEvent new.
