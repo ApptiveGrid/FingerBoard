@@ -2,6 +2,7 @@ Class {
 	#name : #FBActivation,
 	#superclass : #Object,
 	#instVars : [
+		'id',
 		'timestamp',
 		'node',
 		'value',
@@ -108,9 +109,16 @@ FBActivation >> followTransition: aTransition [
 	executor addPending: aTransition
 ]
 
+{ #category : #accessing }
+FBActivation >> id [
+
+	^ id
+]
+
 { #category : #initialization }
 FBActivation >> initialize [ 
 	super initialize.
+	id := FBIdGenerator current newId.
 	timestamp := DateAndTime now.
 	state := #initialized
 ]
