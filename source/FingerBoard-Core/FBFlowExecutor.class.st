@@ -24,6 +24,11 @@ FBFlowExecutor >> activationBefore: aFBActivation [
 ]
 
 { #category : #accessing }
+FBFlowExecutor >> activationClass [
+	^ flowInstance activationClass
+]
+
+{ #category : #accessing }
 FBFlowExecutor >> activations [
 	^ activations
 ]
@@ -104,7 +109,7 @@ FBFlowExecutor >> lastValueOf: aFBNode [
 
 { #category : #'as yet unclassified' }
 FBFlowExecutor >> newActivation [ 
-	^ FBActivation new
+	^ self activationClass new
 		executor: self
 ]
 

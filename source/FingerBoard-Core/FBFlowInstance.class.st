@@ -12,6 +12,11 @@ Class {
 }
 
 { #category : #accessing }
+FBFlowInstance >> activationClass [
+	^ flow activationClass
+]
+
+{ #category : #accessing }
 FBFlowInstance >> activations [
 	^ self executor activations
 ]

@@ -14,6 +14,11 @@ FBFlow >> acceptFingerBoard: aFBVisitor [
 	^ aFBVisitor visitFlow: self
 ]
 
+{ #category : #accessing }
+FBFlow >> activationClass [ 
+	^ FBActivation 
+]
+
 { #category : #adding }
 FBFlow >> addNode: aFBNode [
 	nodesMap 
