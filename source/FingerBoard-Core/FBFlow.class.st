@@ -9,6 +9,30 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
+{ #category : #'as yet unclassified' }
+FBFlow class >> complex [
+	<sampleInstance>
+	| start end one two three four five six seven eight nine |
+	start := FBStartEvent new.
+	end := FBEndEvent new.
+	one := FBTask named: 'one'.
+	two := FBTask named: 'two'.
+	three := FBTask named: 'three'.
+	four := FBTask named: 'four'.
+	five := FBTask named: 'five'.
+	six := FBTask named: 'six'.
+	seven := FBTask named: 'seven'.
+	eight := FBTask named: 'eight'.
+	nine := FBTask named: 'nine'.
+	
+	start --> one --> two --> three --> four.
+	three --> six.
+	two --> five --> six.
+	one --> seven --> eight.
+	seven --> nine.
+	^ FBFlow new start: start
+]
+
 { #category : #tests }
 FBFlow class >> gatewayedFlow [ 
 	<sampleInstance>
@@ -63,6 +87,32 @@ FBFlow class >> simpleWaitFlow [
 	end := FBEndEvent new.
 	wait := FBPluggableWait new condition: [ :x | x odd ].
 	start --> wait --> end.
+	^ FBFlow new start: start
+]
+
+{ #category : #'as yet unclassified' }
+FBFlow class >> withCycle [
+	<sampleInstance>
+	| start end one two three four five six seven eight nine |
+	start := FBStartEvent new.
+	end := FBEndEvent new.
+	one := FBTask named: 'one'.
+	two := FBTask named: 'two'.
+	three := FBTask named: 'three'.
+	four := FBTask named: 'four'.
+	five := FBTask named: 'five'.
+	six := FBTask named: 'six'.
+	seven := FBTask named: 'seven'.
+	eight := FBTask named: 'eight'.
+	nine := FBTask named: 'nine'.
+	
+	start --> one --> two --> three --> four.
+	three --> six.
+	six --> five --> two.
+	one --> seven --> eight.
+	seven --> nine.
+	"add cycle"
+	nine --> five.
 	^ FBFlow new start: start
 ]
 
@@ -175,4 +225,13 @@ FBFlow >> transitionWithId: aString ifAbsent: aBlock [
 			detect: [ :each | each id = aString ]
 			ifFound: [ :transition | ^ transition ] ].
 	^ aBlock value
+]
+
+{ #category : #accessing }
+FBFlow >> validate [ 
+	(FBTopologicalSorter new 	
+		nodes: nodesMap values;
+		topologicalSort;
+		isAcyclic)
+		ifFalse: [ FBFlowIsCyclic  signal: 'cycle detected'].
 ]

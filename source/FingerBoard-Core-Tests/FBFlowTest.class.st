@@ -57,6 +57,24 @@ FBFlowTest >> testExecuteSimpleFlow [
 ]
 
 { #category : #tests }
+FBFlowTest >> testIsCyclic [ 
+	| flow |
+	flow := AGFlow withCycle.
+	self
+		should: [ flow validate ]
+		raise: FBFlowIsCyclic  
+]
+
+{ #category : #tests }
+FBFlowTest >> testIsNotCyclic [ 
+	| flow |
+	flow := AGFlow complex.
+	self
+		shouldnt: [ flow validate ]
+		raise: FBFlowIsCyclic  
+]
+
+{ #category : #tests }
 FBFlowTest >> testNodeWithId [
 	| flow id |
 	flow := AGFlow simpleFlow.
