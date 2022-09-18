@@ -1,7 +1,7 @@
 Class {
 	#name : #FBTaskBehavior,
 	#superclass : #FBNodeBehavior,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Behavior'
 }
 
 { #category : #execution }

@@ -5,7 +5,7 @@ Class {
 		'transition',
 		'value'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Event'
 }
 
 { #category : #printing }

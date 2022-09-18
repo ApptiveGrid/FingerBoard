@@ -1,5 +1,5 @@
 Class {
 	#name : #FBError,
 	#superclass : #Error,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Error'
 }

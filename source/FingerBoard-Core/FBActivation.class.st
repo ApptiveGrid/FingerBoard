@@ -11,7 +11,7 @@ Class {
 		'state',
 		'environment'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #activation }

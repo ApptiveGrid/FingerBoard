@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 FBFlowTest >> testAllNodes [ 
 	| flow |
-	flow := self simpleFlow. 
+	flow := AGFlow simpleFlow. 
 	self assert: flow nodes size equals: 3.
 	self assert: flow end class equals: FBEndEvent 
 ]
@@ -43,7 +43,7 @@ FBFlowTest >> testCreateFlowEarlyStart [
 { #category : #tests }
 FBFlowTest >> testExecuteGatewayedFlow [ 
 	| instance |
-	instance := self gatewayedFlow newInstance.
+	instance := AGFlow gatewayedFlow newInstance.
 	instance execute.
 	self assert: instance atEnd 
 ]
@@ -51,7 +51,7 @@ FBFlowTest >> testExecuteGatewayedFlow [
 { #category : #tests }
 FBFlowTest >> testExecuteSimpleFlow [ 
 	| instance |
-	instance := self simpleFlow newInstance.
+	instance := AGFlow simpleFlow newInstance.
 	instance execute.
 	self assert: instance atEnd 
 ]
@@ -59,7 +59,7 @@ FBFlowTest >> testExecuteSimpleFlow [
 { #category : #tests }
 FBFlowTest >> testNodeWithId [
 	| flow id |
-	flow := self simpleFlow.
+	flow := AGFlow simpleFlow.
 	id := flow start id.
 	self assert: (flow nodeWithId: id) equals: flow start
 ]
@@ -67,7 +67,7 @@ FBFlowTest >> testNodeWithId [
 { #category : #tests }
 FBFlowTest >> testNodeWithIdError [
 	| flow |
-	flow := self simpleFlow.
+	flow := AGFlow simpleFlow.
 	self 
 		should: [ flow nodeWithId: #bogus ]
 		raise: FBNodeNotFound 
@@ -76,7 +76,7 @@ FBFlowTest >> testNodeWithIdError [
 { #category : #tests }
 FBFlowTest >> testRemoveNode [
 	| flow intermediate |
-	flow := self simpleFlow.
+	flow := AGFlow simpleFlow.
 	intermediate := flow start outgoing first target.
 	intermediate remove.
 	self assert: flow nodes size equals: 2
@@ -85,7 +85,7 @@ FBFlowTest >> testRemoveNode [
 { #category : #tests }
 FBFlowTest >> testRemoveNodeFlow [
 	| flow intermediate |
-	flow := self simpleFlow.
+	flow := AGFlow simpleFlow.
 	intermediate := flow start outgoing first target.
 	flow removeNode: intermediate.
 	self assert: flow nodes size equals: 2
@@ -94,7 +94,7 @@ FBFlowTest >> testRemoveNodeFlow [
 { #category : #tests }
 FBFlowTest >> testRemoveTransitionWithId [
 	| flow transition t |
-	flow := self simpleFlow.
+	flow := AGFlow simpleFlow.
 	transition := flow start outgoing first.
 	self assert: (flow transitionWithId: transition id) equals: transition.
 	transition detach.
@@ -105,7 +105,7 @@ FBFlowTest >> testRemoveTransitionWithId [
 { #category : #tests }
 FBFlowTest >> testTransitionWithId [
 	| flow transition |
-	flow := self simpleFlow.
+	flow := AGFlow simpleFlow.
 	transition := flow start outgoing first.
 	self assert: (flow transitionWithId: transition id) equals: transition
 ]

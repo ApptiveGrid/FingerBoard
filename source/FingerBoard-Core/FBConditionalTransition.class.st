@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'condition'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #accessing }

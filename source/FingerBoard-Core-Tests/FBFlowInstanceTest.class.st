@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 FBFlowInstanceTest >> testActivationsAreDone [
 	| flowInstance |
-	flowInstance := self simpleFlow newInstance.
+	flowInstance := AGFlow simpleFlow newInstance.
 	flowInstance initialValue: nil.
 	self assert: (flowInstance activations allSatisfy: [ :each | each state = #done ])
 ]
@@ -15,7 +15,7 @@ FBFlowInstanceTest >> testActivationsAreDone [
 { #category : #tests }
 FBFlowInstanceTest >> testCompleted [
 	| flowInstance |
-	flowInstance := self simpleFlow newInstance.
+	flowInstance := AGFlow simpleFlow newInstance.
 	flowInstance initialValue: 7.
 	flowInstance execute.
 	self assert: flowInstance isComplete.
@@ -25,7 +25,7 @@ FBFlowInstanceTest >> testCompleted [
 { #category : #tests }
 FBFlowInstanceTest >> testCreateFlowInstance [
 	| flowInstance |
-	flowInstance := self simpleFlow newInstance.
+	flowInstance := AGFlow simpleFlow newInstance.
 	self assert: flowInstance pending size equals: 1.
 	self assert: flowInstance pending first class equals: FBStartEvent  
 
@@ -34,7 +34,7 @@ FBFlowInstanceTest >> testCreateFlowInstance [
 { #category : #tests }
 FBFlowInstanceTest >> testFlowAnnouncements [ 
 	| flowInstance events |
-	flowInstance := self simpleFlow newInstance.
+	flowInstance := AGFlow simpleFlow newInstance.
 	flowInstance initialValue: 7. 
 	events := OrderedCollection new.
 	flowInstance announcer 
@@ -46,7 +46,7 @@ FBFlowInstanceTest >> testFlowAnnouncements [
 { #category : #tests }
 FBFlowInstanceTest >> testFlowAnnouncementsWithError [
 	| flowInstance events |
-	flowInstance := self simpleFlowWithError newInstance.
+	flowInstance := AGFlow simpleFlowWithError newInstance.
 	flowInstance initialValue: 7.
 	events := OrderedCollection new.
 	flowInstance announcer 
@@ -59,7 +59,7 @@ FBFlowInstanceTest >> testFlowAnnouncementsWithError [
 { #category : #tests }
 FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
 	| flowInstance events |
-	flowInstance := self simpleFlowWithSystemError newInstance.
+	flowInstance := AGFlow simpleFlowWithSystemError newInstance.
 	flowInstance initialValue: 7.
 	events := OrderedCollection new.
 	flowInstance announcer 
@@ -73,7 +73,7 @@ FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
 { #category : #tests }
 FBFlowInstanceTest >> testListActivationEvents [
 	| flowInstance events |
-	flowInstance := self simpleFlow newInstance.
+	flowInstance := AGFlow simpleFlow newInstance.
 	flowInstance initialValue: 7. 
 	flowInstance execute.
 	events := flowInstance eventsOfActivation: flowInstance activations second.
@@ -83,7 +83,7 @@ FBFlowInstanceTest >> testListActivationEvents [
 { #category : #tests }
 FBFlowInstanceTest >> testListNodeEvents [
 	| flowInstance events node |
-	flowInstance := self simpleFlow newInstance.
+	flowInstance := AGFlow simpleFlow newInstance.
 	flowInstance initialValue: 7. 
 	flowInstance execute.
 	node := flowInstance flow nodes second.
@@ -94,7 +94,7 @@ FBFlowInstanceTest >> testListNodeEvents [
 { #category : #tests }
 FBFlowInstanceTest >> testSimpleWaitCompletion [
 	| instance |
-	instance := self simpleWaitFlow newInstance. 
+	instance := AGFlow simpleWaitFlow newInstance. 
 	instance initialValue: 3.
 	instance execute.
 	self assert: instance isComplete 
@@ -103,7 +103,7 @@ FBFlowInstanceTest >> testSimpleWaitCompletion [
 { #category : #tests }
 FBFlowInstanceTest >> testSimpleWaitSuspension [ 
 	| instance |
-	instance := self simpleWaitFlow newInstance. 
+	instance := AGFlow simpleWaitFlow newInstance. 
 	instance initialValue: 2.
 	instance execute.
 	self deny: instance isComplete 
@@ -112,7 +112,7 @@ FBFlowInstanceTest >> testSimpleWaitSuspension [
 { #category : #tests }
 FBFlowInstanceTest >> testStepping [
 	| flowInstance |
-	flowInstance := self simpleFlow newInstance.
+	flowInstance := AGFlow simpleFlow newInstance.
 	flowInstance initialValue: 7.
 	self assert: flowInstance nextNode class equals: FBStartEvent.
 	flowInstance step.

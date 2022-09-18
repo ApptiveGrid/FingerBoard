@@ -5,7 +5,7 @@ Class {
 		'activation',
 		'properties'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #accessing }

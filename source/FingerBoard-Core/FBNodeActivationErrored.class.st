@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'activationError'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Event'
 }
 
 { #category : #accessing }

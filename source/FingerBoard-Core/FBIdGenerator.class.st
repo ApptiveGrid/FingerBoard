@@ -4,7 +4,7 @@ Class {
 	#classVars : [
 		'current'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Base'
 }
 
 { #category : #accessing }

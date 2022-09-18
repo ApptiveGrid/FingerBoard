@@ -8,7 +8,7 @@ Class {
 		'announcer',
 		'events'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #accessing }

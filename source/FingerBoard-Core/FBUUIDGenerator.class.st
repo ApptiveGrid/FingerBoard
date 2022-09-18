@@ -1,7 +1,7 @@
 Class {
 	#name : #FBUUIDGenerator,
 	#superclass : #FBIdGenerator,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Base'
 }
 
 { #category : #'instance creation' }

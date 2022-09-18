@@ -9,7 +9,7 @@ Class {
 		'initialValue',
 		'state'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #convenience }

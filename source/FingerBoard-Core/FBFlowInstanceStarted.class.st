@@ -1,7 +1,7 @@
 Class {
 	#name : #FBFlowInstanceStarted,
 	#superclass : #FBFlowInstanceEvent,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Event'
 }
 
 { #category : #printing }

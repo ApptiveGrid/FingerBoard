@@ -1,7 +1,7 @@
 Class {
 	#name : #FBStartEvent,
 	#superclass : #FBEvent,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Event'
 }
 
 { #category : #'instance creation' }

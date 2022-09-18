@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'activation'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Behavior'
 }
 
 { #category : #accessing }

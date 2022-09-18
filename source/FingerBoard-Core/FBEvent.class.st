@@ -1,7 +1,7 @@
 Class {
 	#name : #FBEvent,
 	#superclass : #FBNode,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #testing }

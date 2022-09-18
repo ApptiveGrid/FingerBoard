@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'flowInstance'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Event'
 }
 
 { #category : #accessing }

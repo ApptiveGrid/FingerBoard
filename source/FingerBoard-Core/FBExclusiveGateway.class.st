@@ -1,7 +1,7 @@
 Class {
 	#name : #FBExclusiveGateway,
 	#superclass : #FBGateway,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #'instance creation' }

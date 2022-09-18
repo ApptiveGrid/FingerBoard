@@ -1,7 +1,7 @@
 Class {
 	#name : #FBFlowEvent,
 	#superclass : #Object,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Event'
 }
 
 { #category : #testing }

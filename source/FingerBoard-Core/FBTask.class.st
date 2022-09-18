@@ -1,7 +1,7 @@
 Class {
 	#name : #FBTask,
 	#superclass : #FBActivity,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #accessing }

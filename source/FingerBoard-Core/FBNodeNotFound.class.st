@@ -1,5 +1,5 @@
 Class {
 	#name : #FBNodeNotFound,
 	#superclass : #FBError,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Error'
 }

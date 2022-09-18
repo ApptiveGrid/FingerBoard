@@ -1,5 +1,5 @@
 Class {
 	#name : #FBActivity,
 	#superclass : #FBNode,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }

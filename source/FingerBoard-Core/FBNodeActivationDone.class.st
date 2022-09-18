@@ -1,7 +1,7 @@
 Class {
 	#name : #FBNodeActivationDone,
 	#superclass : #FBNodeActivationEvent,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Event'
 }
 
 { #category : #printing }

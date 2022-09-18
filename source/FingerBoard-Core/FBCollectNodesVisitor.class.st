@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'nodes'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Base'
 }
 
 { #category : #accesing }

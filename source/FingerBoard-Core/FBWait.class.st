@@ -1,7 +1,7 @@
 Class {
 	#name : #FBWait,
 	#superclass : #FBNode,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #converting }
