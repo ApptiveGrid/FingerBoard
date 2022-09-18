@@ -231,7 +231,6 @@ FBFlow >> transitionWithId: aString ifAbsent: aBlock [
 FBFlow >> validate [ 
 	(FBTopologicalSorter new 	
 		nodes: nodesMap values;
-		topologicalSort;
 		isAcyclic)
 		ifFalse: [ FBFlowIsCyclic  signal: 'cycle detected'].
 ]

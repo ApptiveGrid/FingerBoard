@@ -16,7 +16,6 @@ FBTopologicalSorter >> hasBeenVisited: aFBNode [
 
 { #category : #testing }
 FBTopologicalSorter >> hasCycle [
-	self topologicalSort.
 	^ self isAcyclic not
 ]
 
@@ -28,6 +27,7 @@ FBTopologicalSorter >> initialize [
 
 { #category : #testing }
 FBTopologicalSorter >> isAcyclic [
+	sorted ifNil: [ self topologicalSort ].
 	^ nodes allSatisfy: [ :node |
 		node outgoing allSatisfy: [ :transition | 
 			(sorted indexOf: transition source) < (sorted indexOf: transition target) ] ]
