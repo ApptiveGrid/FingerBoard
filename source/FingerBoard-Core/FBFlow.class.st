@@ -108,10 +108,10 @@ FBFlow class >> withCycle [
 	
 	start --> one --> two --> three --> four.
 	three --> six.
+	"add cycle"
 	six --> five --> two.
 	one --> seven --> eight.
 	seven --> nine.
-	"add cycle"
 	nine --> five.
 	^ FBFlow new start: start
 ]
