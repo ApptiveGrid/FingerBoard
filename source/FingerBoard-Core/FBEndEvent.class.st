@@ -10,6 +10,11 @@ FBEndEvent class >> typeName [
 	^ #end
 ]
 
+{ #category : #adding }
+FBEndEvent >> addOutgoing: aTransition [ 
+	FBCannotAddTransition signal: 'an end node cannot have outgoing transitions'
+]
+
 { #category : #accessing }
 FBEndEvent >> defaultBehaviorClass [
 	^ FBEndEventBehavior
