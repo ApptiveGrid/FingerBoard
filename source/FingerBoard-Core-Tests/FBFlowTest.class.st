@@ -57,9 +57,18 @@ FBFlowTest >> testExecuteSimpleFlow [
 ]
 
 { #category : #tests }
+FBFlowTest >> testFlowWithCycle [
+	
+	self 
+		should: [ AGFlow withCycle ]
+		raise: FBFlowIsCyclic 
+	
+]
+
+{ #category : #tests }
 FBFlowTest >> testIsCyclic [ 
 	| flow |
-	flow := AGFlow withCycle.
+	flow := AGFlow withCycleForce.
 	self
 		should: [ flow validate ]
 		raise: FBFlowIsCyclic  

@@ -116,6 +116,34 @@ FBFlow class >> withCycle [
 	^ FBFlow new start: start
 ]
 
+{ #category : #'as yet unclassified' }
+FBFlow class >> withCycleForce [
+	<sampleInstance>
+	| start end one two three four five six seven eight nine |
+	start := FBStartEvent new.
+	end := FBEndEvent new.
+	one := FBTask named: 'one'.
+	two := FBTask named: 'two'.
+	three := FBTask named: 'three'.
+	four := FBTask named: 'four'.
+	five := FBTask named: 'five'.
+	six := FBTask named: 'six'.
+	seven := FBTask named: 'seven'.
+	eight := FBTask named: 'eight'.
+	nine := FBTask named: 'nine'.
+	
+	[ start --> one --> two --> three --> four.
+	three --> six.
+	"add cycle"
+	six --> five --> two.
+	one --> seven --> eight.
+	seven --> nine.
+	nine --> five ] 
+		on: FBFlowIsCyclic 
+		do: [:err | err resume ].
+	^ FBFlow new start: start
+]
+
 { #category : #visiting }
 FBFlow >> acceptFingerBoard: aFBVisitor [ 
 	^ aFBVisitor visitFlow: self

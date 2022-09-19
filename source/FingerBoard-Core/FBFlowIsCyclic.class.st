@@ -1,5 +1,5 @@
 Class {
 	#name : #FBFlowIsCyclic,
-	#superclass : #FBError,
+	#superclass : #FBException,
 	#category : #'FingerBoard-Core-Error'
 }
