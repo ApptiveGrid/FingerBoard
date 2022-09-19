@@ -15,6 +15,18 @@ FBStartEvent >> acceptFingerBoard: aFBVisitor [
 	^ aFBVisitor visitStartEvent: self 
 ]
 
+{ #category : #adding }
+FBStartEvent >> addIncoming: aTransition [ 
+	FBCannotAddTransition signal: 'a start node cannot have incming transitions'
+]
+
+{ #category : #adding }
+FBStartEvent >> addOutgoing: aTransition [ 
+	outgoing isEmpty ifFalse: [ 
+		FBCannotAddTransition signal: 'a start node can only have 1 outgoing transition' ].
+	super addOutgoing: aTransition 
+]
+
 { #category : #accessing }
 FBStartEvent >> defaultBehaviorClass [
 	^ FBStartEventBehavior

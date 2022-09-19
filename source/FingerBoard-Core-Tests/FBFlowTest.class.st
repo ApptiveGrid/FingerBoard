@@ -41,6 +41,24 @@ FBFlowTest >> testCreateFlowEarlyStart [
 ]
 
 { #category : #tests }
+FBFlowTest >> testEndNodeManyIncoming [
+	| flow |
+	flow := FBFlow simpleFlow.
+	self 
+		shouldnt: [ flow end addIncomingNode: FBNode new ]
+		raise: FBCannotAddTransition 
+]
+
+{ #category : #tests }
+FBFlowTest >> testEndNodeNoOutgoing [
+	| flow |
+	flow := FBFlow simpleFlow.
+	self 
+		should: [ flow end addOutgoingNode: FBNode new ]
+		raise: FBCannotAddTransition 
+]
+
+{ #category : #tests }
 FBFlowTest >> testExecuteGatewayedFlow [ 
 	| instance |
 	instance := FBFlow gatewayedFlow newInstance.
@@ -127,6 +145,24 @@ FBFlowTest >> testRemoveTransitionWithId [
 	transition detach.
 	t := flow transitionWithId: transition id ifAbsent: nil.
 	self assert: t isNil
+]
+
+{ #category : #tests }
+FBFlowTest >> testStartNodeNoIncoming [
+	| flow |
+	flow := FBFlow simpleFlow.
+	self 
+		should: [ flow start addIncomingNode: FBNode new ]
+		raise: FBCannotAddTransition 
+]
+
+{ #category : #tests }
+FBFlowTest >> testStartNodeOneOutgoing [
+	| flow |
+	flow := FBFlow simpleFlow.
+	self 
+		should: [ flow start addOutgoingNode: FBNode new ]
+		raise: FBCannotAddTransition 
 ]
 
 { #category : #tests }
