@@ -39,17 +39,28 @@ FBNode >> activateWith: anFBActivation [
 
 { #category : #connecting }
 FBNode >> addIncoming: aFBTransition [ 
+	self checkForCycle.
+
 	incoming add: aFBTransition.
 	"nodes can be connected in multiple ways not necessarily early connected
 	to the start node. So we try to propagate the flow whenever there is a 
 	new transition"
 	(flow isNil and: [ aFBTransition source flow notNil ])
 		ifTrue: [ 
-			self flow: aFBTransition source flow ] 
+			self flow: aFBTransition source flow ].
+
+]
+
+{ #category : #connecting }
+FBNode >> addIncomingNode: aFBNode [ 
+	self addIncoming: (FBTransition source: aFBNode target: self).
+	^ aFBNode 
 ]
 
 { #category : #connecting }
 FBNode >> addOutgoing: aFBTransition [ 
+	 self checkForCycle
+
 	outgoing add: aFBTransition.
 	aFBTransition target addIncoming: aFBTransition.
 	"nodes can be connected in multiple ways not necessarily early connected
@@ -58,7 +69,8 @@ FBNode >> addOutgoing: aFBTransition [
 
 	(flow isNil and: [ aFBTransition target flow notNil ])
 		ifTrue: [ 
-			self flow: aFBTransition target flow ] 
+			self flow: aFBTransition target flow ].
+
 ]
 
 { #category : #connecting }
@@ -89,6 +101,36 @@ FBNode >> behaviorClass [
 FBNode >> behaviorClass: anObject [
 
 	behaviorClass := anObject
+]
+
+{ #category : #connecting }
+FBNode >> checkForCycle [ 
+	| nodes |
+	flow 
+		ifNotNil: [self checkForCycle: flow nodes ]
+		ifNil: [ 
+			nodes := Set new.
+			self collectionNeighborsIn: nodes.
+			self checkForCycle: nodes  ].
+
+	
+]
+
+{ #category : #connecting }
+FBNode >> checkForCycle: aCollection [
+	(FBTopologicalSorter new 
+		nodes: aCollection; 
+		hasCycle) 
+			ifTrue: [ FBFlowIsCyclic signal: 'flow contains a cycle' ]
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> collectionNeighborsIn: aCollection [ 
+	(aCollection includes: self) ifTrue: [ ^ self ].
+	aCollection add: self.
+	incoming do: [:each | each source collectionNeighborsIn: aCollection ].
+	outgoing do: [:each | each target collectionNeighborsIn: aCollection ].
+
 ]
 
 { #category : #accessing }

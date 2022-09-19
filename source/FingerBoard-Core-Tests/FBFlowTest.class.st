@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 FBFlowTest >> testAllNodes [ 
 	| flow |
-	flow := AGFlow simpleFlow. 
+	flow := FBFlow simpleFlow. 
 	self assert: flow nodes size equals: 3.
 	self assert: flow end class equals: FBEndEvent 
 ]
@@ -43,7 +43,7 @@ FBFlowTest >> testCreateFlowEarlyStart [
 { #category : #tests }
 FBFlowTest >> testExecuteGatewayedFlow [ 
 	| instance |
-	instance := AGFlow gatewayedFlow newInstance.
+	instance := FBFlow gatewayedFlow newInstance.
 	instance execute.
 	self assert: instance atEnd 
 ]
@@ -51,15 +51,42 @@ FBFlowTest >> testExecuteGatewayedFlow [
 { #category : #tests }
 FBFlowTest >> testExecuteSimpleFlow [ 
 	| instance |
-	instance := AGFlow simpleFlow newInstance.
+	instance := FBFlow simpleFlow newInstance.
 	instance execute.
 	self assert: instance atEnd 
 ]
 
 { #category : #tests }
+FBFlowTest >> testFlowWithCycle [
+	
+	self 
+		should: [ FBFlow withCycle ]
+		raise: FBFlowIsCyclic 
+	
+]
+
+{ #category : #tests }
+FBFlowTest >> testIsCyclic [ 
+	| flow |
+	flow := FBFlow withCycleForce.
+	self
+		should: [ flow validate ]
+		raise: FBFlowIsCyclic  
+]
+
+{ #category : #tests }
+FBFlowTest >> testIsNotCyclic [ 
+	| flow |
+	flow := FBFlow complex.
+	self
+		shouldnt: [ flow validate ]
+		raise: FBFlowIsCyclic  
+]
+
+{ #category : #tests }
 FBFlowTest >> testNodeWithId [
 	| flow id |
-	flow := AGFlow simpleFlow.
+	flow := FBFlow simpleFlow.
 	id := flow start id.
 	self assert: (flow nodeWithId: id) equals: flow start
 ]
@@ -67,7 +94,7 @@ FBFlowTest >> testNodeWithId [
 { #category : #tests }
 FBFlowTest >> testNodeWithIdError [
 	| flow |
-	flow := AGFlow simpleFlow.
+	flow := FBFlow simpleFlow.
 	self 
 		should: [ flow nodeWithId: #bogus ]
 		raise: FBNodeNotFound 
@@ -76,7 +103,7 @@ FBFlowTest >> testNodeWithIdError [
 { #category : #tests }
 FBFlowTest >> testRemoveNode [
 	| flow intermediate |
-	flow := AGFlow simpleFlow.
+	flow := FBFlow simpleFlow.
 	intermediate := flow start outgoing first target.
 	intermediate remove.
 	self assert: flow nodes size equals: 2
@@ -85,7 +112,7 @@ FBFlowTest >> testRemoveNode [
 { #category : #tests }
 FBFlowTest >> testRemoveNodeFlow [
 	| flow intermediate |
-	flow := AGFlow simpleFlow.
+	flow := FBFlow simpleFlow.
 	intermediate := flow start outgoing first target.
 	flow removeNode: intermediate.
 	self assert: flow nodes size equals: 2
@@ -94,7 +121,7 @@ FBFlowTest >> testRemoveNodeFlow [
 { #category : #tests }
 FBFlowTest >> testRemoveTransitionWithId [
 	| flow transition t |
-	flow := AGFlow simpleFlow.
+	flow := FBFlow simpleFlow.
 	transition := flow start outgoing first.
 	self assert: (flow transitionWithId: transition id) equals: transition.
 	transition detach.
@@ -105,7 +132,7 @@ FBFlowTest >> testRemoveTransitionWithId [
 { #category : #tests }
 FBFlowTest >> testTransitionWithId [
 	| flow transition |
-	flow := AGFlow simpleFlow.
+	flow := FBFlow simpleFlow.
 	transition := flow start outgoing first.
 	self assert: (flow transitionWithId: transition id) equals: transition
 ]
