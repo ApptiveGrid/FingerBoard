@@ -27,3 +27,9 @@ FBPropertySchema >> initialize [
 FBPropertySchema >> keys [
 	^ properties keys
 ]
+
+{ #category : #accessing }
+FBPropertySchema >> keysAndValuesDo: aBlock [
+
+	properties keysAndValuesDo: aBlock
+]

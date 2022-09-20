@@ -256,14 +256,20 @@ FBNode >> propagateFlow [
 			each target propagateFlow ] ]
 ]
 
+{ #category : #accessing }
+FBNode >> properties [
+	^ properties ifNil: [ 
+		properties := FBProperties new ]
+]
+
 { #category : #properties }
 FBNode >> propertyAt: aString [ 
-	^ self props at: aString
+	^ self properties at: aString ifAbsent: [ nil ]
 ]
 
 { #category : #properties }
 FBNode >> propertyAt: key put: aValue [ 
-	self props 
+	self properties 
 		at: key 
 		put: ((self propertySchemaAt: key) read: aValue)
 ]
@@ -283,12 +289,6 @@ FBNode >> propertySchemaAt: aString put: aType [
 	^ self propertySchema 
 		at: aString
 		put: aType
-]
-
-{ #category : #accessing }
-FBNode >> props [
-	^ properties ifNil: [ 
-		properties := FBProperties new ]
 ]
 
 { #category : #removing }
