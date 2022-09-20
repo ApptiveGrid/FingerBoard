@@ -7,6 +7,11 @@ Class {
 	#category : #'FingerBoard-Core-Behavior'
 }
 
+{ #category : #'as yet unclassified' }
+FBNodeBehavior class >> propertySchema [
+	^ FBPropertySchema new
+]
+
 { #category : #accessing }
 FBNodeBehavior >> activation [
 
