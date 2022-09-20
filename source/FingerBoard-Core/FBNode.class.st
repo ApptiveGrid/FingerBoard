@@ -7,7 +7,8 @@ Class {
 		'flow',
 		'incoming',
 		'outgoing',
-		'behaviorClass'
+		'behaviorClass',
+		'properties'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
@@ -253,6 +254,41 @@ FBNode >> propagateFlow [
 		each target flow isNil ifTrue: [
 			each target flow: flow.
 			each target propagateFlow ] ]
+]
+
+{ #category : #properties }
+FBNode >> propertyAt: aString [ 
+	^ self props at: aString
+]
+
+{ #category : #properties }
+FBNode >> propertyAt: key put: aValue [ 
+	self props 
+		at: key 
+		put: ((self propertySchemaAt: key) read: aValue)
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> propertySchema [
+	^ self behaviorClass propertySchema
+]
+
+{ #category : #accessing }
+FBNode >> propertySchemaAt: aString [ 
+	^ self propertySchema at: aString
+]
+
+{ #category : #accessing }
+FBNode >> propertySchemaAt: aString put: aType [
+	^ self propertySchema 
+		at: aString
+		put: aType
+]
+
+{ #category : #accessing }
+FBNode >> props [
+	^ properties ifNil: [ 
+		properties := FBProperties new ]
 ]
 
 { #category : #removing }
