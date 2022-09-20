@@ -56,7 +56,22 @@ FBActivation >> done [
 { #category : #accessing }
 FBActivation >> environment [
 	^ environment ifNil: [ 
-		environment := FBEnvironment new activation: self ]
+		environment := FBEnvironment new 
+			schema: self environmentSchema;
+			activation: self;
+			yourself ]
+]
+
+{ #category : #accessing }
+FBActivation >> environmentAt: aString [ 
+	^ self environment at: aString
+]
+
+{ #category : #accessing }
+FBActivation >> environmentAt: key ifAbsent: aBlock [
+	^ self environment 
+		at: key 
+		ifAbsent: aBlock
 ]
 
 { #category : #accessing }
@@ -64,6 +79,11 @@ FBActivation >> environmentAt: key put: anObject [
 	self environment  
 		at: key 
 		put: anObject
+]
+
+{ #category : #accessing }
+FBActivation >> environmentSchema [
+	^ node environmentSchema
 ]
 
 { #category : #'as yet unclassified' }
