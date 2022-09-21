@@ -32,7 +32,8 @@ FBNode >> --> aNode [
 ]
 
 { #category : #'instance creation' }
-FBNode >> activateWith: anFBActivation [ 
+FBNode >> activateWith: anFBActivation [
+	anFBActivation node: self. 
 	^ self behaviorClass new
 		activation: anFBActivation;
 		execute	
@@ -143,6 +144,11 @@ FBNode >> defaultBehaviorClass [
 FBNode >> detach [
 	incoming copy do: #detach.
 	outgoing copy do: #detach.
+]
+
+{ #category : #accessing }
+FBNode >> environmentSchema [
+	^ self behaviorClass environmentSchema
 ]
 
 { #category : #'as yet unclassified' }
@@ -265,7 +271,7 @@ FBNode >> propertyAt: aString [
 FBNode >> propertyAt: key put: aValue [ 
 	self props 
 		at: key 
-		put: ((self propertySchemaAt: key) read: aValue)
+		put: aValue
 ]
 
 { #category : #'as yet unclassified' }
@@ -288,7 +294,9 @@ FBNode >> propertySchemaAt: aString put: aType [
 { #category : #accessing }
 FBNode >> props [
 	^ properties ifNil: [ 
-		properties := FBProperties new ]
+		properties := FBProperties new
+			schema: self propertySchema;
+			yourself ]
 ]
 
 { #category : #removing }
