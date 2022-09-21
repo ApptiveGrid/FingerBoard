@@ -325,7 +325,7 @@ FBNode >> value [
 
 { #category : #'as yet unclassified' }
 FBNode >> when: aBlock [ 
-	^ FBConditionalTransition new 
+	^ FBTransition new 
 		target: self;
 		condition: aBlock
 ]

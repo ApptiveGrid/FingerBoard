@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'id',
 		'source',
-		'target'
+		'target',
+		'condition'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
@@ -31,6 +32,17 @@ FBTransition >> addTo: aFBNode [
 	source := aFBNode.
 	aFBNode addOutgoing: self.
 	^ target
+]
+
+{ #category : #accessing }
+FBTransition >> condition [
+	^ condition
+]
+
+{ #category : #accessing }
+FBTransition >> condition: anObject [
+
+	condition := anObject
 ]
 
 { #category : #'as yet unclassified' }

@@ -12,6 +12,6 @@ FBGateway class >> isAbstract [
 
 { #category : #adding }
 FBGateway >> addOutgoingNode: aFBNode withCondition: aCondition [
-	^ self addOutgoing: ((FBConditionalTransition source: self target: aFBNode) 
+	^ self addOutgoing: ((FBTransition source: self target: aFBNode) 
 		condition: aCondition).
 ]
