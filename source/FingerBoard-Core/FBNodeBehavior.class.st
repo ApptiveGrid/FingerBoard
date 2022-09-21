@@ -7,6 +7,11 @@ Class {
 	#category : #'FingerBoard-Core-Behavior'
 }
 
+{ #category : #accessing }
+FBNodeBehavior class >> environmentSchema [
+	^ FBPropertySchema new
+]
+
 { #category : #'as yet unclassified' }
 FBNodeBehavior class >> propertySchema [
 	^ FBPropertySchema new
@@ -27,6 +32,21 @@ FBNodeBehavior >> activation: anObject [
 { #category : #accessing }
 FBNodeBehavior >> argument [
 	^ activation argument
+]
+
+{ #category : #accessing }
+FBNodeBehavior >> environment [
+	^ activation environment
+]
+
+{ #category : #accessing }
+FBNodeBehavior >> environmentSchema [
+	^ activation environmentSchema
+]
+
+{ #category : #execution }
+FBNodeBehavior >> execute [ 
+	self subclassResponsibility 
 ]
 
 { #category : #finalization }

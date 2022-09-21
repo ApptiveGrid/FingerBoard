@@ -2,7 +2,8 @@ Class {
 	#name : #FBProperties,
 	#superclass : #Object,
 	#instVars : [
-		'dictionary'
+		'dictionary',
+		'schema'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
@@ -14,6 +15,7 @@ FBProperties >> at: key [
 
 { #category : #accessing }
 FBProperties >> at: key ifAbsent: aBlock [
+
 	^ dictionary at: key ifAbsent: aBlock
 ]
 
@@ -21,11 +23,31 @@ FBProperties >> at: key ifAbsent: aBlock [
 FBProperties >> at: key put: anObject [
 	dictionary 
 		at: key
-		put: anObject 
+		put: (schema 
+			ifNotNil: [ (schema at: key) read: anObject ]
+			ifNil: [ anObject ])
 ]
 
 { #category : #initialization }
 FBProperties >> initialize [ 
 	super initialize.
 	dictionary := OrderedDictionary new.
+]
+
+{ #category : #printing }
+FBProperties >> printOn: aStream [ 
+	aStream << 'properties: '.
+	dictionary printOn: aStream
+]
+
+{ #category : #accessing }
+FBProperties >> schema [
+
+	^ schema
+]
+
+{ #category : #accessing }
+FBProperties >> schema: anObject [
+
+	schema := anObject
 ]
