@@ -15,8 +15,8 @@ FBProperties >> at: key [
 
 { #category : #accessing }
 FBProperties >> at: key ifAbsent: aBlock [
-	^ dictionary 
-		at: key ifAbsent: aBlock
+
+	^ dictionary at: key ifAbsent: aBlock
 ]
 
 { #category : #accessing }
