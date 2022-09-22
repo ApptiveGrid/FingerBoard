@@ -17,13 +17,15 @@ FBFlowInstance >> activationClass [
 ]
 
 { #category : #accessing }
-FBFlowInstance >> activations [
-	^ self executor activations
+FBFlowInstance >> activationOfNode: aFBNode [
+	^ self activations 
+		detect: [ :each | each node = aFBNode ]
+		ifNone: [ Error signal: 'no activation found for node' ]
 ]
 
 { #category : #accessing }
-FBFlowInstance >> activationsOfNode: aFBNode [
-	^ self activations select: [ :each | each node = aFBNode ]
+FBFlowInstance >> activations [
+	^ self executor activations
 ]
 
 { #category : #events }
@@ -61,7 +63,7 @@ FBFlowInstance >> eventsOfActivation: aFBActivation [
 
 { #category : #events }
 FBFlowInstance >> eventsOfNode: aFBNode [
-	^ (self activationsOfNode: aFBNode) flatCollect: [ :each | each events ]
+	^ (self activationOfNode: aFBNode) flatCollect: [ :each | each events ]
 ]
 
 { #category : #executing }

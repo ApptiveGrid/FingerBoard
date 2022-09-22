@@ -107,6 +107,11 @@ FBActivation >> executor: aFBFlowExecutor [
 	executor := aFBFlowExecutor 
 ]
 
+{ #category : #accessing }
+FBActivation >> flow [
+	^ executor flow
+]
+
 { #category : #events }
 FBActivation >> flowInstance [
 	^ executor flowInstance 

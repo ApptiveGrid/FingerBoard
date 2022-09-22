@@ -66,6 +66,11 @@ FBFlowExecutor >> firstPending [
 ]
 
 { #category : #accessing }
+FBFlowExecutor >> flow [
+	^ flowInstance flow
+]
+
+{ #category : #accessing }
 FBFlowExecutor >> flowInstance [
 
 	^ flowInstance
