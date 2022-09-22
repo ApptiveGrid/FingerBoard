@@ -63,7 +63,7 @@ FBFlowInstance >> eventsOfActivation: aFBActivation [
 
 { #category : #events }
 FBFlowInstance >> eventsOfNode: aFBNode [
-	^ (self activationOfNode: aFBNode) flatCollect: [ :each | each events ]
+	^ (self activationOfNode: aFBNode) ifNotNil: [ :activation | activation events ]
 ]
 
 { #category : #executing }
