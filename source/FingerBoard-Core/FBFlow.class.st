@@ -215,6 +215,13 @@ FBFlow >> nodeWithId: aString ifAbsent: aBlock [
 ]
 
 { #category : #accessing }
+FBFlow >> nodeWithName: aString [ 
+	^ nodesMap values 
+		detect: [ :each | each name = aString ]
+		ifNone: [ nil ]
+]
+
+{ #category : #accessing }
 FBFlow >> nodes [
 	^ nodesMap values
 ]
