@@ -11,6 +11,32 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
+{ #category : #convenience }
+FBFlowInstance >> activate: anActivation [ 
+	self addEvent: FBNodeActivationStarted new.
+	self activateWithErrorHandling: anActivation 
+]
+
+{ #category : #convenience }
+FBFlowInstance >> activateWithErrorHandling: anActivation [
+	[ [ 
+		anActivation activate.
+	  	self addEvent: FBNodeActivationDone new ]
+		on: FBError  
+		do: [ :error |
+			self activation: anActivation error: error ] ]
+		on: Error 
+		do: [ :error | 
+			self activation: anActivation error: error.
+			error pass ]
+]
+
+{ #category : #convenience }
+FBFlowInstance >> activation: anActivation error: error [
+	anActivation errored.
+	self addEvent: (FBNodeActivationErrored new activationError: error description) 
+]
+
 { #category : #accessing }
 FBFlowInstance >> activationClass [
 	^ flow activationClass

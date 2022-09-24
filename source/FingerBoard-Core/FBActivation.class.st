@@ -16,21 +16,7 @@ Class {
 
 { #category : #activation }
 FBActivation >> activate [ 
-	self addEvent: FBNodeActivationStarted new.
-	[ [  node activateWith: self.
-	  self addEvent: FBNodeActivationDone new ]
-		on: FBError  
-		do: [ :error |
-			self 
-				errored;
-				addEvent: (FBNodeActivationErrored new activationError: error description) ] ]
-		on: Error 
-		do: [ :error | 
-			self 
-				errored;
-				addEvent: (FBNodeActivationErrored new activationError: error description).
-			error pass ]
-	
+	node activateWith: self
 ]
 
 { #category : #events }

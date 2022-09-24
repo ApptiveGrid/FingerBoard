@@ -14,7 +14,7 @@ Class {
 
 { #category : #convenience }
 FBFlowExecutor >> activate: activation [ 
-	activation activate
+	flowInstance activate: activation 
 ]
 
 { #category : #'as yet unclassified' }
