@@ -24,7 +24,11 @@ FBProperties >> at: key put: anObject [
 	dictionary 
 		at: key
 		put: (schema 
-			ifNotNil: [ (schema at: key) read: anObject ]
+			ifNotNil: [ 
+				schema 
+					at: key
+					ifPresent: [:s| s read: anObject ]
+					ifAbsent: [ anObject ] ]
 			ifNil: [ anObject ])
 ]
 
