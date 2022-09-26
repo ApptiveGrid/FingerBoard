@@ -127,18 +127,23 @@ FBActivation >> flowInstance [
 { #category : #'as yet unclassified' }
 FBActivation >> followAll: aCollection [
 	aCollection do: [ :transition |
-		 executor addPending: transition ]
+		 self followTransition: transition ]
 ]
 
 { #category : #'as yet unclassified' }
 FBActivation >> followAllOutgoing [
 	self node outgoing do: [ :transition |
-		 executor addPending: transition ]
+		 self followTransition: transition ]
 ]
 
 { #category : #'as yet unclassified' }
-FBActivation >> followTransition: aTransition [
-	executor addPending: aTransition
+FBActivation >> followTransition: transition [
+self halt.
+	transition asApptiveScriptScope 
+		activation: self;
+		useDuring: [ 
+		transition matchesCondition ifTrue: [  
+			executor addPending: transition ] ]
 ]
 
 { #category : #accessing }

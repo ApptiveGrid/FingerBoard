@@ -55,7 +55,7 @@ FBNode >> addIncoming: aFBTransition [
 
 { #category : #connecting }
 FBNode >> addIncomingNode: aFBNode [ 
-	self addIncoming: (FBTransition source: aFBNode target: self).
+	self addIncoming: (self transitionClass source: aFBNode target: self).
 	^ aFBNode 
 ]
 
@@ -77,7 +77,7 @@ FBNode >> addOutgoing: aFBTransition [
 
 { #category : #connecting }
 FBNode >> addOutgoingNode: aFBNode [ 
-	self addOutgoing: (FBTransition source: self target: aFBNode).
+	self addOutgoing: (self transitionClass source: self target: aFBNode).
 	^ aFBNode 
 ]
 
@@ -318,6 +318,11 @@ FBNode >> setFlow: aFlow [
 	flow := aFlow
 ]
 
+{ #category : #connecting }
+FBNode >> transitionClass [
+	^ FBFlow transitionClass
+]
+
 { #category : #accessing }
 FBNode >> value [ 
 	^ nil
@@ -325,7 +330,7 @@ FBNode >> value [
 
 { #category : #'as yet unclassified' }
 FBNode >> when: aBlock [ 
-	^ FBTransition new 
+	^ self transitionClass new 
 		target: self;
 		condition: aBlock
 ]

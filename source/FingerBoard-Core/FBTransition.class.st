@@ -36,13 +36,13 @@ FBTransition >> addTo: aFBNode [
 
 { #category : #accessing }
 FBTransition >> condition [
-	^ condition
+	^ condition 
 ]
 
 { #category : #accessing }
 FBTransition >> condition: anObject [
 
-	condition := anObject
+	condition := anObject 
 ]
 
 { #category : #'as yet unclassified' }
