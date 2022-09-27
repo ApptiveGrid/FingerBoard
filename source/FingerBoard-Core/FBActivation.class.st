@@ -137,13 +137,9 @@ FBActivation >> followAllOutgoing [
 ]
 
 { #category : #'as yet unclassified' }
-FBActivation >> followTransition: transition [
-self halt.
-	transition asApptiveScriptScope 
-		activation: self;
-		useDuring: [ 
-		transition matchesCondition ifTrue: [  
-			executor addPending: transition ] ]
+FBActivation >> followTransition: aTransition [
+	aTransition matchesCondition ifTrue: [  
+		executor addPending: aTransition ]
 ]
 
 { #category : #accessing }

@@ -51,6 +51,16 @@ FBTransition >> detach [
 	target removeIncoming: self.
 ]
 
+{ #category : #testing }
+FBTransition >> evaluateCondition [
+	^ condition value: source 
+]
+
+{ #category : #testing }
+FBTransition >> hasCondition [
+	^ condition notNil
+]
+
 { #category : #accessing }
 FBTransition >> id [
 
@@ -61,6 +71,12 @@ FBTransition >> id [
 FBTransition >> initialize [ 
 	super initialize.
 	id := FBIdGenerator current newId
+]
+
+{ #category : #testing }
+FBTransition >> matchesCondition [ 
+	condition ifNil: [ ^ true ].
+	^ self evaluateCondition
 ]
 
 { #category : #printing }
