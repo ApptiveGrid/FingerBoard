@@ -6,8 +6,24 @@ Class {
 		'start',
 		'nodesMap'
 	],
+	#classInstVars : [
+		'activationClass',
+		'transitionClass'
+	],
 	#category : #'FingerBoard-Core-Model'
 }
+
+{ #category : #accessing }
+FBFlow class >> activationClass [ 
+	^ activationClass ifNil: [
+		activationClass := self defaultActivationClass ]
+]
+
+{ #category : #accessing }
+FBFlow class >> activationClass: anObject [
+
+	activationClass := anObject
+]
 
 { #category : #'as yet unclassified' }
 FBFlow class >> complex [
@@ -31,6 +47,16 @@ FBFlow class >> complex [
 	one --> seven --> eight.
 	seven --> nine.
 	^ FBFlow new start: start
+]
+
+{ #category : #accessing }
+FBFlow class >> defaultActivationClass [
+	^ FBActivation 
+]
+
+{ #category : #accessing }
+FBFlow class >> defaultTransitionClass [
+	^ FBTransition 
 ]
 
 { #category : #tests }
@@ -88,6 +114,18 @@ FBFlow class >> simpleWaitFlow [
 	wait := FBPluggableWait new condition: [ :x | x odd ].
 	start --> wait --> end.
 	^ FBFlow new start: start
+]
+
+{ #category : #accessing }
+FBFlow class >> transitionClass [ 
+	^ transitionClass ifNil: [
+		transitionClass := self defaultTransitionClass ]
+]
+
+{ #category : #accessing }
+FBFlow class >> transitionClass: anObject [
+
+	transitionClass := anObject
 ]
 
 { #category : #'as yet unclassified' }
@@ -151,7 +189,7 @@ FBFlow >> acceptFingerBoard: aFBVisitor [
 
 { #category : #accessing }
 FBFlow >> activationClass [ 
-	^ FBActivation 
+	^ self class activationClass
 ]
 
 { #category : #adding }
@@ -244,6 +282,11 @@ FBFlow >> start [
 FBFlow >> start: aFBStartEvent [ 
 	aFBStartEvent flow: self.
 	start := aFBStartEvent 
+]
+
+{ #category : #accessing }
+FBFlow >> transitionClass [ 
+	^ self class transitionClass 
 ]
 
 { #category : #querying }

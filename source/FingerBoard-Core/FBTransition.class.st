@@ -36,19 +36,30 @@ FBTransition >> addTo: aFBNode [
 
 { #category : #accessing }
 FBTransition >> condition [
-	^ condition
+	^ condition 
 ]
 
 { #category : #accessing }
 FBTransition >> condition: anObject [
 
-	condition := anObject
+	condition := anObject 
+]
+
+{ #category : #testing }
+FBTransition >> conditionMatches: anObject [
+	condition ifNil: [ ^ true ].
+	^ condition value: anObject 
 ]
 
 { #category : #'as yet unclassified' }
 FBTransition >> detach [ 
 	source removeOutgoing: self.
 	target removeIncoming: self.
+]
+
+{ #category : #testing }
+FBTransition >> hasCondition [
+	^ condition notNil
 ]
 
 { #category : #accessing }
