@@ -138,7 +138,7 @@ FBActivation >> followAllOutgoing [
 
 { #category : #'as yet unclassified' }
 FBActivation >> followTransition: aTransition [
-	aTransition matchesCondition ifTrue: [  
+	(aTransition conditionMatches: self value) ifTrue: [  
 		executor addPending: aTransition ]
 ]
 

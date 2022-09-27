@@ -45,15 +45,16 @@ FBTransition >> condition: anObject [
 	condition := anObject 
 ]
 
+{ #category : #testing }
+FBTransition >> conditionMatches: anObject [
+	condition ifNil: [ ^ true ].
+	^ condition value: anObject 
+]
+
 { #category : #'as yet unclassified' }
 FBTransition >> detach [ 
 	source removeOutgoing: self.
 	target removeIncoming: self.
-]
-
-{ #category : #testing }
-FBTransition >> evaluateCondition [
-	^ condition value: source 
 ]
 
 { #category : #testing }
@@ -71,12 +72,6 @@ FBTransition >> id [
 FBTransition >> initialize [ 
 	super initialize.
 	id := FBIdGenerator current newId
-]
-
-{ #category : #testing }
-FBTransition >> matchesCondition [ 
-	condition ifNil: [ ^ true ].
-	^ self evaluateCondition
 ]
 
 { #category : #printing }
