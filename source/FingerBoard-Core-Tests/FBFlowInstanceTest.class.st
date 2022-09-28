@@ -93,7 +93,6 @@ FBFlowInstanceTest >> testInstanceStateError [
 	flowInstance := FBFlow simpleFlowWithError newInstance.
 	flowInstance initialValue: 7.
 	flowInstance step; step.
-	self halt.
 	self assert: flowInstance state equals: #error
 ]
 
