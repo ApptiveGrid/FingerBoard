@@ -135,8 +135,8 @@ FBFlowInstance >> inspectionFlow [
 ]
 
 { #category : #testing }
-FBFlowInstance >> isComplete [ 
-	^ executor isComplete
+FBFlowInstance >> isDone [
+	^ executor isDone
 ]
 
 { #category : #accessing }
@@ -162,6 +162,16 @@ FBFlowInstance >> printOn: aStream [
 { #category : #accessing }
 FBFlowInstance >> start [
 	^ flow start
+]
+
+{ #category : #accessing }
+FBFlowInstance >> state [
+	self executor isCreated ifTrue: [ ^ #created ].
+	self executor isRunning ifTrue: [ ^ #running ].
+	self executor hasErrors ifTrue: [ ^ #error ].
+	self executor isWaiting ifTrue: [ ^ #waiting ].
+	self executor isDone ifTrue: [ ^ #done ].
+
 ]
 
 { #category : #executing }

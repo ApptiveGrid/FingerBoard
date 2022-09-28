@@ -9,7 +9,7 @@ FBFlowInstanceTest >> testActivationsAreDone [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.
 	flowInstance initialValue: nil.
-	self assert: (flowInstance activations allSatisfy: [ :each | each state = #done ])
+	self assert: (flowInstance activations allSatisfy: [ :each | each state = #isDone ])
 ]
 
 { #category : #tests }
@@ -18,7 +18,7 @@ FBFlowInstanceTest >> testCompleted [
 	flowInstance := FBFlow simpleFlow newInstance.
 	flowInstance initialValue: 7.
 	flowInstance execute.
-	self assert: flowInstance isComplete.
+	self assert: flowInstance isDone.
 	self assert: flowInstance atEnd equals: true
 ]
 
@@ -71,6 +71,50 @@ FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
 ]
 
 { #category : #tests }
+FBFlowInstanceTest >> testInstanceStateCreated [
+	| flowInstance |
+	flowInstance := FBFlow simpleFlow newInstance.
+	flowInstance initialValue: 7.
+	self assert: flowInstance state equals: #created
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testInstanceStateDone [
+	| flowInstance |
+	flowInstance := FBFlow simpleFlow newInstance.
+	flowInstance initialValue: 7.
+	flowInstance execute.
+	self assert: flowInstance state equals: #done
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testInstanceStateError [
+	| flowInstance |
+	flowInstance := FBFlow simpleFlowWithError newInstance.
+	flowInstance initialValue: 7.
+	flowInstance step; step.
+	self assert: flowInstance state equals: #error
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testInstanceStateRunning [
+	| flowInstance |
+	flowInstance := FBFlow simpleFlow newInstance.
+	flowInstance initialValue: 7.
+	flowInstance step.
+	self assert: flowInstance state equals: #running
+]
+
+{ #category : #tests }
+FBFlowInstanceTest >> testInstanceStateWaiting [
+	| flowInstance |
+	flowInstance := FBFlow simpleWaitFlow newInstance.
+	flowInstance initialValue: 6.
+	flowInstance step; step.
+	self assert: flowInstance state equals: #waiting
+]
+
+{ #category : #tests }
 FBFlowInstanceTest >> testListActivationEvents [
 	| flowInstance events |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -97,7 +141,7 @@ FBFlowInstanceTest >> testSimpleWaitCompletion [
 	instance := FBFlow simpleWaitFlow newInstance. 
 	instance initialValue: 3.
 	instance execute.
-	self assert: instance isComplete 
+	self assert: instance isDone
 ]
 
 { #category : #tests }
@@ -106,7 +150,7 @@ FBFlowInstanceTest >> testSimpleWaitSuspension [
 	instance := FBFlow simpleWaitFlow newInstance. 
 	instance initialValue: 2.
 	instance execute.
-	self deny: instance isComplete 
+	self deny: instance isDone
 ]
 
 { #category : #tests }
@@ -120,6 +164,6 @@ FBFlowInstanceTest >> testStepping [
 	flowInstance step.
 	self assert: flowInstance nextNode class equals: FBEndEvent.
 	flowInstance step.
-	self assert: flowInstance isComplete.
+	self assert: flowInstance isDone.
 	self assert: flowInstance atEnd equals: true
 ]
