@@ -55,6 +55,11 @@ FBActivation >> argument: anObject [
 	argument := anObject 
 ]
 
+{ #category : #'as yet unclassified' }
+FBActivation >> done [
+	state := #done
+]
+
 { #category : #accessing }
 FBActivation >> environment [
 	^ environment ifNil: [ 
@@ -153,7 +158,7 @@ FBActivation >> initialize [
 	super initialize.
 	id := FBIdGenerator current newId.
 	timestamp := DateAndTime now.
-	state := #initialized
+	state := #created
 ]
 
 { #category : #accessing }
@@ -163,7 +168,7 @@ FBActivation >> instance [
 
 { #category : #'as yet unclassified' }
 FBActivation >> isDone [
-	state := #isDone
+	^ state = #done
 ]
 
 { #category : #accessing }
@@ -206,21 +211,21 @@ FBActivation >> state [
 FBActivation >> stateBorder [
 	| map border |
 	map := { 
-		#initialized -> Color green.
-		#executing -> Color yellow.
-		#suspended -> Color red.
-		#isDone -> Color blue } asDictionary.
+		#created -> Color green.
+		#running -> Color yellow.
+		#waiting -> Color red.
+		#done -> Color blue } asDictionary.
 	border := RSBorder new 
 		width: 2; 
 		color: ((map at: state)  alpha: 0.8).
-	(state = #suspended) ifTrue: [ border dashArray: #( 2 ) ].
+	(state = #waiting) ifTrue: [ border dashArray: #( 2 ) ].
 	^ border
 		
 ]
 
 { #category : #'as yet unclassified' }
 FBActivation >> suspend [
-	state := #suspended.
+	state := #waiting.
 	executor addWaiting: node
 ]
 
@@ -238,6 +243,6 @@ FBActivation >> value: anObject [
 
 { #category : #'as yet unclassified' }
 FBActivation >> waitForNode: aNode [
-	state := #suspended.
+	state := #waiting.
 	executor addWaiting: aNode
 ]
