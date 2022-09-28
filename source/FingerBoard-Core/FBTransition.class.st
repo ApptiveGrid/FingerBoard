@@ -34,6 +34,12 @@ FBTransition >> addTo: aFBNode [
 	^ target
 ]
 
+{ #category : #'as yet unclassified' }
+FBTransition >> attach [ 
+	source addOutgoing: self.
+	target addIncoming: self.
+]
+
 { #category : #accessing }
 FBTransition >> condition [
 	^ condition 

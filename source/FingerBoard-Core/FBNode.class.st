@@ -41,8 +41,9 @@ FBNode >> activateWith: anFBActivation [
 
 { #category : #connecting }
 FBNode >> addIncoming: aFBTransition [ 
-	self checkForCycle.
+	(incoming includes: aFBTransition) ifTrue: [ ^ self ]. 
 
+	self checkForCycle.
 	incoming add: aFBTransition.
 	"nodes can be connected in multiple ways not necessarily early connected
 	to the start node. So we try to propagate the flow whenever there is a 
@@ -61,8 +62,9 @@ FBNode >> addIncomingNode: aFBNode [
 
 { #category : #connecting }
 FBNode >> addOutgoing: aFBTransition [ 
-	 self checkForCycle
-
+	(outgoing includes: aFBTransition) ifTrue: [ ^ self ]. 
+	
+	self checkForCycle
 	outgoing add: aFBTransition.
 	aFBTransition target addIncoming: aFBTransition.
 	"nodes can be connected in multiple ways not necessarily early connected

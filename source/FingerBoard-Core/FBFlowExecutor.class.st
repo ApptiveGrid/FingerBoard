@@ -45,12 +45,7 @@ FBFlowExecutor >> addWaiting: aNode [
 
 { #category : #accessing }
 FBFlowExecutor >> atEnd [
-	^ state = #completed
-]
-
-{ #category : #adding }
-FBFlowExecutor >> completed [
-	state := #completed
+	^ self isDone 
 ]
 
 { #category : #executing }
@@ -82,6 +77,11 @@ FBFlowExecutor >> flowInstance: aFBFlowInstance [
 	pending add: flowInstance start
 ]
 
+{ #category : #testing }
+FBFlowExecutor >> hasErrors [
+	^ activations anySatisfy: [ :each | each hasError ]
+]
+
 { #category : #accessing }
 FBFlowExecutor >> initialValue [
 	^ initialValue
@@ -97,13 +97,27 @@ FBFlowExecutor >> initialize [
 	super initialize.
 	activations := OrderedCollection new.
 	pending := OrderedCollection new.
-	suspended := OrderedCollection new.
-	state := #initialized
+	suspended := OrderedCollection new
 ]
 
 { #category : #testing }
-FBFlowExecutor >> isComplete [ 
-	^ state = #completed
+FBFlowExecutor >> isCreated [ 
+	^ (pending size = 1) and: [ pending first = flowInstance start ]
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> isDone [
+	^ pending isEmpty & suspended isEmpty
+]
+
+{ #category : #testing }
+FBFlowExecutor >> isRunning [
+	^ pending notEmpty
+]
+
+{ #category : #testing }
+FBFlowExecutor >> isWaiting [
+	^ pending isEmpty & suspended notEmpty
 ]
 
 { #category : #accessing }
@@ -123,25 +137,11 @@ FBFlowExecutor >> pending [
 	^ pending
 ]
 
-{ #category : #accessing }
-FBFlowExecutor >> state [
-
-	^ state
-]
-
-{ #category : #accessing }
-FBFlowExecutor >> state: anObject [
-
-	state := anObject
-]
-
 { #category : #executing }
 FBFlowExecutor >> step [
 	| transition activation lastValue |
-	(state = #initialized) 
-		ifTrue: [ 
-			flowInstance addEvent: FBFlowInstanceStarted new.
-			state := #running ].
+	self isCreated ifTrue: [ 
+		flowInstance addEvent: FBFlowInstanceStarted new ].
 	transition := pending removeFirst. 
 	lastValue := transition source lastValueIn: self.
 	flowInstance addEvent: (FBTransitionFollowed new transition: transition; value: lastValue).

@@ -55,11 +55,6 @@ FBActivation >> argument: anObject [
 	argument := anObject 
 ]
 
-{ #category : #'as yet unclassified' }
-FBActivation >> done [
-	state := #done
-]
-
 { #category : #accessing }
 FBActivation >> environment [
 	^ environment ifNil: [ 
@@ -142,6 +137,11 @@ FBActivation >> followTransition: aTransition [
 		executor addPending: aTransition ]
 ]
 
+{ #category : #testing }
+FBActivation >> hasError [
+	^ state = #error
+]
+
 { #category : #accessing }
 FBActivation >> id [
 
@@ -159,6 +159,11 @@ FBActivation >> initialize [
 { #category : #accessing }
 FBActivation >> instance [
 	^ executor flowInstance
+]
+
+{ #category : #'as yet unclassified' }
+FBActivation >> isDone [
+	state := #isDone
 ]
 
 { #category : #accessing }
@@ -204,7 +209,7 @@ FBActivation >> stateBorder [
 		#initialized -> Color green.
 		#executing -> Color yellow.
 		#suspended -> Color red.
-		#done -> Color blue } asDictionary.
+		#isDone -> Color blue } asDictionary.
 	border := RSBorder new 
 		width: 2; 
 		color: ((map at: state)  alpha: 0.8).
