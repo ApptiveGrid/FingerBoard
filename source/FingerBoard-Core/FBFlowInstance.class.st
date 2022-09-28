@@ -135,7 +135,7 @@ FBFlowInstance >> inspectionFlow [
 ]
 
 { #category : #testing }
-FBFlowInstance >> isComplete [ 
+FBFlowInstance >> isDone [
 	^ executor isDone
 ]
 

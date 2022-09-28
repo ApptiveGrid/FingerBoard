@@ -111,7 +111,6 @@ FBFlowInstanceTest >> testInstanceStateWaiting [
 	flowInstance := FBFlow simpleWaitFlow newInstance.
 	flowInstance initialValue: 6.
 	flowInstance step; step.
-	self halt.
 	self assert: flowInstance state equals: #waiting
 ]
 
