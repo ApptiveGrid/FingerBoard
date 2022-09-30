@@ -13,5 +13,6 @@ FBEvent class >> isAbstract [
 { #category : #'instance creation' }
 FBEvent >> activateWith: aFBActivation [
 
+	super activateWith: aFBActivation.
 	aFBActivation done
 ]
