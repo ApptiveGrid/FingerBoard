@@ -8,10 +8,9 @@ Class {
 	#category : #'FingerBoard-Core-Event'
 }
 
-{ #category : #accessing }
-FBTransitionFollowed >> name [
-
-	^ #transitionFollowed
+{ #category : #printing }
+FBTransitionFollowed >> logTrace [
+	^ 'transition followed from ', transition source printString , ' to ' , transition target printString , ' with ' , value printString
 ]
 
 { #category : #printing }
@@ -33,6 +32,12 @@ FBTransitionFollowed >> transition [
 FBTransitionFollowed >> transition: anObject [
 
 	transition := anObject
+]
+
+{ #category : #accessing }
+FBTransitionFollowed >> type [
+
+	^ #transitionFollowed
 ]
 
 { #category : #accessing }

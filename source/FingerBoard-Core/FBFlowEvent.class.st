@@ -18,6 +18,12 @@ FBFlowEvent >> asAnnouncement [
 ]
 
 { #category : #accessing }
+FBFlowEvent >> logTrace [
+
+	^ self subclassResponsibility 
+]
+
+{ #category : #accessing }
 FBFlowEvent >> name [
 
 	^ self subclassResponsibility 
@@ -38,4 +44,10 @@ FBFlowEvent >> setTimestamp [
 FBFlowEvent >> timestamp [
 
 	^ timestamp
+]
+
+{ #category : #accessing }
+FBFlowEvent >> type [
+
+	^ self subclassResponsibility 
 ]

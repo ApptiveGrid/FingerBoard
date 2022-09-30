@@ -4,14 +4,19 @@ Class {
 	#category : #'FingerBoard-Core-Event'
 }
 
-{ #category : #accessing }
-FBFlowInstanceStarted >> name [
-
-	^ #instanceStarted
+{ #category : #printing }
+FBFlowInstanceStarted >> logTrace [
+	^ 'instance started'
 ]
 
 { #category : #printing }
 FBFlowInstanceStarted >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << 'instance started'
+]
+
+{ #category : #accessing }
+FBFlowInstanceStarted >> type [
+
+	^ #instanceStarted
 ]

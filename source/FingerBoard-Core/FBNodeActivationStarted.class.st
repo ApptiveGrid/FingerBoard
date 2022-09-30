@@ -4,14 +4,20 @@ Class {
 	#category : #'FingerBoard-Core-Event'
 }
 
-{ #category : #accessing }
-FBNodeActivationStarted >> name [
+{ #category : #printing }
+FBNodeActivationStarted >> logTrace [
 
-	^ #activationStarted
+	^ 'activation started'
 ]
 
 { #category : #printing }
 FBNodeActivationStarted >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << ' activated'
+]
+
+{ #category : #accessing }
+FBNodeActivationStarted >> type [
+
+	^ #activationStarted
 ]

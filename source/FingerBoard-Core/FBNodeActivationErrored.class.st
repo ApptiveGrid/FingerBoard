@@ -12,14 +12,20 @@ FBNodeActivationErrored >> activationError: aString [
 	activationError := aString
 ]
 
-{ #category : #accessing }
-FBNodeActivationErrored >> name [
+{ #category : #printing }
+FBNodeActivationErrored >> logTrace [
 
-	^ #activationErrored
+	^ 'activation finished with error: ' , activationError asString
 ]
 
 { #category : #printing }
 FBNodeActivationErrored >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << ' error: ' << activationError asString
+]
+
+{ #category : #accessing }
+FBNodeActivationErrored >> type [
+
+	^ #activationErrored
 ]
