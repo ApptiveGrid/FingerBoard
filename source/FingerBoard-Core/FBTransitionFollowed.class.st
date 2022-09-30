@@ -8,6 +8,12 @@ Class {
 	#category : #'FingerBoard-Core-Event'
 }
 
+{ #category : #accessing }
+FBTransitionFollowed >> name [
+
+	^ #transitionFollowed
+]
+
 { #category : #printing }
 FBTransitionFollowed >> printOn: aStream [ 
 	super printOn: aStream.

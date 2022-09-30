@@ -12,6 +12,12 @@ FBNodeActivationErrored >> activationError: aString [
 	activationError := aString
 ]
 
+{ #category : #accessing }
+FBNodeActivationErrored >> name [
+
+	^ #activationErrored
+]
+
 { #category : #printing }
 FBNodeActivationErrored >> printOn: aStream [ 
 	super printOn: aStream.
