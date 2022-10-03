@@ -45,7 +45,6 @@ FBActivation >> addEvent: aFBFlowEvent [
 
 	self flowInstance addEvent: (aFBFlowEvent
 			 activation: self;
-			 setTimestamp;
 			 yourself)
 ]
 

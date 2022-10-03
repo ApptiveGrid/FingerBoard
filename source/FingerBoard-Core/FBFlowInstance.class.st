@@ -38,7 +38,6 @@ FBFlowInstance >> addEvent: aFBFlowEvent [
 
 	self events add: (aFBFlowEvent
 			 flowInstance: self;
-			 setTimestamp;
 			 yourself).
 	self announce: aFBFlowEvent
 ]

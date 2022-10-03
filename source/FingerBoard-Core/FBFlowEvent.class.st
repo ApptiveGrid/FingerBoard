@@ -18,6 +18,13 @@ FBFlowEvent >> asAnnouncement [
 ]
 
 { #category : #accessing }
+FBFlowEvent >> initialize [
+
+	super initialize.
+	timestamp := DateAndTime now
+]
+
+{ #category : #accessing }
 FBFlowEvent >> logTrace [
 
 	^ self subclassResponsibility 
@@ -38,12 +45,6 @@ FBFlowEvent >> name [
 { #category : #initialization }
 FBFlowEvent >> prepareForDelivery [
 	"nothing to do"
-]
-
-{ #category : #accessing }
-FBFlowEvent >> setTimestamp [
-
-	timestamp := DateAndTime now
 ]
 
 { #category : #accessing }
