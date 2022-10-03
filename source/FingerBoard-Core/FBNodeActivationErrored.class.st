@@ -13,7 +13,19 @@ FBNodeActivationErrored >> activationError: aString [
 ]
 
 { #category : #printing }
+FBNodeActivationErrored >> message [
+
+	^ 'activation finished with error: ' , activationError asString
+]
+
+{ #category : #printing }
 FBNodeActivationErrored >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << ' error: ' << activationError asString
+]
+
+{ #category : #accessing }
+FBNodeActivationErrored >> type [
+
+	^ #activationErrored
 ]

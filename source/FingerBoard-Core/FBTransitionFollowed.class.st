@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #printing }
+FBTransitionFollowed >> message [
+	^ 'transition followed from ', transition source printString , ' to ' , transition target printString , ' with ' , value printString
+]
+
+{ #category : #printing }
 FBTransitionFollowed >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << 'transition followed '.
@@ -27,6 +32,12 @@ FBTransitionFollowed >> transition [
 FBTransitionFollowed >> transition: anObject [
 
 	transition := anObject
+]
+
+{ #category : #accessing }
+FBTransitionFollowed >> type [
+
+	^ #transitionFollowed
 ]
 
 { #category : #accessing }

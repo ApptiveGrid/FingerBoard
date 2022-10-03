@@ -42,7 +42,10 @@ FBActivation >> activationError: error [
 
 { #category : #events }
 FBActivation >> addEvent: aFBFlowEvent [
-	self flowInstance addEvent: (aFBFlowEvent activation: self)
+
+	self flowInstance addEvent: (aFBFlowEvent
+			 activation: self;
+			 yourself)
 ]
 
 { #category : #accessing }

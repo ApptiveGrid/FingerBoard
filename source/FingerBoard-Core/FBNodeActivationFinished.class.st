@@ -9,3 +9,9 @@ FBNodeActivationFinished >> printOn: aStream [
 	super printOn: aStream.
 	aStream << ' finished'
 ]
+
+{ #category : #accessing }
+FBNodeActivationFinished >> type [
+
+	^ #activationFinished
+]

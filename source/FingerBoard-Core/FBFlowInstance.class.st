@@ -35,8 +35,11 @@ FBFlowInstance >> activations [
 
 { #category : #events }
 FBFlowInstance >> addEvent: aFBFlowEvent [
-	self events add: (aFBFlowEvent flowInstance: self).
-	self announce: aFBFlowEvent 
+
+	self events add: (aFBFlowEvent
+			 flowInstance: self;
+			 yourself).
+	self announce: aFBFlowEvent
 ]
 
 { #category : #announcements }
