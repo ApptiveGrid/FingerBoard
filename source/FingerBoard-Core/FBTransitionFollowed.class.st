@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #printing }
-FBTransitionFollowed >> logTrace [
+FBTransitionFollowed >> message [
 	^ 'transition followed from ', transition source printString , ' to ' , transition target printString , ' with ' , value printString
 ]
 

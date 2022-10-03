@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #printing }
-FBFlowInstanceStarted >> logTrace [
+FBFlowInstanceStarted >> message [
 	^ 'instance started'
 ]
 

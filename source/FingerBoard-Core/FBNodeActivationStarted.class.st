@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #printing }
-FBNodeActivationStarted >> logTrace [
+FBNodeActivationStarted >> message [
 
 	^ 'activation started'
 ]

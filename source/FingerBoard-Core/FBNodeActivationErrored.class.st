@@ -13,7 +13,7 @@ FBNodeActivationErrored >> activationError: aString [
 ]
 
 { #category : #printing }
-FBNodeActivationErrored >> logTrace [
+FBNodeActivationErrored >> message [
 
 	^ 'activation finished with error: ' , activationError asString
 ]
