@@ -13,6 +13,16 @@ FBFlowInstanceTest >> testActivationsAreDone [
 ]
 
 { #category : #tests }
+FBFlowInstanceTest >> testActivationsWithGatewayAreDone [
+	| flowInstance |
+	flowInstance := FBFlow gatewayedFlow newInstance.
+	flowInstance initialValue: 7.
+	flowInstance execute.
+	self assert: flowInstance state equals: #done.
+	self assert: (flowInstance activations allSatisfy: [ :each | each state = #done ])
+]
+
+{ #category : #tests }
 FBFlowInstanceTest >> testCompleted [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.
