@@ -37,7 +37,7 @@ FBActivation >> activateWithErrorHandling [
 { #category : #convenience }
 FBActivation >> activationError: error [
 	self errored.
-	self addEvent: (FBNodeActivationErrored new activationError: error description) 
+	self addEvent: (FBNodeActivationErrored new activationError: error messageText) 
 ]
 
 { #category : #events }
@@ -141,7 +141,7 @@ FBActivation >> followAllOutgoing [
 
 { #category : #'as yet unclassified' }
 FBActivation >> followTransition: aTransition [
-	(aTransition conditionMatches: self value) ifTrue: [  
+	(aTransition conditionMatches: self value) ifTrue: [ 
 		executor addPending: aTransition ]
 ]
 
