@@ -1,5 +1,5 @@
 Class {
-	#name : #FBNodeActivationProgress,
+	#name : #FBNodeStringEvent,
 	#superclass : #FBNodeActivationEvent,
 	#instVars : [
 		'description'
@@ -8,24 +8,24 @@ Class {
 }
 
 { #category : #accessing }
-FBNodeActivationProgress >> description: aString [ 
+FBNodeStringEvent >> description: aString [ 
 	description := aString
 ]
 
 { #category : #printing }
-FBNodeActivationProgress >> message [
+FBNodeStringEvent >> message [
 
 	^ 'activation in progress ' , description asString
 ]
 
 { #category : #printing }
-FBNodeActivationProgress >> printOn: aStream [ 
+FBNodeStringEvent >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << ' in progress: ' << description asString
 ]
 
 { #category : #accessing }
-FBNodeActivationProgress >> type [
+FBNodeStringEvent >> type [
 
-	^ #activationProgress
+	^ #string
 ]
