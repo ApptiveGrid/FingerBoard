@@ -11,6 +11,13 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
+{ #category : #'as yet unclassified' }
+FBFlowInstance >> aboutToTransition: aNode [
+	"subclasses can overwrite this method to act before a transition
+	is taken. This enables checks if a transition is possible before
+	adding an activation for it"
+]
+
 { #category : #convenience }
 FBFlowInstance >> activate: anActivation [ 
 	anActivation activate
