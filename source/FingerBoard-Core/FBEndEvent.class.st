@@ -1,7 +1,7 @@
 Class {
 	#name : #FBEndEvent,
 	#superclass : #FBEvent,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #'instance creation' }
@@ -10,7 +10,18 @@ FBEndEvent class >> typeName [
 	^ #end
 ]
 
-{ #category : #'as yet unclassified' }
-FBEndEvent >> evaluateIn: aFBActivation [ 
-	aFBActivation executor completed
+{ #category : #adding }
+FBEndEvent >> addOutgoing: aTransition [ 
+	FBCannotAddTransition signal: 'an end node cannot have outgoing transitions'
+]
+
+{ #category : #accessing }
+FBEndEvent >> defaultBehaviorClass [
+	^ FBEndEventBehavior
+]
+
+{ #category : #initialization }
+FBEndEvent >> initialize [ 
+	super initialize.
+	name := 'end'
 ]

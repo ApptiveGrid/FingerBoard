@@ -2,18 +2,30 @@ Class {
 	#name : #FBFlowExecutor,
 	#superclass : #Object,
 	#instVars : [
-		'instance',
+		'flowInstance',
 		'pending',
 		'activations',
-		'suspended'
+		'suspended',
+		'initialValue',
+		'state'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
+
+{ #category : #convenience }
+FBFlowExecutor >> activate: activation [ 
+	flowInstance activate: activation 
+]
 
 { #category : #'as yet unclassified' }
 FBFlowExecutor >> activationBefore: aFBActivation [ 
 
 	^ activations before: aFBActivation 
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> activationClass [
+	^ flowInstance activationClass
 ]
 
 { #category : #accessing }
@@ -31,36 +43,53 @@ FBFlowExecutor >> addWaiting: aNode [
 	suspended add: aNode
 ]
 
-{ #category : #adding }
-FBFlowExecutor >> completed [
-	instance state: #completed
+{ #category : #accessing }
+FBFlowExecutor >> atEnd [
+	^ self isDone 
 ]
 
 { #category : #executing }
 FBFlowExecutor >> execute [
-	^ self executeWith: nil
-]
-
-{ #category : #'as yet unclassified' }
-FBFlowExecutor >> executeNode: aFBNode with: anObject [
-	| activation |
-	activation := self newActivation 
-		node: aFBNode;
-		argument: anObject.
-	activations add: activation.
-	^ activation invoke
-	
-]
-
-{ #category : #executing }
-FBFlowExecutor >> executeWith: anObject [
-	| node lastValue argument |
-	lastValue := anObject.
 	[ pending isEmpty ] whileFalse: [
-		node := pending removeFirst. 
-		argument := lastValue.
-		lastValue := self executeNode: node with: argument ]
+		self step ]
 	
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> firstPending [
+	^ pending first
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> flow [
+	^ flowInstance flow
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> flowInstance [
+
+	^ flowInstance
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> flowInstance: aFBFlowInstance [ 
+	flowInstance := aFBFlowInstance.
+	pending add: flowInstance start
+]
+
+{ #category : #testing }
+FBFlowExecutor >> hasErrors [
+	^ activations anySatisfy: [ :each | each hasError ]
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> initialValue [
+	^ initialValue
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> initialValue: anObject [
+	initialValue := anObject
 ]
 
 { #category : #initialization }
@@ -71,19 +100,55 @@ FBFlowExecutor >> initialize [
 	suspended := OrderedCollection new
 ]
 
+{ #category : #testing }
+FBFlowExecutor >> isCreated [ 
+	^ (pending size = 1) and: [ pending first = flowInstance start ]
+]
+
 { #category : #accessing }
-FBFlowExecutor >> instance: aFBFlowInstance [ 
-	instance := aFBFlowInstance.
-	pending add: instance start
+FBFlowExecutor >> isDone [
+	^ pending isEmpty & suspended isEmpty
+]
+
+{ #category : #testing }
+FBFlowExecutor >> isRunning [
+	^ pending notEmpty
+]
+
+{ #category : #testing }
+FBFlowExecutor >> isWaiting [
+	^ pending isEmpty & suspended notEmpty
+]
+
+{ #category : #accessing }
+FBFlowExecutor >> lastValueOf: aFBNode [
+	^ (self activations reverse 
+				detect: [ :each | each node = aFBNode ]) value.
 ]
 
 { #category : #'as yet unclassified' }
 FBFlowExecutor >> newActivation [ 
-	^ FBActivation new
+	^ self activationClass new
 		executor: self
 ]
 
 { #category : #accessing }
 FBFlowExecutor >> pending [
 	^ pending
+]
+
+{ #category : #executing }
+FBFlowExecutor >> step [
+	| transition activation lastValue |
+	self isCreated ifTrue: [ 
+		flowInstance addEvent: FBFlowInstanceStarted new ].
+	flowInstance aboutToTransition: pending first.
+	transition := pending removeFirst. 
+	lastValue := transition source lastValueIn: self.
+	flowInstance addEvent: (FBTransitionFollowed new transition: transition; value: lastValue).
+	activation := self newActivation 
+		node: transition target;
+		argument: lastValue.
+	activations add: activation.
+	self activate: activation 
 ]

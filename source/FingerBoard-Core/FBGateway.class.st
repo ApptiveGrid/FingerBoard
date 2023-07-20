@@ -1,7 +1,7 @@
 Class {
 	#name : #FBGateway,
 	#superclass : #FBNode,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #testing }
@@ -12,6 +12,6 @@ FBGateway class >> isAbstract [
 
 { #category : #adding }
 FBGateway >> addOutgoingNode: aFBNode withCondition: aCondition [
-	^ self addOutgoing: ((FBConditionalTransition source: self target: aFBNode) 
+	^ self addOutgoing: ((self transitionClass source: self target: aFBNode) 
 		condition: aCondition).
 ]

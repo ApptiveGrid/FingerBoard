@@ -2,10 +2,10 @@ Extension { #name : #FBTask }
 
 { #category : #'*FingerBoard-Roassal' }
 FBTask >> asRoassalShape [
-	^ RSBox new 
+	^ (RSBox new 
 		size: 100;
 		color: (Color lightOrange);
 		cornerRadius: 15;
 		model: self;
-		yourself
+		yourself) @ (RSLabeled new text: name; middle ;fontSize: 6; lowColor: Color black ) 
 ]

@@ -1,7 +1,7 @@
 Class {
 	#name : #FBVisitor,
 	#superclass : #Object,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Base'
 }
 
 { #category : #visiting }

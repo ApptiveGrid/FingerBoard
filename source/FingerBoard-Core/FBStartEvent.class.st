@@ -1,7 +1,7 @@
 Class {
 	#name : #FBStartEvent,
 	#superclass : #FBEvent,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Event'
 }
 
 { #category : #'instance creation' }
@@ -15,10 +15,40 @@ FBStartEvent >> acceptFingerBoard: aFBVisitor [
 	^ aFBVisitor visitStartEvent: self 
 ]
 
-{ #category : #'as yet unclassified' }
-FBStartEvent >> evaluateIn: aFBActivation [ 
-	aFBActivation followTransition: outgoing first.
-	"a start event is an entry event that should pass its argument to 
-	the next node"
-	aFBActivation value: aFBActivation argument.
+{ #category : #adding }
+FBStartEvent >> addIncoming: aTransition [ 
+	FBCannotAddTransition signal: 'a start node cannot have incming transitions'
+]
+
+{ #category : #adding }
+FBStartEvent >> addOutgoing: aTransition [ 
+	outgoing isEmpty ifFalse: [ 
+		FBCannotAddTransition signal: 'a start node can only have 1 outgoing transition' ].
+	super addOutgoing: aTransition 
+]
+
+{ #category : #accessing }
+FBStartEvent >> defaultBehaviorClass [
+	^ FBStartEventBehavior
+]
+
+{ #category : #initialization }
+FBStartEvent >> initialize [ 
+	super initialize.
+	name := 'start'
+]
+
+{ #category : #accessing }
+FBStartEvent >> lastValueIn: aFBFlowExecutor [ 
+	^ aFBFlowExecutor initialValue 
+]
+
+{ #category : #accessing }
+FBStartEvent >> source [
+	^ self 
+]
+
+{ #category : #accessing }
+FBStartEvent >> target [
+	^ self
 ]

@@ -2,10 +2,12 @@ Class {
 	#name : #FBTransition,
 	#superclass : #Object,
 	#instVars : [
+		'id',
 		'source',
-		'target'
+		'target',
+		'condition'
 	],
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #'instance creation' }
@@ -15,15 +17,73 @@ FBTransition class >> source: aSourceNode target: aTargetNode [
 		target: aTargetNode
 ]
 
+{ #category : #associating }
+FBTransition >> --> aNode [ 
+	^ target --> aNode
+]
+
 { #category : #visiting }
 FBTransition >> acceptFingerBoard: aVisitor [ 
 	^ aVisitor visitTransition: self
 ]
 
+{ #category : #adding }
+FBTransition >> addTo: aFBNode [
+	source := aFBNode.
+	aFBNode addOutgoing: self.
+	^ target
+]
+
+{ #category : #'as yet unclassified' }
+FBTransition >> attach [ 
+	source addOutgoing: self.
+	target addIncoming: self.
+]
+
+{ #category : #accessing }
+FBTransition >> condition [
+	^ condition 
+]
+
+{ #category : #accessing }
+FBTransition >> condition: anObject [
+
+	condition := anObject 
+]
+
+{ #category : #testing }
+FBTransition >> conditionMatches: anObject [
+	condition ifNil: [ ^ true ].
+	^ condition value: anObject 
+]
+
+{ #category : #'as yet unclassified' }
+FBTransition >> detach [ 
+	source removeOutgoing: self.
+	target removeIncoming: self.
+]
+
+{ #category : #testing }
+FBTransition >> hasCondition [
+	^ condition notNil
+]
+
+{ #category : #accessing }
+FBTransition >> id [
+
+	^ id
+]
+
+{ #category : #initialization }
+FBTransition >> initialize [ 
+	super initialize.
+	id := FBIdGenerator current newId
+]
+
 { #category : #printing }
 FBTransition >> printOn: aStream [ 
 	source printOn: aStream.
-	aStream << ' -> '.
+	aStream << ' --> '.
 	target printOn: aStream
 ]
 

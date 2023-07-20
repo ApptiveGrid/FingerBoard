@@ -1,11 +1,10 @@
 Class {
 	#name : #FBTask,
 	#superclass : #FBActivity,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
-{ #category : #'as yet unclassified' }
-FBTask >> evaluateIn: aFBActivation [ 
-	aFBActivation followTransition: outgoing first.
-	
+{ #category : #accessing }
+FBTask >> defaultBehaviorClass [
+	^ FBTaskBehavior
 ]

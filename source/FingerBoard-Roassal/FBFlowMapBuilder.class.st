@@ -40,13 +40,13 @@ FBFlowMapBuilder >> renderIn: canvas [
 			detect: [ :activation | activation node = each ]
 			ifFound: [ :activation | shape border: activation stateBorder ].
 		each name 
-			ifNotNil: [ shape @ (RSLabeled new text: each name; middle; fontSize: 6; lowColor: Color black ) ].
+			ifNotNil: [ shape ].
 	canvas add: shape ] .
 		
 	RSEdgeBuilder arrowedLine
 		canvas: canvas;
 		objects: nodes; 
-		withBorderAttachPoint;
+		withHorizontalAttachPoint;
 		connectFrom: #yourself 
 		toAll: [ :e |
 			e outgoing collect: #target ].

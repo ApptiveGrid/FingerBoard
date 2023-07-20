@@ -1,7 +1,7 @@
 Class {
 	#name : #FBExclusiveGateway,
 	#superclass : #FBGateway,
-	#category : #'FingerBoard-Core'
+	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #'instance creation' }
@@ -12,18 +12,34 @@ FBExclusiveGateway class >> typeName [
 
 { #category : #converting }
 FBExclusiveGateway >> asRoassalShape [
-	^ RSPolygon new
-		points: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50);
-		color: (Color lightGreen alpha: 1);
+	| composite color |
+	composite := RSComposite new.
+	color := Color black alpha: 1.
+	composite shapes: { 
+		RSLine new  
+			startPoint: -10@25; 
+			endPoint: 10@25;
+			strokeColor: color;
+			width: 2;
+			yourself.
+		RSLine new  
+			startPoint: 0@15; 
+			endPoint: 0@35;
+			strokeColor: color;
+			width: 2;
+			yourself.
+		(RSPolygon new
+			points: (Array with: 0 @ 0 with: 25 @ 25 with: 0 @ 50 with: -25 @ 25);
+			border: (RSBorder new width: 2; color: color);
+			noPaint;
+			yourself).
+		 }.
+	^ composite @ (RSLabeled new text: name; locationDo: [:l| l bottom ];fontSize: 6; lowColor: Color black ) 
 		model: self;
-		yourself.
+		yourself
 ]
 
-{ #category : #'as yet unclassified' }
-FBExclusiveGateway >> evaluateIn: aFBActivation [ 
-	| next |
-	next := outgoing 
-		detect: [ :each | each condition value: aFBActivation argument ]
-		ifNone: [ Error signal: 'conditions do not match' ].
-	aFBActivation followTransition: next
+{ #category : #accessing }
+FBExclusiveGateway >> defaultBehaviorClass [
+	^ FBExclusiveGatewayBehavior 
 ]
