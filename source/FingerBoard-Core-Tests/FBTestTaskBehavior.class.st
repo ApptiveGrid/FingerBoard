@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-FBTestTaskBehavior class >> environmentSchema [ 
+FBTestTaskBehavior class >> metadataSchema [ 
 	^ { 
 		#status -> FBPropertyType string.
 		#pid -> FBPropertyType number  } asPropertySchema
@@ -20,7 +20,7 @@ FBTestTaskBehavior class >> propertySchema [
 
 { #category : #execution }
 FBTestTaskBehavior >> execute [ 
-	self environment 
+	self metadata 
 		at: #status put: 200
 	
 ]

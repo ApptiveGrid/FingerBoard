@@ -148,11 +148,6 @@ FBNode >> detach [
 	outgoing copy do: #detach.
 ]
 
-{ #category : #accessing }
-FBNode >> environmentSchema [
-	^ self behaviorClass environmentSchema
-]
-
 { #category : #'as yet unclassified' }
 FBNode >> findEnd [
 	(self isKindOf: FBEndEvent) ifTrue: [ ^ self ]. 
@@ -217,6 +212,11 @@ FBNode >> inspectionFlow [
 { #category : #accessing }
 FBNode >> lastValueIn: aFBFlowExecutor [ 
 	^ aFBFlowExecutor lastValueOf: self
+]
+
+{ #category : #accessing }
+FBNode >> metadataSchema [
+	^ self behaviorClass metadataSchema
 ]
 
 { #category : #accessing }

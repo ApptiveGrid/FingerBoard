@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-FBNodeBehavior class >> environmentSchema [
+FBNodeBehavior class >> metadataSchema [
 	^ FBPropertySchema new
 ]
 
@@ -34,16 +34,6 @@ FBNodeBehavior >> argument [
 	^ activation argument
 ]
 
-{ #category : #accessing }
-FBNodeBehavior >> environment [
-	^ activation environment
-]
-
-{ #category : #accessing }
-FBNodeBehavior >> environmentSchema [
-	^ activation environmentSchema
-]
-
 { #category : #execution }
 FBNodeBehavior >> execute [ 
 	self subclassResponsibility 
@@ -57,6 +47,16 @@ FBNodeBehavior >> executor [
 { #category : #moving }
 FBNodeBehavior >> followTransition: aFBTransition [ 
 	activation followTransition: aFBTransition 
+]
+
+{ #category : #accessing }
+FBNodeBehavior >> metadata [
+	^ activation metadata
+]
+
+{ #category : #accessing }
+FBNodeBehavior >> metadataSchema [
+	^ activation metadataSchema
 ]
 
 { #category : #accessing }
