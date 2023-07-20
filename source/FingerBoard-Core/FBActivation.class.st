@@ -9,7 +9,7 @@ Class {
 		'argument',
 		'executor',
 		'state',
-		'environment'
+		'metadata'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
@@ -61,39 +61,6 @@ FBActivation >> argument: anObject [
 { #category : #'as yet unclassified' }
 FBActivation >> done [
 	state := #done
-]
-
-{ #category : #accessing }
-FBActivation >> environment [
-	^ environment ifNil: [ 
-		environment := FBEnvironment new 
-			schema: self environmentSchema;
-			activation: self;
-			yourself ]
-]
-
-{ #category : #accessing }
-FBActivation >> environmentAt: aString [ 
-	^ self environment at: aString
-]
-
-{ #category : #accessing }
-FBActivation >> environmentAt: key ifAbsent: aBlock [
-	^ self environment 
-		at: key 
-		ifAbsent: aBlock
-]
-
-{ #category : #accessing }
-FBActivation >> environmentAt: key put: anObject [ 
-	self environment  
-		at: key 
-		put: anObject
-]
-
-{ #category : #accessing }
-FBActivation >> environmentSchema [
-	^ node environmentSchema
 ]
 
 { #category : #'as yet unclassified' }
@@ -172,6 +139,39 @@ FBActivation >> instance [
 { #category : #'as yet unclassified' }
 FBActivation >> isDone [
 	^ state = #done
+]
+
+{ #category : #accessing }
+FBActivation >> metadata [
+	^ metadata ifNil: [ 
+		metadata := FBActivationMetadata new 
+			schema: self metadataSchema;
+			activation: self;
+			yourself ]
+]
+
+{ #category : #accessing }
+FBActivation >> metadataAt: aString [ 
+	^ self metadata at: aString
+]
+
+{ #category : #accessing }
+FBActivation >> metadataAt: key ifAbsent: aBlock [
+	^ self metadata 
+		at: key 
+		ifAbsent: aBlock
+]
+
+{ #category : #accessing }
+FBActivation >> metadataAt: key put: anObject [ 
+	self metadata  
+		at: key 
+		put: anObject
+]
+
+{ #category : #accessing }
+FBActivation >> metadataSchema [
+	^ node metadataSchema
 ]
 
 { #category : #accessing }

@@ -1,5 +1,5 @@
 Class {
-	#name : #FBEnvironment,
+	#name : #FBActivationMetadata,
 	#superclass : #FBProperties,
 	#instVars : [
 		'activation'
@@ -8,17 +8,17 @@ Class {
 }
 
 { #category : #accessing }
-FBEnvironment >> activation: aFBActivation [ 
+FBActivationMetadata >> activation: aFBActivation [ 
 	activation := aFBActivation 
 ]
 
 { #category : #accessing }
-FBEnvironment >> previous [
-	^ activation previous environment 
+FBActivationMetadata >> previous [
+	^ activation previous metadata 
 ]
 
 { #category : #printing }
-FBEnvironment >> printOn: aStream [ 
+FBActivationMetadata >> printOn: aStream [ 
 	aStream << 'env: '.
 	activation printOn: aStream
 ]
