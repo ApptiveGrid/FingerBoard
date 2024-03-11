@@ -8,16 +8,14 @@ Class {
 }
 
 { #category : #execution }
-FBWaitForConditionBehavior >> execute [ 
-	(self node evaluateConditionWith: activation argument)
-		ifTrue: [ activation followAll: self node outgoing ]
-		ifFalse: [ activation waitForNode: self ]
-]
-
-{ #category : #execution }
 FBWaitForConditionBehavior >> executeWith: anObject [ 
 	proceed := self node evaluateConditionWith: anObject
 
+]
+
+{ #category : #initialization }
+FBWaitForConditionBehavior >> initializeFromActivation: anActivation [ 
+	
 ]
 
 { #category : #execution }

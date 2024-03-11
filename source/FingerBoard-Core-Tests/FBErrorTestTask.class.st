@@ -4,6 +4,11 @@ Class {
 	#category : #'FingerBoard-Core-Tests'
 }
 
+{ #category : #execution }
+FBErrorTestTask >> executeWith: anObject [ 
+	^ self value 
+]
+
 { #category : #accessing }
 FBErrorTestTask >> value [
 	^ [ 1/0 ]

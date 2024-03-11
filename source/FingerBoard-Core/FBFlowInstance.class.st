@@ -28,7 +28,7 @@ FBFlowInstance >> activate: anActivation [
 			activation: anActivation) ]
 		on: FBError  
 		do: [ :error |
-			self handleActivationError: error activation: anActivation. error pass ] ]
+			self handleActivationError: error activation: anActivation ] ]
 		on: Error 
 		do: [ :error | 
 			self handleActivationError: error activation: anActivation.

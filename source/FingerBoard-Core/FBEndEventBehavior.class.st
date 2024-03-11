@@ -16,4 +16,5 @@ FBEndEventBehavior >> initializeFromActivation: anAGFlowActivation [
 
 { #category : #convenience }
 FBEndEventBehavior >> postProcessActivation: anActivation [
+	anActivation done
 ]

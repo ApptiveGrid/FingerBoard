@@ -256,11 +256,9 @@ FBNode >> outgoingNodes [
 
 { #category : #'as yet unclassified' }
 FBNode >> postProcessActivation: anActivation [ 
-	"anActivation 
-		done;
-		followAllOutgoing 
-	"
-	self halt.
+	anActivation 
+		followAllOutgoing;
+		done
 ]
 
 { #category : #printing }
