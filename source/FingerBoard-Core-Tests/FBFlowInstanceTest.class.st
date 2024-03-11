@@ -4,6 +4,12 @@ Class {
 	#category : #'FingerBoard-Core-Tests'
 }
 
+{ #category : #running }
+FBFlowInstanceTest >> setUp [ 
+	super setUp.
+	FBFlow transitionClass: FBTransition 
+]
+
 { #category : #tests }
 FBFlowInstanceTest >> testActivationsAreDone [
 	| flowInstance |

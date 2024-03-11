@@ -8,8 +8,9 @@ Class {
 FBActivationTest >> testEnvironment [
 	| activation node |
 	node := FBTestTaskWithBehavior new.
-	activation := FBActivation new.
-	node activateWith: activation.
+	activation := FBActivation new
+		node: node.
+	activation basicExecute.
 	self assert: (activation metadata at: #status) equals: '200'
 ]
 

@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #execution }
-FBEndEventBehavior >> execute [ 
+FBEndEventBehavior >> executeWith: anObject [
 
+]
+
+{ #category : #initialization }
+FBEndEventBehavior >> initializeFromActivation: anAGFlowActivation [ 
+	
+]
+
+{ #category : #convenience }
+FBEndEventBehavior >> postProcessActivation: anActivation [
+	anActivation done
 ]

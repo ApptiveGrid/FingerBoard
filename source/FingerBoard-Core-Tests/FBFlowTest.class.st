@@ -4,6 +4,12 @@ Class {
 	#category : #'FingerBoard-Core-Tests'
 }
 
+{ #category : #running }
+FBFlowTest >> setUp [ 
+	super setUp.
+	FBFlow transitionClass: FBTransition 
+]
+
 { #category : #tests }
 FBFlowTest >> testAllNodes [ 
 	| flow |
@@ -62,7 +68,7 @@ FBFlowTest >> testEndNodeNoOutgoing [
 FBFlowTest >> testExecuteGatewayedFlow [ 
 	| instance |
 	instance := FBFlow gatewayedFlow newInstance.
-	instance execute.
+	instance executeWith: 7.
 	self assert: instance atEnd 
 ]
 

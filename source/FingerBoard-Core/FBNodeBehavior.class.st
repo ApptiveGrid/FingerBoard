@@ -2,7 +2,7 @@ Class {
 	#name : #FBNodeBehavior,
 	#superclass : #Object,
 	#instVars : [
-		'activation'
+		'node'
 	],
 	#category : #'FingerBoard-Core-Behavior'
 }
@@ -17,51 +17,29 @@ FBNodeBehavior class >> propertySchema [
 	^ FBPropertySchema new
 ]
 
-{ #category : #accessing }
-FBNodeBehavior >> activation [
-
-	^ activation
-]
-
-{ #category : #accessing }
-FBNodeBehavior >> activation: anObject [
-
-	activation := anObject
-]
-
-{ #category : #accessing }
-FBNodeBehavior >> argument [
-	^ activation argument
-]
-
 { #category : #execution }
-FBNodeBehavior >> execute [ 
+FBNodeBehavior >> executeWith: anArgument [
 	self subclassResponsibility 
 ]
 
-{ #category : #finalization }
-FBNodeBehavior >> executor [ 
-	^ activation executor
-]
-
-{ #category : #moving }
-FBNodeBehavior >> followTransition: aFBTransition [ 
-	activation followTransition: aFBTransition 
-]
-
-{ #category : #accessing }
-FBNodeBehavior >> metadata [
-	^ activation metadata
+{ #category : #initialization }
+FBNodeBehavior >> initializeFromActivation: anAGFlowActivation [ 
+	self subclassResponsibility 
 ]
 
 { #category : #accessing }
 FBNodeBehavior >> metadataSchema [
-	^ activation metadataSchema
+	^ node metadataSchema
 ]
 
 { #category : #accessing }
 FBNodeBehavior >> node [
-	^ activation node
+	^ node
+]
+
+{ #category : #accessing }
+FBNodeBehavior >> node: aNode [
+	node := aNode
 ]
 
 { #category : #accessing }
@@ -69,7 +47,7 @@ FBNodeBehavior >> outgoing [
 	^ self node outgoing
 ]
 
-{ #category : #accessing }
-FBNodeBehavior >> value: anObject [
-	activation value: anObject
+{ #category : #convenience }
+FBNodeBehavior >> postProcessActivation: aFlowInstance [ 
+	self subclassResponsibility 
 ]

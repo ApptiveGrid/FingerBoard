@@ -5,9 +5,19 @@ Class {
 }
 
 { #category : #execution }
-FBTaskBehavior >> execute [ 
-	activation value: self node value.
-	activation done.
-	activation followAll: self outgoing.
+FBTaskBehavior >> executeWith: anObject [
+	^ self node value
 	
+]
+
+{ #category : #initialization }
+FBTaskBehavior >> initializeFromActivation: anAGFlowActivation [ 
+	
+]
+
+{ #category : #convenience }
+FBTaskBehavior >> postProcessActivation: anActivation [ 
+	anActivation 
+		done;
+		followAll: self outgoing
 ]

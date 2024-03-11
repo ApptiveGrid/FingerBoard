@@ -19,8 +19,13 @@ FBTestTaskBehavior class >> propertySchema [
 ]
 
 { #category : #execution }
-FBTestTaskBehavior >> execute [ 
-	self metadata 
+FBTestTaskBehavior >> executeWith: anObject [ 
+	^ anObject 	
+]
+
+{ #category : #execution }
+FBTestTaskBehavior >> postProcessActivation: anActivation [ 
+	anActivation metadata 
 		at: #status put: 200
 	
 ]

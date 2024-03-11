@@ -9,35 +9,16 @@ Class {
 		'argument',
 		'executor',
 		'state',
-		'metadata'
+		'metadata',
+		'behavior'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #activation }
 FBActivation >> activate [ 
-	self activateWithErrorHandling 
-]
+	value := behavior executeWith: self argument.
 
-{ #category : #convenience }
-FBActivation >> activateWithErrorHandling [
-	[ [ 
-		self addEvent: FBNodeActivationStarted new.
-		node activateWith: self.
-	  	self addEvent: FBNodeActivationDone new ]
-		on: FBError  
-		do: [ :error |
-			self activationError: error ] ]
-		on: Error 
-		do: [ :error | 
-			self activationError: error.
-			error pass ]
-]
-
-{ #category : #convenience }
-FBActivation >> activationError: error [
-	self errored.
-	self addEvent: (FBNodeActivationErrored new activationError: error messageText) 
 ]
 
 { #category : #events }
@@ -56,6 +37,15 @@ FBActivation >> argument [
 { #category : #accessing }
 FBActivation >> argument: anObject [
 	argument := anObject 
+]
+
+{ #category : #'undo - undo' }
+FBActivation >> basicExecute [
+	self 
+		prepareBehavior;
+		activate;
+		postProcessActivation 
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -131,11 +121,6 @@ FBActivation >> initialize [
 	state := #created
 ]
 
-{ #category : #accessing }
-FBActivation >> instance [
-	^ executor flowInstance
-]
-
 { #category : #'as yet unclassified' }
 FBActivation >> isDone [
 	^ state = #done
@@ -184,6 +169,17 @@ FBActivation >> node: aFBNode [
 	node := aFBNode
 ]
 
+{ #category : #'as yet unclassified' }
+FBActivation >> postProcessActivation [ 
+	behavior postProcessActivation: self 
+]
+
+{ #category : #'as yet unclassified' }
+FBActivation >> prepareBehavior [
+	behavior := node newBehavior.
+	behavior initializeFromActivation: self 
+]
+
 { #category : #accessing }
 FBActivation >> previous [
 	^ executor activationBefore: self 
@@ -230,6 +226,11 @@ FBActivation >> stateBorder [
 FBActivation >> suspend [
 	state := #waiting.
 	executor addWaiting: node
+]
+
+{ #category : #'as yet unclassified' }
+FBActivation >> theBehavior [
+	^ behavior ifNil: [ node ]
 ]
 
 { #category : #accessing }

@@ -31,14 +31,6 @@ FBNode >> --> aNode [
 
 ]
 
-{ #category : #'instance creation' }
-FBNode >> activateWith: anFBActivation [
-	anFBActivation node: self. 
-	^ self behaviorClass new
-		activation: anFBActivation;
-		execute	
-]
-
 { #category : #connecting }
 FBNode >> addIncoming: aFBTransition [ 
 	(incoming includes: aFBTransition) ifTrue: [ ^ self ]. 
@@ -139,13 +131,18 @@ FBNode >> collectionNeighborsIn: aCollection [
 
 { #category : #accessing }
 FBNode >> defaultBehaviorClass [
-	self subclassResponsibility 
+	^ FBSelfDelegatingBehavior 
 ]
 
 { #category : #'as yet unclassified' }
 FBNode >> detach [
 	incoming copy do: #detach.
 	outgoing copy do: #detach.
+]
+
+{ #category : #execution }
+FBNode >> executeWith: anObject [ 
+	^ anObject
 ]
 
 { #category : #'as yet unclassified' }
@@ -199,6 +196,11 @@ FBNode >> initialize [
 	outgoing := OrderedCollection new
 ]
 
+{ #category : #initialization }
+FBNode >> initializeFromActivation: anActiviation [ 
+
+]
+
 { #category : #'as yet unclassified' }
 FBNode >> inspectionFlow [
 	<inspectorPresentationOrder: 0 title: 'flow'>
@@ -234,6 +236,13 @@ FBNode >> neighbourNodes [
 	^ ((incoming collect: #source), (outgoing collect: #target)) add: self; yourself
 ]
 
+{ #category : #'instance creation' }
+FBNode >> newBehavior [ 
+	^ self behaviorClass new
+		node: self;
+		yourself 
+]
+
 { #category : #accessing }
 FBNode >> outgoing [
 	^ outgoing
@@ -243,6 +252,13 @@ FBNode >> outgoing [
 FBNode >> outgoingNodes [
 
 	^ outgoing collect: #target
+]
+
+{ #category : #'as yet unclassified' }
+FBNode >> postProcessActivation: anActivation [ 
+	anActivation 
+		followAllOutgoing;
+		done
 ]
 
 { #category : #printing }
