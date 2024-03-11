@@ -7,13 +7,6 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
-{ #category : #'instance creation' }
-FBPluggableTask >> activateWith: anActivation [ 	
-	block cull: anActivation.
-	anActivation followAll: self outgoing.
-	
-]
-
 { #category : #accessing }
 FBPluggableTask >> block [
 
@@ -33,10 +26,23 @@ FBPluggableTask >> evaluateTo: aString [
 			activation value: (activation asScriptScopeDuring: [ :scope |  aString asApptiveScript valueIn: scope ]) ]
 ]
 
+{ #category : #'instance creation' }
+FBPluggableTask >> executeWith: anObject [ 	
+	block cull: anObject.
+	
+]
+
 { #category : #initialization }
 FBPluggableTask >> initialize [ 
 	super initialize.
 	block := [  ]
+]
+
+{ #category : #'as yet unclassified' }
+FBPluggableTask >> postProcessActivation: anActivation [ 
+	anActivation 
+		done;
+		followAll: self outgoing
 ]
 
 { #category : #accessing }

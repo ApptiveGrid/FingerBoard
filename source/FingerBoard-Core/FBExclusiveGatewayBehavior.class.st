@@ -5,9 +5,13 @@ Class {
 }
 
 { #category : #execution }
-FBExclusiveGatewayBehavior >> execute [
-	activation value: self argument.
-	activation done.
-	activation followAllOutgoing.
-	
+FBExclusiveGatewayBehavior >> executeWith: anObject [ 
+	^ anObject 
+]
+
+{ #category : #convenience }
+FBExclusiveGatewayBehavior >> postProcessActivation: anActivation [ 
+	anActivation 
+		done;
+		followAll: self outgoing
 ]

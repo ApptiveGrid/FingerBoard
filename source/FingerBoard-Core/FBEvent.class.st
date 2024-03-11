@@ -11,8 +11,14 @@ FBEvent class >> isAbstract [
 ]
 
 { #category : #'instance creation' }
-FBEvent >> activateWith: aFBActivation [
+FBEvent >> executeWith: anObject [ 
 
-	super activateWith: aFBActivation.
-	aFBActivation done
+	| behavior |
+	behavior := super executeWith: anObject.
+	^ behavior
+]
+
+{ #category : #'as yet unclassified' }
+FBEvent >> postProcessActivation: anActivation [
+	anActivation done
 ]

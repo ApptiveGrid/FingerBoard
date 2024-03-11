@@ -9,7 +9,7 @@ FBActivationTest >> testEnvironment [
 	| activation node |
 	node := FBTestTaskWithBehavior new.
 	activation := FBActivation new.
-	node activateWith: activation.
+	node executeWith: activation argument.
 	self assert: (activation metadata at: #status) equals: '200'
 ]
 

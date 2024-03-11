@@ -9,35 +9,16 @@ Class {
 		'argument',
 		'executor',
 		'state',
-		'metadata'
+		'metadata',
+		'behavior'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #activation }
 FBActivation >> activate [ 
-	self activateWithErrorHandling 
-]
+	value := behavior executeWith: self argument.
 
-{ #category : #convenience }
-FBActivation >> activateWithErrorHandling [
-	[ [ 
-		self addEvent: FBNodeActivationStarted new.
-		node activateWith: self.
-	  	self addEvent: FBNodeActivationDone new ]
-		on: FBError  
-		do: [ :error |
-			self activationError: error ] ]
-		on: Error 
-		do: [ :error | 
-			self activationError: error.
-			error pass ]
-]
-
-{ #category : #convenience }
-FBActivation >> activationError: error [
-	self errored.
-	self addEvent: (FBNodeActivationErrored new activationError: error messageText) 
 ]
 
 { #category : #events }
@@ -133,6 +114,7 @@ FBActivation >> initialize [
 
 { #category : #accessing }
 FBActivation >> instance [
+self halt.
 	^ executor flowInstance
 ]
 
@@ -184,6 +166,17 @@ FBActivation >> node: aFBNode [
 	node := aFBNode
 ]
 
+{ #category : #'as yet unclassified' }
+FBActivation >> postProcessActivation [ 
+	self theBehavior postProcessActivation: self 
+]
+
+{ #category : #'as yet unclassified' }
+FBActivation >> prepareBehavior [
+	behavior := node newBehavior.
+	behavior initializeFromActivation: self 
+]
+
 { #category : #accessing }
 FBActivation >> previous [
 	^ executor activationBefore: self 
@@ -230,6 +223,11 @@ FBActivation >> stateBorder [
 FBActivation >> suspend [
 	state := #waiting.
 	executor addWaiting: node
+]
+
+{ #category : #'as yet unclassified' }
+FBActivation >> theBehavior [
+	^ behavior ifNil: [ node ]
 ]
 
 { #category : #accessing }

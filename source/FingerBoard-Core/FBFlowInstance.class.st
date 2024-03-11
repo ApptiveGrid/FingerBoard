@@ -20,7 +20,20 @@ FBFlowInstance >> aboutToTransition: aNode [
 
 { #category : #convenience }
 FBFlowInstance >> activate: anActivation [ 
-	anActivation activate
+	[ [ 
+		self addEvent: (FBNodeActivationStarted new
+			activation: anActivation).
+		self processActivation: anActivation.
+	  	self addEvent: (FBNodeActivationDone new
+			activation: anActivation) ]
+		on: FBError  
+		do: [ :error |
+			self handleActivationError: error activation: anActivation. error pass ] ]
+		on: Error 
+		do: [ :error | 
+			self handleActivationError: error activation: anActivation.
+			error pass ]
+	
 ]
 
 { #category : #accessing }
@@ -63,6 +76,11 @@ FBFlowInstance >> announcer [
 { #category : #accessing }
 FBFlowInstance >> atEnd [
 	^ executor atEnd
+]
+
+{ #category : #'as yet unclassified' }
+FBFlowInstance >> basicActivate: anActivation [ 
+	^ anActivation activate
 ]
 
 { #category : #accessing }
@@ -108,6 +126,12 @@ FBFlowInstance >> flow [
 { #category : #accessing }
 FBFlowInstance >> flow: aFBFlow [ 
 	flow := aFBFlow 
+]
+
+{ #category : #convenience }
+FBFlowInstance >> handleActivationError: error activation: anActivation [
+	anActivation errored.
+	self addEvent: (FBNodeActivationErrored new activationError: error messageText) 
 ]
 
 { #category : #accessing }
@@ -164,9 +188,22 @@ FBFlowInstance >> pending [
 	^ self executor pending
 ]
 
+{ #category : #convenience }
+FBFlowInstance >> postActivation: anActivation [ 
+	anActivation postProcess: self
+]
+
 { #category : #printing }
 FBFlowInstance >> printOn: aStream [ 
 	aStream << 'flow instance id=' << id asString
+]
+
+{ #category : #convenience }
+FBFlowInstance >> processActivation: anActivation [
+	anActivation prepareBehavior.
+	self basicActivate: anActivation.
+	anActivation postProcessActivation 
+
 ]
 
 { #category : #accessing }
