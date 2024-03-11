@@ -28,7 +28,7 @@ FBPluggableTask >> evaluateTo: aString [
 
 { #category : #'instance creation' }
 FBPluggableTask >> executeWith: anObject [ 	
-	block cull: anObject.
+	^ block cull: anObject.
 	
 ]
 

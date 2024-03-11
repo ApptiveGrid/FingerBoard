@@ -168,7 +168,7 @@ FBActivation >> node: aFBNode [
 
 { #category : #'as yet unclassified' }
 FBActivation >> postProcessActivation [ 
-	self theBehavior postProcessActivation: self 
+	behavior postProcessActivation: self 
 ]
 
 { #category : #'as yet unclassified' }

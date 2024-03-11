@@ -9,6 +9,10 @@ FBExclusiveGatewayBehavior >> executeWith: anObject [
 	^ anObject 
 ]
 
+{ #category : #initialization }
+FBExclusiveGatewayBehavior >> initializeFromActivation: anActivation [
+]
+
 { #category : #convenience }
 FBExclusiveGatewayBehavior >> postProcessActivation: anActivation [ 
 	anActivation 

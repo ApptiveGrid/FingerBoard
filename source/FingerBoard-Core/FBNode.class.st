@@ -131,7 +131,7 @@ FBNode >> collectionNeighborsIn: aCollection [
 
 { #category : #accessing }
 FBNode >> defaultBehaviorClass [
-	self subclassResponsibility 
+	^ FBSelfDelegatingBehavior 
 ]
 
 { #category : #'as yet unclassified' }
@@ -194,6 +194,11 @@ FBNode >> initialize [
 	id := FBIdGenerator current newId.
 	incoming := OrderedCollection new.
 	outgoing := OrderedCollection new
+]
+
+{ #category : #initialization }
+FBNode >> initializeFromActivation: anActiviation [ 
+
 ]
 
 { #category : #'as yet unclassified' }
