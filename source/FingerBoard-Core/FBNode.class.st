@@ -142,7 +142,7 @@ FBNode >> detach [
 
 { #category : #execution }
 FBNode >> executeWith: anObject [ 
-	self halt.
+	^ anObject
 ]
 
 { #category : #'as yet unclassified' }

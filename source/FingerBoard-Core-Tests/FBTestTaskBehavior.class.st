@@ -20,9 +20,7 @@ FBTestTaskBehavior class >> propertySchema [
 
 { #category : #execution }
 FBTestTaskBehavior >> executeWith: anObject [ 
-	self metadata 
-		at: #status put: 200
-	
+	^ anObject 	
 ]
 
 { #category : #execution }

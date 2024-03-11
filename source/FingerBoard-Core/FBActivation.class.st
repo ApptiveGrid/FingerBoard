@@ -39,6 +39,15 @@ FBActivation >> argument: anObject [
 	argument := anObject 
 ]
 
+{ #category : #'undo - undo' }
+FBActivation >> basicExecute [
+	self 
+		prepareBehavior;
+		activate;
+		postProcessActivation 
+
+]
+
 { #category : #'as yet unclassified' }
 FBActivation >> done [
 	state := #done
@@ -110,12 +119,6 @@ FBActivation >> initialize [
 	id := FBIdGenerator current newId.
 	timestamp := DateAndTime now.
 	state := #created
-]
-
-{ #category : #accessing }
-FBActivation >> instance [
-self halt.
-	^ executor flowInstance
 ]
 
 { #category : #'as yet unclassified' }
