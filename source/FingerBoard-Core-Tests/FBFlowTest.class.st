@@ -119,6 +119,15 @@ FBFlowTest >> testNodeWithIdError [
 ]
 
 { #category : #tests }
+FBFlowTest >> testParallelNode [
+	| flow instance |
+	flow := FBFlow parallelFlow.
+	instance := flow newInstance.
+	instance executeWith: { 1 . 2 . 3 }.
+	self assert: instance atEnd 
+]
+
+{ #category : #tests }
 FBFlowTest >> testRemoveNode [
 	| flow intermediate |
 	flow := FBFlow simpleFlow.

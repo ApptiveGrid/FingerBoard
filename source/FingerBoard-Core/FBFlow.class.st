@@ -76,6 +76,18 @@ FBFlow class >> gatewayedFlow [
 ]
 
 { #category : #tests }
+FBFlow class >> parallelFlow [ 
+	<sampleInstance>
+	| start end parallel p1 p2 |
+	start := FBStartEvent new.
+	parallel := start addOutgoingNode: (FBParallelNode named: 'simple task').
+	p1 := parallel addOutgoingNode: (FBTask named: 'p1 task').
+	p2 := p1 addOutgoingNode: (FBTask named: 'p2 task').
+	end := p2 addOutgoingNode: FBEndEvent new.
+	^ FBFlow new start: start
+]
+
+{ #category : #tests }
 FBFlow class >> simpleFlow [ 
 	<sampleInstance>
 	| start end intermediate |

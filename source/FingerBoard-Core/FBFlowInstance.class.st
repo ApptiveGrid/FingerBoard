@@ -65,6 +65,21 @@ FBFlowInstance >> atEnd [
 	^ executor atEnd
 ]
 
+{ #category : #execution }
+FBFlowInstance >> doProtected: aBlock [ 
+	[ [ 
+		self addEvent: FBNodeActivationStarted new.
+		aBlock value .
+	  	self addEvent: FBNodeActivationDone new ]
+		on: FBError  
+		do: [ :error |
+			self activationError: error ] ]
+		on: Error 
+		do: [ :error | 
+			self activationError: error.
+			error pass ]
+]
+
 { #category : #accessing }
 FBFlowInstance >> events [
 	^ events ifNil: [ 

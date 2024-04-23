@@ -14,32 +14,6 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
-{ #category : #activation }
-FBActivation >> activate [ 
-	self activateWithErrorHandling 
-]
-
-{ #category : #convenience }
-FBActivation >> activateWithErrorHandling [
-	[ [ 
-		self addEvent: FBNodeActivationStarted new.
-		node activateWith: self.
-	  	self addEvent: FBNodeActivationDone new ]
-		on: FBError  
-		do: [ :error |
-			self activationError: error ] ]
-		on: Error 
-		do: [ :error | 
-			self activationError: error.
-			error pass ]
-]
-
-{ #category : #convenience }
-FBActivation >> activationError: error [
-	self errored.
-	self addEvent: (FBNodeActivationErrored new activationError: error messageText) 
-]
-
 { #category : #events }
 FBActivation >> addEvent: aFBFlowEvent [
 

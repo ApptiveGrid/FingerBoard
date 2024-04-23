@@ -14,7 +14,26 @@ Class {
 
 { #category : #convenience }
 FBFlowExecutor >> activate: activation [ 
-	flowInstance activate: activation 
+"	node activateWith: self."
+	self addEvent: FBNodeActivationStarted new.
+	activation node activateWith: activation.
+	self addEvent: FBNodeActivationDone new
+
+	
+]
+
+{ #category : #convenience }
+FBFlowExecutor >> activateProtected: activation [
+	[ [ self activate: activation ]
+		on: FBError  
+		do: [ :error |
+			activation errored.
+			self addEvent: (FBNodeActivationErrored new activationError: error messageText)  ] ]
+		on: Error 
+		do: [ :error | 
+			activation errored.
+			self addEvent: (FBNodeActivationErrored new activationError: error messageText).
+			error pass ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -31,6 +50,11 @@ FBFlowExecutor >> activationClass [
 { #category : #accessing }
 FBFlowExecutor >> activations [
 	^ activations
+]
+
+{ #category : #adding }
+FBFlowExecutor >> addEvent: anEvent [ 
+	flowInstance addEvent: anEvent 
 ]
 
 { #category : #adding }
@@ -150,5 +174,5 @@ FBFlowExecutor >> step [
 		node: transition target;
 		argument: lastValue.
 	activations add: activation.
-	self activate: activation 
+	self activateProtected: activation 
 ]
