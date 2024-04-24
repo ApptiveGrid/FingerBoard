@@ -145,7 +145,8 @@ FBBaseExecutor >> rootExecutor [
 
 { #category : #'as yet unclassified' }
 FBBaseExecutor >> scheduleStart [
-	pending add: flowInstance start
+	pending add: flowInstance start.
+	flowInstance addEvent: FBFlowInstanceStarted new
 ]
 
 { #category : #accessing }

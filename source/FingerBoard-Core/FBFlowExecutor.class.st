@@ -41,8 +41,6 @@ FBFlowExecutor >> newActivation [
 { #category : #executing }
 FBFlowExecutor >> step [
 	| transition activation lastValue |
-	self isCreated ifTrue: [ 
-		flowInstance addEvent: FBFlowInstanceStarted new ].
 	flowInstance aboutToTransition: pending first.
 	transition := pending removeFirst. 
 	lastValue := transition source lastValueIn: self.

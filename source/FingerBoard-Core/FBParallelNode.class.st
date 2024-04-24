@@ -1,6 +1,6 @@
 Class {
 	#name : #FBParallelNode,
-	#superclass : #FBNode,
+	#superclass : #FBTask,
 	#category : #'FingerBoard-Core-Model'
 }
 
