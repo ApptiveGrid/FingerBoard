@@ -35,22 +35,6 @@ FBParallelActivation >> printOn: aStream [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-FBParallelActivation >> stateBorder [
-	| map border |
-	map := { 
-		#created -> Color green.
-		#running -> Color yellow.
-		#waiting -> Color red.
-		#done -> Color blue } asDictionary.
-	border := RSBorder new 
-		width: 2; 
-		color: ((map at: state)  alpha: 0.8).
-	(state = #waiting) ifTrue: [ border dashArray: #( 2 ) ].
-	^ border
-		
-]
-
 { #category : #evaluating }
 FBParallelActivation >> value [
 	^ values 

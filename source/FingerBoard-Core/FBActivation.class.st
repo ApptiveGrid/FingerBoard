@@ -110,22 +110,6 @@ FBActivation >> state [
 ]
 
 { #category : #'as yet unclassified' }
-FBActivation >> stateBorder [
-	| map border |
-	map := { 
-		#created -> Color green.
-		#running -> Color yellow.
-		#waiting -> Color red.
-		#done -> Color blue } asDictionary.
-	border := RSBorder new 
-		width: 2; 
-		color: ((map at: state)  alpha: 0.8).
-	(state = #waiting) ifTrue: [ border dashArray: #( 2 ) ].
-	^ border
-		
-]
-
-{ #category : #'as yet unclassified' }
 FBActivation >> suspend [
 	state := #waiting.
 	executor addWaiting: node
