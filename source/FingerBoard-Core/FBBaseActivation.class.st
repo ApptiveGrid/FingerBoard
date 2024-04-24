@@ -60,7 +60,7 @@ FBBaseActivation >> followAllOutgoing [
 { #category : #'as yet unclassified' }
 FBBaseActivation >> followTransition: aTransition [
 	(aTransition conditionMatches: self value) ifTrue: [ 
-		executor flowInstance currentExecutor addPending: aTransition ]
+		executor flowInstance executor addPending: aTransition ]
 ]
 
 { #category : #initialization }

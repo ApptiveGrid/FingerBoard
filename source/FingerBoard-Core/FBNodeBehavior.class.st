@@ -36,7 +36,7 @@ FBNodeBehavior >> argument [
 
 { #category : #execution }
 FBNodeBehavior >> execute [ 
-	activation flowInstance currentExecutor stop  
+	activation flowInstance executor stop  
 ]
 
 { #category : #finalization }

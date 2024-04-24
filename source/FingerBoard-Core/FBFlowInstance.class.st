@@ -74,12 +74,6 @@ FBFlowInstance >> buildRootExecutor [
 			scheduleStart 
 ]
 
-{ #category : #accessing }
-FBFlowInstance >> currentExecutor [ 
-	^ executor ifNil: [ 
-		executor := self buildRootExecutor ]
-]
-
 { #category : #execution }
 FBFlowInstance >> doProtected: aBlock [ 
 	[ [ 
@@ -113,15 +107,21 @@ FBFlowInstance >> eventsOfNode: aFBNode [
 
 { #category : #executing }
 FBFlowInstance >> execute [ 
-	[ executor hasPending ] whileTrue: [
+	[ self executor hasPending ] whileTrue: [
 		executor step ]
 
 ]
 
 { #category : #executing }
 FBFlowInstance >> executeWith: anObject [
-	self currentExecutor initialValue: anObject.
+	self executor initialValue: anObject.
 	self execute
+]
+
+{ #category : #accessing }
+FBFlowInstance >> executor [ 
+	^ executor ifNil: [ 
+		executor := self buildRootExecutor ]
 ]
 
 { #category : #accessing }
