@@ -6,5 +6,8 @@ Class {
 
 { #category : #execution }
 FBParallelNodeBehavior >> execute [ 
-	self halt
+	activation flowInstance pushExecutor: (FBParallelExecutor new 
+		node: activation node;
+		list: activation argument ).
+	activation value: activation argument 
 ]

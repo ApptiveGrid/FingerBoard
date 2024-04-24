@@ -119,12 +119,23 @@ FBFlowTest >> testNodeWithIdError [
 ]
 
 { #category : #tests }
-FBFlowTest >> testParallelNode [
+FBFlowTest >> testParallelNodeJoined [
 	| flow instance |
-	flow := FBFlow parallelFlow.
+	flow := FBFlow parallelFlowJoined.
 	instance := flow newInstance.
 	instance executeWith: { 1 . 2 . 3 }.
-	self assert: instance atEnd 
+	self assert: instance atEnd.
+
+]
+
+{ #category : #tests }
+FBFlowTest >> testParallelNodeOpenEnd [
+	| flow instance |
+	flow := FBFlow parallelFlowOpen.
+	instance := flow newInstance.
+	instance executeWith: { 1 . 2 . 3 }.
+	self assert: instance atEnd.
+
 ]
 
 { #category : #tests }

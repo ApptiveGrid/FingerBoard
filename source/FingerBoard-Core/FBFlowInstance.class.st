@@ -6,7 +6,8 @@ Class {
 		'flow',
 		'executor',
 		'announcer',
-		'events'
+		'events',
+		'activations'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
@@ -36,8 +37,9 @@ FBFlowInstance >> activationOfNode: aFBNode [
 ]
 
 { #category : #accessing }
-FBFlowInstance >> activations [
-	^ self executor activations
+FBFlowInstance >> activations [ 
+	^ activations ifNil: [ 
+		activations := OrderedCollection new ]
 ]
 
 { #category : #events }
@@ -62,7 +64,20 @@ FBFlowInstance >> announcer [
 
 { #category : #accessing }
 FBFlowInstance >> atEnd [
-	^ executor atEnd
+	^ self rootExecutor atEnd
+]
+
+{ #category : #finalization }
+FBFlowInstance >> buildRootExecutor [
+	^ FBFlowExecutor new 
+			flowInstance: self;
+			scheduleStart 
+]
+
+{ #category : #accessing }
+FBFlowInstance >> currentExecutor [ 
+	^ executor ifNil: [ 
+		executor := self buildRootExecutor ]
 ]
 
 { #category : #execution }
@@ -97,22 +112,16 @@ FBFlowInstance >> eventsOfNode: aFBNode [
 ]
 
 { #category : #executing }
-FBFlowInstance >> execute [
-	self executor execute
+FBFlowInstance >> execute [ 
+	[ executor hasPending ] whileTrue: [
+		executor step ]
+
 ]
 
 { #category : #executing }
 FBFlowInstance >> executeWith: anObject [
-	self executor 
-		initialValue: anObject;
-		execute
-]
-
-{ #category : #finalization }
-FBFlowInstance >> executor [ 
-	^ executor ifNil: [
-		executor := FBFlowExecutor new 
-			flowInstance: self ]
+	self currentExecutor initialValue: anObject.
+	self execute
 ]
 
 { #category : #accessing }
@@ -154,7 +163,7 @@ FBFlowInstance >> inspectionFlow [
 	^ SpRoassal3InspectorPresenter  new 
 		canvas: (FBFlowMapBuilder new 
 			nodes: flow nodes;
-			activations: self executor activations;
+			activations: self rootExecutor activations;
 			build )
 		yourself
 ]
@@ -179,9 +188,27 @@ FBFlowInstance >> pending [
 	^ self executor pending
 ]
 
+{ #category : #'as yet unclassified' }
+FBFlowInstance >> popExecutor: anExecutor [ 
+	executor := anExecutor
+]
+
 { #category : #printing }
 FBFlowInstance >> printOn: aStream [ 
 	aStream << 'flow instance id=' << id asString
+]
+
+{ #category : #'as yet unclassified' }
+FBFlowInstance >> pushExecutor: anExecutor [ 
+	executor := anExecutor 
+		flowInstance: self;
+		suspendedExecutor: executor;
+		yourself
+]
+
+{ #category : #finalization }
+FBFlowInstance >> rootExecutor [
+	^ executor rootExecutor
 ]
 
 { #category : #accessing }

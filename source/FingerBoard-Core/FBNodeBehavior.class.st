@@ -36,7 +36,7 @@ FBNodeBehavior >> argument [
 
 { #category : #execution }
 FBNodeBehavior >> execute [ 
-	self subclassResponsibility 
+	activation flowInstance currentExecutor stop  
 ]
 
 { #category : #finalization }
