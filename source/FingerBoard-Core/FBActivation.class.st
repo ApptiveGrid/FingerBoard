@@ -9,6 +9,11 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
+{ #category : #activation }
+FBActivation >> activate [ 
+	node activateWith: self.
+]
+
 { #category : #accessing }
 FBActivation >> argument [
 	^ argument

@@ -49,5 +49,5 @@ FBFlowExecutor >> step [
 		node: transition target;
 		argument: lastValue.
 	self activations add: activation.
-	self activateProtected: activation 
+	flowInstance activateProtected: activation 
 ]

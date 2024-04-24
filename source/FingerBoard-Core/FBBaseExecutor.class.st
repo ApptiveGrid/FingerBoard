@@ -10,31 +10,6 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
-{ #category : #convenience }
-FBBaseExecutor >> activate: activation [ 
-	self addEvent: (FBNodeActivationStarted new
-		activation: activation).
-	activation node activateWith: activation.
-	self addEvent: (FBNodeActivationDone new
-		activation: activation)
-
-	
-]
-
-{ #category : #convenience }
-FBBaseExecutor >> activateProtected: activation [
-	[ [ self activate: activation ]
-		on: FBError  
-		do: [ :error |
-			activation errored.
-			self addEvent: (FBNodeActivationErrored new activationError: error messageText)  ] ]
-		on: Error 
-		do: [ :error | 
-			activation errored.
-			self addEvent: (FBNodeActivationErrored new activationError: error messageText).
-			error pass ]
-]
-
 { #category : #'as yet unclassified' }
 FBBaseExecutor >> activationBefore: aFBActivation [ 
 

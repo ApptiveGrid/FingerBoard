@@ -21,7 +21,26 @@ FBFlowInstance >> aboutToTransition: aNode [
 
 { #category : #convenience }
 FBFlowInstance >> activate: anActivation [ 
-	anActivation activate
+	self addEvent: (FBNodeActivationStarted new
+		activation: anActivation).
+	anActivation activate.
+	self addEvent: (FBNodeActivationDone new
+		activation: anActivation)
+
+]
+
+{ #category : #convenience }
+FBFlowInstance >> activateProtected: activation [
+	[ [ self activate: activation ]
+		on: FBError  
+		do: [ :error |
+			activation errored.
+			self addEvent: (FBNodeActivationErrored new activationError: error messageText)  ] ]
+		on: Error 
+		do: [ :error | 
+			activation errored.
+			self addEvent: (FBNodeActivationErrored new activationError: error messageText).
+			error pass ]
 ]
 
 { #category : #accessing }

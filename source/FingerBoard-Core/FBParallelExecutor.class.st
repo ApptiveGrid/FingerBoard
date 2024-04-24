@@ -75,7 +75,7 @@ FBParallelExecutor >> step [
 				node: transition target) ]. 
 	
 	activation argument: lastValue.
-	self activateProtected: activation.
+	flowInstance activateProtected: activation.
 	(pending isEmpty and: [index < list size]) ifTrue: [ 
 		index := index + 1.
 		pending addAll: node outgoing ]
