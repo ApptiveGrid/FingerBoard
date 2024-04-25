@@ -11,6 +11,11 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
+{ #category : #activation }
+FBBaseActivation >> activate [
+	node activateWith: self 
+]
+
 { #category : #events }
 FBBaseActivation >> addEvent: aFBFlowEvent [
 
