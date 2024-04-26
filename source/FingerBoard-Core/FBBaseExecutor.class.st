@@ -10,6 +10,12 @@ Class {
 	#category : #'FingerBoard-Core-Model'
 }
 
+{ #category : #executing }
+FBBaseExecutor >> activate: activation [
+	self activations add: activation.
+	flowInstance activateProtected: activation 
+]
+
 { #category : #'as yet unclassified' }
 FBBaseExecutor >> activationBefore: aFBActivation [ 
 

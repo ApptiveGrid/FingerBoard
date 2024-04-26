@@ -39,15 +39,20 @@ FBFlowExecutor >> newActivation [
 ]
 
 { #category : #executing }
+FBFlowExecutor >> newActivation: transition [ 
+	^ self newActivation 
+		node: transition target;
+		yourself
+]
+
+{ #category : #executing }
 FBFlowExecutor >> step [
 	| transition activation lastValue |
 	flowInstance aboutToTransition: pending first.
 	transition := pending removeFirst. 
 	lastValue := transition source lastValueIn: self.
 	flowInstance addEvent: (FBTransitionFollowed new transition: transition; value: lastValue).
-	activation := self newActivation 
-		node: transition target;
-		argument: lastValue.
-	self activations add: activation.
-	flowInstance activateProtected: activation 
+	activation := self newActivation: transition. 
+	activation argument: lastValue.
+	self activate: activation
 ]

@@ -57,6 +57,15 @@ FBParallelExecutor >> newActivation [
 		initializeValues: list size 
 ]
 
+{ #category : #stepping }
+FBParallelExecutor >> newActivation: transition [
+	^ map 
+		at: transition
+		ifAbsentPut: [ 
+			self activations add: (self newActivation 
+				node: transition target) ]
+]
+
 { #category : #accessing }
 FBParallelExecutor >> node: aFBParallelNode [ 
 	node := aFBParallelNode.
@@ -68,14 +77,9 @@ FBParallelExecutor >> step [
 	| transition lastValue activation |
 	transition := pending removeFirst. 
 	lastValue := (transition source lastValueIn: self) at: index.
-	activation := map 
-		at: transition
-		ifAbsentPut: [ 
-			self activations add: (self newActivation 
-				node: transition target) ]. 
-	
+	activation := self newActivation: transition.
 	activation argument: lastValue.
-	flowInstance activateProtected: activation.
+	self activate: activation.
 	(pending isEmpty and: [index < list size]) ifTrue: [ 
 		index := index + 1.
 		pending addAll: node outgoing ]
