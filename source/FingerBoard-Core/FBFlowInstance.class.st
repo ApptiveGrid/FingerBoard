@@ -35,11 +35,15 @@ FBFlowInstance >> activateProtected: activation [
 		on: FBError  
 		do: [ :error |
 			activation errored.
-			self addEvent: (FBNodeActivationErrored new activationError: error messageText)  ] ]
+			self addEvent: (FBNodeActivationErrored new 
+				activation: activation;
+				activationError: error messageText)  ] ]
 		on: Error 
 		do: [ :error | 
 			activation errored.
-			self addEvent: (FBNodeActivationErrored new activationError: error messageText).
+			self addEvent: (FBNodeActivationErrored new 
+				activation: activation;
+				activationError: error messageText).
 			error pass ]
 ]
 
