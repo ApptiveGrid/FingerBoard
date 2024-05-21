@@ -70,10 +70,10 @@ FBFlowInstanceTest >> testFlowAnnouncementsWithError [
 FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
 	| flowInstance events |
 	flowInstance := FBFlow simpleFlowWithSystemError newInstance.
-	flowInstance initialValue: 7.
 	events := OrderedCollection new.
 	flowInstance announcer 
 		when: FBFlowEvent do: [ :e | events add: e ].
+	flowInstance initialValue: 7.
 	self 
 		should: [ flowInstance execute ]
 		raise: ZeroDivide.

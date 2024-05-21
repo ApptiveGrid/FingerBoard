@@ -6,7 +6,8 @@ Class {
 		'flow',
 		'executor',
 		'announcer',
-		'events'
+		'events',
+		'activations'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
@@ -20,7 +21,30 @@ FBFlowInstance >> aboutToTransition: aNode [
 
 { #category : #convenience }
 FBFlowInstance >> activate: anActivation [ 
-	anActivation activate
+	self addEvent: (FBNodeActivationStarted new
+		activation: anActivation).
+	anActivation activate.
+	self addEvent: (FBNodeActivationDone new
+		activation: anActivation)
+
+]
+
+{ #category : #convenience }
+FBFlowInstance >> activateProtected: activation [
+	[ [ self activate: activation ]
+		on: FBError  
+		do: [ :error |
+			activation errored.
+			self addEvent: (FBNodeActivationErrored new 
+				activation: activation;
+				activationError: error messageText)  ] ]
+		on: Error 
+		do: [ :error | 
+			activation errored.
+			self addEvent: (FBNodeActivationErrored new 
+				activation: activation;
+				activationError: error messageText).
+			error pass ]
 ]
 
 { #category : #accessing }
@@ -36,8 +60,9 @@ FBFlowInstance >> activationOfNode: aFBNode [
 ]
 
 { #category : #accessing }
-FBFlowInstance >> activations [
-	^ self executor activations
+FBFlowInstance >> activations [ 
+	^ activations ifNil: [ 
+		activations := OrderedCollection new ]
 ]
 
 { #category : #events }
@@ -62,7 +87,14 @@ FBFlowInstance >> announcer [
 
 { #category : #accessing }
 FBFlowInstance >> atEnd [
-	^ executor atEnd
+	^ self rootExecutor atEnd
+]
+
+{ #category : #finalization }
+FBFlowInstance >> buildRootExecutor [
+	^ FBFlowExecutor new 
+			flowInstance: self;
+			scheduleStart 
 ]
 
 { #category : #accessing }
@@ -82,22 +114,22 @@ FBFlowInstance >> eventsOfNode: aFBNode [
 ]
 
 { #category : #executing }
-FBFlowInstance >> execute [
-	self executor execute
+FBFlowInstance >> execute [ 
+	[ self executor hasPending ] whileTrue: [
+		executor step ]
+
 ]
 
 { #category : #executing }
 FBFlowInstance >> executeWith: anObject [
-	self executor 
-		initialValue: anObject;
-		execute
+	self executor initialValue: anObject.
+	self execute
 ]
 
-{ #category : #finalization }
+{ #category : #accessing }
 FBFlowInstance >> executor [ 
-	^ executor ifNil: [
-		executor := FBFlowExecutor new 
-			flowInstance: self ]
+	^ executor ifNil: [ 
+		executor := self buildRootExecutor ]
 ]
 
 { #category : #accessing }
@@ -139,7 +171,7 @@ FBFlowInstance >> inspectionFlow [
 	^ SpRoassal3InspectorPresenter  new 
 		canvas: (FBFlowMapBuilder new 
 			nodes: flow nodes;
-			activations: self executor activations;
+			activations: self rootExecutor activations;
 			build )
 		yourself
 ]
@@ -164,9 +196,27 @@ FBFlowInstance >> pending [
 	^ self executor pending
 ]
 
+{ #category : #'as yet unclassified' }
+FBFlowInstance >> popExecutor: anExecutor [ 
+	executor := anExecutor
+]
+
 { #category : #printing }
 FBFlowInstance >> printOn: aStream [ 
 	aStream << 'flow instance id=' << id asString
+]
+
+{ #category : #'as yet unclassified' }
+FBFlowInstance >> pushExecutor: anExecutor [ 
+	executor := anExecutor 
+		flowInstance: self;
+		suspendedExecutor: executor;
+		yourself
+]
+
+{ #category : #finalization }
+FBFlowInstance >> rootExecutor [
+	^ executor rootExecutor
 ]
 
 { #category : #accessing }

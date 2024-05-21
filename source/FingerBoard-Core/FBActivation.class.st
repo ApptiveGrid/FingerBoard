@@ -1,51 +1,17 @@
 Class {
 	#name : #FBActivation,
-	#superclass : #Object,
+	#superclass : #FBBaseActivation,
 	#instVars : [
-		'id',
-		'timestamp',
-		'node',
 		'value',
-		'argument',
-		'executor',
-		'state',
-		'metadata'
+		'metadata',
+		'argument'
 	],
 	#category : #'FingerBoard-Core-Model'
 }
 
 { #category : #activation }
 FBActivation >> activate [ 
-	self activateWithErrorHandling 
-]
-
-{ #category : #convenience }
-FBActivation >> activateWithErrorHandling [
-	[ [ 
-		self addEvent: FBNodeActivationStarted new.
-		node activateWith: self.
-	  	self addEvent: FBNodeActivationDone new ]
-		on: FBError  
-		do: [ :error |
-			self activationError: error ] ]
-		on: Error 
-		do: [ :error | 
-			self activationError: error.
-			error pass ]
-]
-
-{ #category : #convenience }
-FBActivation >> activationError: error [
-	self errored.
-	self addEvent: (FBNodeActivationErrored new activationError: error messageText) 
-]
-
-{ #category : #events }
-FBActivation >> addEvent: aFBFlowEvent [
-
-	self flowInstance addEvent: (aFBFlowEvent
-			 activation: self;
-			 yourself)
+	node activateWith: self.
 ]
 
 { #category : #accessing }
@@ -54,18 +20,8 @@ FBActivation >> argument [
 ]
 
 { #category : #accessing }
-FBActivation >> argument: anObject [
-	argument := anObject 
-]
-
-{ #category : #'as yet unclassified' }
-FBActivation >> done [
-	state := #done
-]
-
-{ #category : #'as yet unclassified' }
-FBActivation >> errored [ 
-	state := #error
+FBActivation >> argument: aCollection [ 
+	argument := aCollection
 ]
 
 { #category : #events }
@@ -74,61 +30,14 @@ FBActivation >> events [
 ]
 
 { #category : #accessing }
-FBActivation >> executor [
-
-	^ executor
-]
-
-{ #category : #accessing }
-FBActivation >> executor: aFBFlowExecutor [ 
-	executor := aFBFlowExecutor 
-]
-
-{ #category : #accessing }
 FBActivation >> flow [
 	^ executor flow
-]
-
-{ #category : #events }
-FBActivation >> flowInstance [
-	^ executor flowInstance 
-]
-
-{ #category : #'as yet unclassified' }
-FBActivation >> followAll: aCollection [
-	aCollection do: [ :transition |
-		 self followTransition: transition ]
-]
-
-{ #category : #'as yet unclassified' }
-FBActivation >> followAllOutgoing [
-	self node outgoing do: [ :transition |
-		 self followTransition: transition ]
-]
-
-{ #category : #'as yet unclassified' }
-FBActivation >> followTransition: aTransition [
-	(aTransition conditionMatches: self value) ifTrue: [ 
-		executor addPending: aTransition ]
-]
-
-{ #category : #testing }
-FBActivation >> hasError [
-	^ state = #error
 ]
 
 { #category : #accessing }
 FBActivation >> id [
 
 	^ id
-]
-
-{ #category : #initialization }
-FBActivation >> initialize [ 
-	super initialize.
-	id := FBIdGenerator current newId.
-	timestamp := DateAndTime now.
-	state := #created
 ]
 
 { #category : #accessing }
@@ -175,16 +84,6 @@ FBActivation >> metadataSchema [
 ]
 
 { #category : #accessing }
-FBActivation >> node [
-	^ node
-]
-
-{ #category : #accessing }
-FBActivation >> node: aFBNode [
-	node := aFBNode
-]
-
-{ #category : #accessing }
 FBActivation >> previous [
 	^ executor activationBefore: self 
 ]
@@ -208,22 +107,6 @@ FBActivation >> returnValue: anInteger [
 { #category : #accessing }
 FBActivation >> state [
 	^ state
-]
-
-{ #category : #'as yet unclassified' }
-FBActivation >> stateBorder [
-	| map border |
-	map := { 
-		#created -> Color green.
-		#running -> Color yellow.
-		#waiting -> Color red.
-		#done -> Color blue } asDictionary.
-	border := RSBorder new 
-		width: 2; 
-		color: ((map at: state)  alpha: 0.8).
-	(state = #waiting) ifTrue: [ border dashArray: #( 2 ) ].
-	^ border
-		
 ]
 
 { #category : #'as yet unclassified' }

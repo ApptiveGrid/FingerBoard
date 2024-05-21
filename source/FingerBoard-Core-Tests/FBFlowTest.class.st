@@ -119,6 +119,30 @@ FBFlowTest >> testNodeWithIdError [
 ]
 
 { #category : #tests }
+FBFlowTest >> testParallelNodeJoined [
+	| flow instance |
+	flow := FBFlow parallelFlowJoined.
+	instance := flow newInstance.
+	instance executeWith: { 1 . 2 . 3 }.
+	self assert: instance atEnd.
+
+]
+
+{ #category : #tests }
+FBFlowTest >> testParallelNodeOpenEnd [
+	| flow instance |
+	flow := FBFlow parallelFlowOpen.
+	instance := flow newInstance.
+	instance executeWith: { 1 . 2 . 3 }.
+	self assert: instance atEnd.
+	self assert: instance state equals: #done.
+	"there should be one activation per node.
+	The activation for a parallel node is specific and holds collection of arguments and values"
+	self assert: instance activations size equals: flow nodes size
+
+]
+
+{ #category : #tests }
 FBFlowTest >> testRemoveNode [
 	| flow intermediate |
 	flow := FBFlow simpleFlow.
