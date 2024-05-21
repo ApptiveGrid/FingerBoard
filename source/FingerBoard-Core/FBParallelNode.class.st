@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+FBParallelNode >> activationClass [ 
+	^ FBParallelActivation  
+]
+
+{ #category : #accessing }
 FBParallelNode >> defaultBehaviorClass [
 	^ FBParallelNodeBehavior 
 ]
