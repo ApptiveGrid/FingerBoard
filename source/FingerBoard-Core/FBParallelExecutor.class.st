@@ -11,6 +11,14 @@ Class {
 }
 
 { #category : #accessing }
+FBParallelExecutor >> activate: activation [
+
+	"unlike default behavior, the activation is already added to the list when being instantiated.
+	here we only take care of the execution part"
+	flowInstance activateProtected: activation 
+]
+
+{ #category : #accessing }
 FBParallelExecutor >> activationClass [
 	^ FBParallelActivation
 ]

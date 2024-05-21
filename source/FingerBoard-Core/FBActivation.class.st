@@ -34,11 +34,6 @@ FBActivation >> flow [
 	^ executor flow
 ]
 
-{ #category : #testing }
-FBActivation >> hasError [
-	^ state = #error
-]
-
 { #category : #accessing }
 FBActivation >> id [
 

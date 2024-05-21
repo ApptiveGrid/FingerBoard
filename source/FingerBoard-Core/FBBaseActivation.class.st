@@ -68,6 +68,11 @@ FBBaseActivation >> followTransition: aTransition [
 		executor flowInstance executor addPending: aTransition ]
 ]
 
+{ #category : #testing }
+FBBaseActivation >> hasError [
+	^ state = #error
+]
+
 { #category : #initialization }
 FBBaseActivation >> initialize [ 
 	super initialize.
