@@ -28,6 +28,12 @@ FBBaseExecutor >> activationClass [
 ]
 
 { #category : #accessing }
+FBBaseExecutor >> activationOf: aFBNode [
+	^ (self activations reverse 
+				detect: [ :each | each node = aFBNode ]).
+]
+
+{ #category : #accessing }
 FBBaseExecutor >> activations [
 	^ flowInstance activations
 ]
@@ -108,8 +114,7 @@ FBBaseExecutor >> isWaiting [
 
 { #category : #accessing }
 FBBaseExecutor >> lastValueOf: aFBNode [
-	^ (self activations reverse 
-				detect: [ :each | each node = aFBNode ]) value.
+	^ (self activationOf: aFBNode) value.
 ]
 
 { #category : #accessing }

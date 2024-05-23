@@ -92,7 +92,10 @@ FBParallelExecutor >> step [
 	self activate: activation.
 	(pending isEmpty and: [index < list size]) ifTrue: [ 
 		index := index + 1.
-		pending addAll: node outgoing ]
+		pending addAll: node outgoing ].
+	pending isEmpty ifTrue: [ 
+			"when everything has been executed, the parallel activation is done"
+			(self activationOf:  node) done ]
 	
 
 ]

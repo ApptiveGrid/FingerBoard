@@ -96,6 +96,11 @@ FBBaseActivation >> node: aFBNode [
 	node := aFBNode
 ]
 
+{ #category : #accessing }
+FBBaseActivation >> state [
+	^ state
+]
+
 { #category : #'as yet unclassified' }
 FBBaseActivation >> stateBorder [
 	| map border |
