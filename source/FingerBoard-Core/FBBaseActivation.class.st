@@ -45,6 +45,11 @@ FBBaseActivation >> executor: aFBFlowExecutor [
 	executor := aFBFlowExecutor 
 ]
 
+{ #category : #accessing }
+FBBaseActivation >> flow [
+	^ executor flow
+]
+
 { #category : #events }
 FBBaseActivation >> flowInstance [
 	^ executor flowInstance 
@@ -89,6 +94,11 @@ FBBaseActivation >> node [
 { #category : #accessing }
 FBBaseActivation >> node: aFBNode [
 	node := aFBNode
+]
+
+{ #category : #accessing }
+FBBaseActivation >> state [
+	^ state
 ]
 
 { #category : #'as yet unclassified' }

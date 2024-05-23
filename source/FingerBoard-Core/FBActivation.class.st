@@ -30,11 +30,6 @@ FBActivation >> events [
 ]
 
 { #category : #accessing }
-FBActivation >> flow [
-	^ executor flow
-]
-
-{ #category : #accessing }
 FBActivation >> id [
 
 	^ id
@@ -102,11 +97,6 @@ FBActivation >> printOn: aStream [
 { #category : #accessing }
 FBActivation >> returnValue: anInteger [ 
 	self shouldBeImplemented.
-]
-
-{ #category : #accessing }
-FBActivation >> state [
-	^ state
 ]
 
 { #category : #'as yet unclassified' }
