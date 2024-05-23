@@ -30,11 +30,6 @@ FBActivation >> events [
 ]
 
 { #category : #accessing }
-FBActivation >> flow [
-	^ executor flow
-]
-
-{ #category : #accessing }
 FBActivation >> id [
 
 	^ id

@@ -45,6 +45,11 @@ FBBaseActivation >> executor: aFBFlowExecutor [
 	executor := aFBFlowExecutor 
 ]
 
+{ #category : #accessing }
+FBBaseActivation >> flow [
+	^ executor flow
+]
+
 { #category : #events }
 FBBaseActivation >> flowInstance [
 	^ executor flowInstance 

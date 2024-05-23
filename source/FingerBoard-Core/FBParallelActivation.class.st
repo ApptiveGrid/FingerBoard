@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #accessing }
+FBParallelActivation >> argument [ 
+	^ arguments at: executor index
+]
+
+{ #category : #accessing }
 FBParallelActivation >> argument: anObject [ 
 	arguments at: executor index put: anObject 
 ]
@@ -37,7 +42,7 @@ FBParallelActivation >> printOn: aStream [
 
 { #category : #evaluating }
 FBParallelActivation >> value [
-	^ values 
+	^ values
 ]
 
 { #category : #accessing }
