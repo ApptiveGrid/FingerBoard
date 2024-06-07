@@ -78,6 +78,12 @@ FBBaseActivation >> hasError [
 	^ state = #error
 ]
 
+{ #category : #accessing }
+FBBaseActivation >> id [
+
+	^ id
+]
+
 { #category : #initialization }
 FBBaseActivation >> initialize [ 
 	super initialize.
