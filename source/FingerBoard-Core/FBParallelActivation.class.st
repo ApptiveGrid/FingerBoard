@@ -27,9 +27,9 @@ FBParallelActivation >> arguments [
 { #category : #initialization }
 FBParallelActivation >> initializeValues: anInteger [
 
-	arguments := Array new: anInteger.
-	values := Array new: anInteger.
-	metadata := Array new: anInteger.
+	arguments ifNil: [arguments := Array new: anInteger].
+	values ifNil: [values := Array new: anInteger].
+	metadata ifNil: [metadata := Array new: anInteger].
 ]
 
 { #category : #'as yet unclassified' }

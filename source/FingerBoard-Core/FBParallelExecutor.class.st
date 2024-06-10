@@ -61,8 +61,7 @@ FBParallelExecutor >> list: aCollection [
 { #category : #'instance creation' }
 FBParallelExecutor >> newActivation [
 	^ self activationClass new
-		executor: self;
-		initializeValues: list size 
+		executor: self
 ]
 
 { #category : #stepping }
@@ -88,11 +87,13 @@ FBParallelExecutor >> step [
 	values := transition source lastValueIn: self.
 	activation := self newActivation: transition.
 	(values isCollection and: [ values isSequenceable ]) ifFalse: [
+		activation errored.
 		self addEvent: (FBNodeActivationErrored new
-				 activation: activation;
+				activation: activation;
 				 activationError:
 					 'Input for parallel execution has to be a collection.').
 		^ self ].
+	activation initializeValues: list size.
 	lastValue := values at: index.
 	activation argument: lastValue.
 	self activate: activation.
