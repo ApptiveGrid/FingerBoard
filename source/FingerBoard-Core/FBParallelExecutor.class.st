@@ -82,20 +82,23 @@ FBParallelExecutor >> node: aFBParallelNode [
 
 { #category : #stepping }
 FBParallelExecutor >> step [
+
 	| transition lastValue activation values |
-	transition := pending removeFirst. 
-	values := (transition source lastValueIn: self).
-	(values isCollection and: [ values isSequenceable ]) ifFalse: [ FBError signal: 'Input for parallel execution has to be a collection.' ].
-	lastValue := values at: index.
+	transition := pending removeFirst.
+	values := transition source lastValueIn: self.
 	activation := self newActivation: transition.
+	(values isCollection and: [ values isSequenceable ]) ifFalse: [
+		self addEvent: (FBNodeActivationErrored new
+				 activation: activation;
+				 activationError:
+					 'Input for parallel execution has to be a collection.').
+		^ self ].
+	lastValue := values at: index.
 	activation argument: lastValue.
 	self activate: activation.
-	(pending isEmpty and: [index < list size]) ifTrue: [ 
+	(pending isEmpty and: [ index < list size ]) ifTrue: [
 		index := index + 1.
 		pending addAll: node outgoing ].
-	pending isEmpty ifTrue: [ 
-			"when everything has been executed, the parallel activation is done"
-			(self activationOf:  node) done ]
-	
-
+	pending isEmpty ifTrue: [ "when everything has been executed, the parallel activation is done"
+		(self activationOf: node) done ]
 ]

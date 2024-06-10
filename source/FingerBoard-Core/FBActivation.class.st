@@ -30,12 +30,6 @@ FBActivation >> events [
 ]
 
 { #category : #accessing }
-FBActivation >> id [
-
-	^ id
-]
-
-{ #category : #accessing }
 FBActivation >> instance [
 	^ executor flowInstance
 ]
