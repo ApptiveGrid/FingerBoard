@@ -86,7 +86,7 @@ FBParallelExecutor >> step [
 	transition := pending removeFirst.
 	values := transition source lastValueIn: self.
 	activation := self newActivation: transition.
-	(values isCollection and: [ values isSequenceable ]) ifFalse: [
+	((values isCollection and: [ values isSequenceable ]) and: [ values size > 0 ]) ifFalse: [
 		activation errored.
 		self addEvent: (FBNodeActivationErrored new
 				activation: activation;
