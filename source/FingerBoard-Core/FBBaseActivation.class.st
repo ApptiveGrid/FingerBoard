@@ -93,6 +93,11 @@ FBBaseActivation >> initialize [
 ]
 
 { #category : #accessing }
+FBBaseActivation >> instance [
+	^ executor flowInstance
+]
+
+{ #category : #accessing }
 FBBaseActivation >> node [
 	^ node
 ]

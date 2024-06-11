@@ -119,6 +119,19 @@ FBFlowTest >> testNodeWithIdError [
 ]
 
 { #category : #tests }
+FBFlowTest >> testParallelNodeEmptyList [
+	| flow instance |
+	flow := FBFlow parallelFlowOpen.
+	instance := flow newInstance.
+	instance executeWith: { }.
+	self assert: instance atEnd.
+	self assert: instance state equals: #done.
+	"there should be one activation per node. The flow should have stopped at the parallel node because the collection was empty"
+	self assert: instance activations size equals:  2.
+
+]
+
+{ #category : #tests }
 FBFlowTest >> testParallelNodeJoined [
 	| flow instance |
 	flow := FBFlow parallelFlowJoined.

@@ -29,11 +29,6 @@ FBActivation >> events [
 	^ self flowInstance eventsOfActivation: self
 ]
 
-{ #category : #accessing }
-FBActivation >> instance [
-	^ executor flowInstance
-]
-
 { #category : #'as yet unclassified' }
 FBActivation >> isDone [
 	^ state = #done

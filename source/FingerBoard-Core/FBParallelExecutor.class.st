@@ -87,12 +87,7 @@ FBParallelExecutor >> step [
 	transition := pending removeFirst.
 	values := transition source lastValueIn: self.
 	activation := self newActivation: transition.
-	(values isCollection and: [ values isSequenceable ]) ifFalse: [
-		self addEvent: (FBNodeActivationErrored new
-				 activation: activation;
-				 activationError:
-					 'Input for parallel execution has to be a collection.').
-		^ self ].
+	activation initializeValues: list size.
 	lastValue := values at: index.
 	activation argument: lastValue.
 	self activate: activation.
