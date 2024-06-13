@@ -162,6 +162,7 @@ FBFlowTest >> testParallelNodeWaiting [
 	instance := flow newInstance.
 	instance executeWith: { 1 . 2 . 3 }.
 	self deny: instance atEnd.
+	self assert: instance pending isEmpty.
 	self assert: instance state equals: #waiting.
 
 ]
