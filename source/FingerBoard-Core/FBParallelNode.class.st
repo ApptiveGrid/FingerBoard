@@ -16,7 +16,14 @@ FBParallelNode >> defaultBehaviorClass [
 
 { #category : #accessing }
 FBParallelNode >> outputFor: anActivation [
-	
-	"unlike other nodes, the parallel node output return the current input value being processed"
-	^ anActivation value at: anActivation instance executor index
+	"unlike other nodes, the parallel node output return the current input value being processed.
+	if no execution in progress, returns the first element of the input value"
+
+	| executor |
+	executor := anActivation instance executor.
+	(executor isInitiatedBy: self) ifTrue: [
+		^ anActivation value at: executor index ].
+	^ anActivation value
+		  ifEmpty: [ nil ]
+		  ifNotEmpty: [ :col | col first ]
 ]

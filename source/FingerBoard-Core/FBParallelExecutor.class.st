@@ -53,6 +53,12 @@ FBParallelExecutor >> initialize [
 ]
 
 { #category : #accessing }
+FBParallelExecutor >> isInitiatedBy: aNode [
+
+	^ aNode = node
+]
+
+{ #category : #accessing }
 FBParallelExecutor >> list: aCollection [ 
 	list := aCollection.
 
