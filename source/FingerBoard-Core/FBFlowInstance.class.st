@@ -88,7 +88,9 @@ FBFlowInstance >> announcer [
 
 { #category : #accessing }
 FBFlowInstance >> atEnd [
-	^ self rootExecutor atEnd
+	^ (executor = self rootExecutor) and: [  
+		executors allSatisfy: [ :each | each atEnd ]
+		].
 ]
 
 { #category : #finalization }
@@ -130,7 +132,8 @@ FBFlowInstance >> executeWith: anObject [
 { #category : #accessing }
 FBFlowInstance >> executor [ 
 	^ executor ifNil: [ 
-		executor := self buildRootExecutor ]
+		executor := self buildRootExecutor.
+		executors add: executor ]
 ]
 
 { #category : #accessing }
@@ -163,7 +166,8 @@ FBFlowInstance >> initialValue: anObject [
 { #category : #initialization }
 FBFlowInstance >> initialize [ 
 	super initialize.
-	id := FBIdGenerator current newId
+	id := FBIdGenerator current newId.
+	executors := OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -208,7 +212,9 @@ FBFlowInstance >> printOn: aStream [
 ]
 
 { #category : #'as yet unclassified' }
-FBFlowInstance >> pushExecutor: anExecutor [ 
+FBFlowInstance >> pushExecutor: anExecutor [
+ 
+	executors add: anExecutor.
 	executor := anExecutor 
 		flowInstance: self;
 		suspendedExecutor: executor;
