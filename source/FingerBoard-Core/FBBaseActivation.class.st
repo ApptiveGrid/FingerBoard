@@ -107,6 +107,12 @@ FBBaseActivation >> node: aFBNode [
 	node := aFBNode
 ]
 
+{ #category : #services }
+FBBaseActivation >> output [
+
+	^ self node outputFor: self
+]
+
 { #category : #accessing }
 FBBaseActivation >> state [
 	^ state
