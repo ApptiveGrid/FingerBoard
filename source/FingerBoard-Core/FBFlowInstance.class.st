@@ -5,6 +5,7 @@ Class {
 		'id',
 		'flow',
 		'executor',
+		'executors',
 		'announcer',
 		'events',
 		'activations'

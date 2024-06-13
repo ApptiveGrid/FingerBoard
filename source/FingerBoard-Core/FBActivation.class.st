@@ -105,9 +105,3 @@ FBActivation >> value: anObject [
 
 	value := anObject
 ]
-
-{ #category : #'as yet unclassified' }
-FBActivation >> waitForNode: aNode [
-	state := #waiting.
-	executor addWaiting: aNode
-]

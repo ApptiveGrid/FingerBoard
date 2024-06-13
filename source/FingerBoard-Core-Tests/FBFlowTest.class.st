@@ -156,6 +156,17 @@ FBFlowTest >> testParallelNodeOpenEnd [
 ]
 
 { #category : #tests }
+FBFlowTest >> testParallelNodeWaiting [
+	| flow instance |
+	flow := FBFlow parallelFlowWaiting.
+	instance := flow newInstance.
+	instance executeWith: { 1 . 2 . 3 }.
+	self deny: instance atEnd.
+	self assert: instance state equals: #waiting.
+
+]
+
+{ #category : #tests }
 FBFlowTest >> testRemoveNode [
 	| flow intermediate |
 	flow := FBFlow simpleFlow.

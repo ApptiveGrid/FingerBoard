@@ -128,3 +128,9 @@ FBBaseActivation >> stateBorder [
 	^ border
 		
 ]
+
+{ #category : #'as yet unclassified' }
+FBBaseActivation >> waitForNode: aNode [
+	state := #waiting.
+	executor addWaiting: aNode
+]
