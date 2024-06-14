@@ -5,6 +5,7 @@ Class {
 		'id',
 		'flow',
 		'executor',
+		'executors',
 		'announcer',
 		'events',
 		'activations'
@@ -87,7 +88,9 @@ FBFlowInstance >> announcer [
 
 { #category : #accessing }
 FBFlowInstance >> atEnd [
-	^ self rootExecutor atEnd
+	^ (executor = self rootExecutor) and: [  
+		executors allSatisfy: [ :each | each atEnd ]
+		].
 ]
 
 { #category : #finalization }
@@ -129,7 +132,14 @@ FBFlowInstance >> executeWith: anObject [
 { #category : #accessing }
 FBFlowInstance >> executor [ 
 	^ executor ifNil: [ 
-		executor := self buildRootExecutor ]
+		executor := self buildRootExecutor.
+		executors add: executor ]
+]
+
+{ #category : #accessing }
+FBFlowInstance >> executors [
+
+	^ executors
 ]
 
 { #category : #accessing }
@@ -162,7 +172,8 @@ FBFlowInstance >> initialValue: anObject [
 { #category : #initialization }
 FBFlowInstance >> initialize [ 
 	super initialize.
-	id := FBIdGenerator current newId
+	id := FBIdGenerator current newId.
+	executors := OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -179,6 +190,12 @@ FBFlowInstance >> inspectionFlow [
 { #category : #testing }
 FBFlowInstance >> isDone [
 	^ executor isDone
+]
+
+{ #category : #testing }
+FBFlowInstance >> isRootExecutor [
+
+	^ self rootExecutor = self executor
 ]
 
 { #category : #accessing }
@@ -207,7 +224,9 @@ FBFlowInstance >> printOn: aStream [
 ]
 
 { #category : #'as yet unclassified' }
-FBFlowInstance >> pushExecutor: anExecutor [ 
+FBFlowInstance >> pushExecutor: anExecutor [
+ 
+	executors add: anExecutor.
 	executor := anExecutor 
 		flowInstance: self;
 		suspendedExecutor: executor;
@@ -226,15 +245,23 @@ FBFlowInstance >> start [
 
 { #category : #accessing }
 FBFlowInstance >> state [
-	self executor isCreated ifTrue: [ ^ #created ].
-	self executor isRunning ifTrue: [ ^ #running ].
-	self executor hasErrors ifTrue: [ ^ #error ].
-	self executor isWaiting ifTrue: [ ^ #waiting ].
-	self executor isDone ifTrue: [ ^ #done ].
+
+	
+	self rootExecutor isCreated ifTrue: [ ^ #created ].
+	(self isRootExecutor not or: [self rootExecutor isRunning]) ifTrue: [ ^ #running ].
+	(self executors anySatisfy:[:each | each hasErrors]) ifTrue: [ ^ #error ].
+	(self executors anySatisfy:[:each | each isWaiting])  ifTrue: [ ^ #waiting ].
+	(self executors anySatisfy:[:each | each isDone]) ifTrue: [ ^ #done ].
 
 ]
 
 { #category : #executing }
 FBFlowInstance >> step [
 	^ self executor step
+]
+
+{ #category : #accessing }
+FBFlowInstance >> suspended [
+
+	^ executors flatCollect:  [ :each | each suspended ]
 ]

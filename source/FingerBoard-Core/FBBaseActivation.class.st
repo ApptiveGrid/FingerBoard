@@ -34,6 +34,11 @@ FBBaseActivation >> errored [
 	state := #error
 ]
 
+{ #category : #events }
+FBBaseActivation >> events [
+	^ self flowInstance eventsOfActivation: self
+]
+
 { #category : #accessing }
 FBBaseActivation >> executor [
 
@@ -127,4 +132,10 @@ FBBaseActivation >> stateBorder [
 	(state = #waiting) ifTrue: [ border dashArray: #( 2 ) ].
 	^ border
 		
+]
+
+{ #category : #'as yet unclassified' }
+FBBaseActivation >> waitForNode: aNode [
+	state := #waiting.
+	executor addWaiting: aNode
 ]
