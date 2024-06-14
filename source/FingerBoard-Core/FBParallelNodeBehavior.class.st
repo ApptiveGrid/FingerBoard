@@ -16,5 +16,5 @@ FBParallelNodeBehavior >> execute [
 			 node: activation node;
 			 list: activation argument).
 	activation value: activation argument.
-	activation flowInstance executor stop
+	
 ]

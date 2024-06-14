@@ -137,6 +137,12 @@ FBFlowInstance >> executor [
 ]
 
 { #category : #accessing }
+FBFlowInstance >> executors [
+
+	^ executors
+]
+
+{ #category : #accessing }
 FBFlowInstance >> flow [
 	^ flow
 ]
@@ -186,6 +192,12 @@ FBFlowInstance >> isDone [
 	^ executor isDone
 ]
 
+{ #category : #testing }
+FBFlowInstance >> isRootExecutor [
+
+	^ self rootExecutor = self executor
+]
+
 { #category : #accessing }
 FBFlowInstance >> nextNode [
 	^ self nextTransition target
@@ -233,11 +245,13 @@ FBFlowInstance >> start [
 
 { #category : #accessing }
 FBFlowInstance >> state [
-	self executor isCreated ifTrue: [ ^ #created ].
-	self executor isRunning ifTrue: [ ^ #running ].
-	self executor hasErrors ifTrue: [ ^ #error ].
-	self executor isWaiting ifTrue: [ ^ #waiting ].
-	self executor isDone ifTrue: [ ^ #done ].
+
+	
+	self rootExecutor isCreated ifTrue: [ ^ #created ].
+	(self isRootExecutor not or: [self rootExecutor isRunning]) ifTrue: [ ^ #running ].
+	(self executors anySatisfy:[:each | each hasErrors]) ifTrue: [ ^ #error ].
+	(self executors anySatisfy:[:each | each isWaiting])  ifTrue: [ ^ #waiting ].
+	(self executors anySatisfy:[:each | each isDone]) ifTrue: [ ^ #done ].
 
 ]
 
