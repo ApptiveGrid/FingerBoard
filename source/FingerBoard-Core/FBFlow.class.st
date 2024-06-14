@@ -102,6 +102,20 @@ FBFlow class >> parallelFlowOpen [
 ]
 
 { #category : #tests }
+FBFlow class >> parallelFlowWaiting [
+	<sampleInstance>
+	| start end parallel p1 wait |
+	start := FBStartEvent new.
+	p1 := start addOutgoingNode: ((FBPluggableTask named: 'bypass') block: [ :activation | activation value: activation argument ]).
+	parallel := p1 addOutgoingNode: (FBParallelNode named: 'parallel task').
+	p1 addOutgoingNode:  (FBTestTask named: 'p2 task').
+	wait := FBPluggableWait new condition: [ :x |false ]; yourself.
+	p1 := parallel addOutgoingNode: (wait).
+	end := wait addOutgoingNode: FBEndEvent new.
+	^ FBFlow new start: start
+]
+
+{ #category : #tests }
 FBFlow class >> simpleFlow [ 
 	<sampleInstance>
 	| start end intermediate |

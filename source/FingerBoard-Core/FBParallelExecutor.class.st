@@ -25,7 +25,7 @@ FBParallelExecutor >> activationClass [
 
 { #category : #accessing }
 FBParallelExecutor >> atEnd [ 
-	^ (index = list size) and: [ pending isEmpty ]
+	^((index = list size) and: [ pending isEmpty ])and:[suspended isEmpty]
 ]
 
 { #category : #execution }
@@ -101,5 +101,6 @@ FBParallelExecutor >> step [
 		index := index + 1.
 		pending addAll: node outgoing ].
 	pending isEmpty ifTrue: [ "when everything has been executed, the parallel activation is done"
-		(self activationOf: node) done ]
+		(self activationOf: node) done.
+		 self stop ]
 ]
