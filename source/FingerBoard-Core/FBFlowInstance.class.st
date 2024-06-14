@@ -259,3 +259,9 @@ FBFlowInstance >> state [
 FBFlowInstance >> step [
 	^ self executor step
 ]
+
+{ #category : #accessing }
+FBFlowInstance >> suspended [
+
+	^ executors flatCollect:  [ :each | each suspended ]
+]

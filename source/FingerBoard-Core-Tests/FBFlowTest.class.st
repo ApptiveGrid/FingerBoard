@@ -164,6 +164,7 @@ FBFlowTest >> testParallelNodeWaiting [
 	self deny: instance atEnd.
 	self assert: instance pending isEmpty.
 	self assert: instance state equals: #waiting.
+	self assert: instance suspended size equals: 3
 
 ]
 
