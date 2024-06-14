@@ -24,11 +24,6 @@ FBActivation >> argument: aCollection [
 	argument := aCollection
 ]
 
-{ #category : #events }
-FBActivation >> events [
-	^ self flowInstance eventsOfActivation: self
-]
-
 { #category : #'as yet unclassified' }
 FBActivation >> isDone [
 	^ state = #done

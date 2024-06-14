@@ -140,6 +140,11 @@ FBBaseExecutor >> stop [
 	flowInstance popExecutor: suspendedExecutor 
 ]
 
+{ #category : #'as yet unclassified' }
+FBBaseExecutor >> suspended [
+	^ suspended 
+]
+
 { #category : #accessing }
 FBBaseExecutor >> suspendedExecutor [ 
 	^ suspendedExecutor
