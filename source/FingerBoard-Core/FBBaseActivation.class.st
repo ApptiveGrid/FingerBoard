@@ -102,6 +102,11 @@ FBBaseActivation >> instance [
 	^ executor flowInstance
 ]
 
+{ #category : #'as yet unclassified' }
+FBBaseActivation >> isDone [
+	^ state = #done
+]
+
 { #category : #accessing }
 FBBaseActivation >> node [
 	^ node

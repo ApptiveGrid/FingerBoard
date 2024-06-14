@@ -20,10 +20,6 @@ FBParallelNode >> outputFor: anActivation [
 	if no execution in progress, returns the first element of the input value"
 
 	| executor |
-	executor := anActivation instance executor.
-	(executor isInitiatedBy: self) ifTrue: [
-		^ anActivation value at: executor index ].
-	^ anActivation value
-		  ifEmpty: [ nil ]
-		  ifNotEmpty: [ :col | col first ]
+	executor := anActivation instance parallelExecutorFrom: self.
+	^ executor outputFor: anActivation
 ]

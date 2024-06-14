@@ -209,6 +209,12 @@ FBFlowInstance >> nextTransition [
 ]
 
 { #category : #accessing }
+FBFlowInstance >> parallelExecutorFrom: aNode [
+
+	^ executors detect: [ :each | each isParallel and: [each node = aNode] ]
+]
+
+{ #category : #accessing }
 FBFlowInstance >> pending [
 	^ self executor pending
 ]

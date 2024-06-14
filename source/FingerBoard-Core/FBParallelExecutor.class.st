@@ -52,10 +52,10 @@ FBParallelExecutor >> initialize [
 
 ]
 
-{ #category : #accessing }
-FBParallelExecutor >> isInitiatedBy: aNode [
+{ #category : #testing }
+FBParallelExecutor >> isParallel [
 
-	^ aNode = node
+	^ true
 ]
 
 { #category : #accessing }
@@ -81,9 +81,21 @@ FBParallelExecutor >> newActivation: transition [
 ]
 
 { #category : #accessing }
+FBParallelExecutor >> node [
+	^ node 
+]
+
+{ #category : #accessing }
 FBParallelExecutor >> node: aFBParallelNode [ 
 	node := aFBParallelNode.
 	pending addAll: node outgoing 
+]
+
+{ #category : #services }
+FBParallelExecutor >> outputFor: anActivation [
+
+	anActivation isDone ifTrue: [  ^ anActivation value first].
+	^ anActivation value at: self index .
 ]
 
 { #category : #stepping }

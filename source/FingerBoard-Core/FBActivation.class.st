@@ -24,11 +24,6 @@ FBActivation >> argument: aCollection [
 	argument := aCollection
 ]
 
-{ #category : #'as yet unclassified' }
-FBActivation >> isDone [
-	^ state = #done
-]
-
 { #category : #accessing }
 FBActivation >> metadata [
 	^ metadata ifNil: [ 

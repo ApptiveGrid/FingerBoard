@@ -102,8 +102,8 @@ FBBaseExecutor >> isDone [
 	^ pending isEmpty & suspended isEmpty
 ]
 
-{ #category : #services }
-FBBaseExecutor >> isInitiatedBy: aNode [
+{ #category : #testing }
+FBBaseExecutor >> isParallel [
 
 	^ false
 ]
