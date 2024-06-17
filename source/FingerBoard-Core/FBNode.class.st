@@ -245,6 +245,14 @@ FBNode >> outgoingNodes [
 	^ outgoing collect: #target
 ]
 
+{ #category : #services }
+FBNode >> outputFor: anActivation [
+	"hook so that the output of an activation can be specifically computed according to the kind of node being processed.
+	default behavior is to propagate the activation value"
+	
+	^ anActivation value
+]
+
 { #category : #printing }
 FBNode >> printOn: aStream [ 
 	aStream << 'node name=' << name asString

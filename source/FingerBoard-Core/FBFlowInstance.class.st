@@ -209,6 +209,12 @@ FBFlowInstance >> nextTransition [
 ]
 
 { #category : #accessing }
+FBFlowInstance >> parallelExecutorFrom: aNode [
+
+	^ executors detect: [ :each | each isParallel and: [each node = aNode] ]
+]
+
+{ #category : #accessing }
 FBFlowInstance >> pending [
 	^ self executor pending
 ]
@@ -246,8 +252,7 @@ FBFlowInstance >> start [
 { #category : #accessing }
 FBFlowInstance >> state [
 
-	
-	self rootExecutor isCreated ifTrue: [ ^ #created ].
+	(executor isNil or: [self rootExecutor isCreated]) ifTrue: [ ^ #created ].
 	(self isRootExecutor not or: [self rootExecutor isRunning]) ifTrue: [ ^ #running ].
 	(self executors anySatisfy:[:each | each hasErrors]) ifTrue: [ ^ #error ].
 	(self executors anySatisfy:[:each | each isWaiting])  ifTrue: [ ^ #waiting ].

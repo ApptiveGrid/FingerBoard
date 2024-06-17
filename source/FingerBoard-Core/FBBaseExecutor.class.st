@@ -103,6 +103,12 @@ FBBaseExecutor >> isDone [
 ]
 
 { #category : #testing }
+FBBaseExecutor >> isParallel [
+
+	^ false
+]
+
+{ #category : #testing }
 FBBaseExecutor >> isRunning [
 	^ pending notEmpty
 ]
