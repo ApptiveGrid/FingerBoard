@@ -209,9 +209,9 @@ FBFlowInstance >> nextTransition [
 ]
 
 { #category : #accessing }
-FBFlowInstance >> parallelExecutorFrom: aNode [
+FBFlowInstance >> parallelExecutorFrom: aNode ifAbsent: aBlock [
 
-	^ executors detect: [ :each | each isParallel and: [each node = aNode] ]
+	^ executors detect: [ :each | each isParallel and: [each node = aNode] ] ifNone: aBlock 
 ]
 
 { #category : #accessing }
