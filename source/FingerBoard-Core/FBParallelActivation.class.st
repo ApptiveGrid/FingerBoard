@@ -61,6 +61,12 @@ FBParallelActivation >> metadataSchema [
 	^ node metadataSchema
 ]
 
+{ #category : #accessing }
+FBParallelActivation >> output [
+
+	^ executor outputFor: self
+]
+
 { #category : #printing }
 FBParallelActivation >> printOn: aStream [ 
 	aStream << 'parallel activation: '.
