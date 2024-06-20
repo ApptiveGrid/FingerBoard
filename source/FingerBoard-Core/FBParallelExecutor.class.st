@@ -105,7 +105,6 @@ FBParallelExecutor >> step [
 	transition := pending removeFirst.
 	values := transition source lastValueIn: self.
 	activation := self newActivation: transition.
-	activation initializeValues: list size.
 	lastValue := values at: index.
 	activation argument: lastValue.
 	self activate: activation.
