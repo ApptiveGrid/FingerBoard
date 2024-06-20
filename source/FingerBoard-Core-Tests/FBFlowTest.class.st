@@ -156,6 +156,17 @@ FBFlowTest >> testParallelNodeOpenEnd [
 ]
 
 { #category : #tests }
+FBFlowTest >> testParallelNodeStepping [
+	| flow instance activation |
+	flow := FBFlow parallelFlowOpen.
+	instance := flow newInstance.
+	instance initialValue: { 1 . 2 . 3 }.
+	instance step; step; step.
+	activation := instance activations detect: [ :each | each isKindOf: FBParallelActivation ].
+	self deny: instance state equals: #done.
+]
+
+{ #category : #tests }
 FBFlowTest >> testParallelNodeWaiting [
 	| flow instance |
 	flow := FBFlow parallelFlowWaiting.

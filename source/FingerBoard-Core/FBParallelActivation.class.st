@@ -24,6 +24,15 @@ FBParallelActivation >> arguments [
 	^ arguments
 ]
 
+{ #category : #accessing }
+FBParallelActivation >> done [
+
+	"the parallel activation is done only after processing the last elements of the input list"
+	executor isLastIndex ifTrue: [ 
+		super done
+		 ]
+]
+
 { #category : #initialization }
 FBParallelActivation >> initializeValues: anInteger [
 
