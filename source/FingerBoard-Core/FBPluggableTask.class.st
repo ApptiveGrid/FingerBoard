@@ -9,6 +9,7 @@ Class {
 
 { #category : #'instance creation' }
 FBPluggableTask >> activateWith: anActivation [ 	
+	
 	block cull: anActivation.
 	anActivation followAll: self outgoing.
 	
