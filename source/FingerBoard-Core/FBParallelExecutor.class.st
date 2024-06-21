@@ -53,6 +53,12 @@ FBParallelExecutor >> initialize [
 ]
 
 { #category : #testing }
+FBParallelExecutor >> isLastIndex [
+
+	^ index = list size
+]
+
+{ #category : #testing }
 FBParallelExecutor >> isParallel [
 
 	^ true
