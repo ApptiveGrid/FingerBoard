@@ -18,6 +18,15 @@ FBParallelExecutor >> activate: activation [
 	flowInstance activateProtected: activation 
 ]
 
+{ #category : #private }
+FBParallelExecutor >> activateTransition: aTransition with: value [
+
+	| activation |
+	activation := self newActivation: aTransition.
+	activation argument: value.
+	self activate: activation
+]
+
 { #category : #accessing }
 FBParallelExecutor >> activationClass [
 	^ node activationClass
@@ -104,20 +113,29 @@ FBParallelExecutor >> outputFor: anActivation [
 	^ anActivation value at: self index .
 ]
 
-{ #category : #stepping }
+{ #category : #private }
+FBParallelExecutor >> shouldFollowTransition: transition with: value [
+	"this parallel executor has been instantiated right after activating a parallel node.
+	the transition following the parallel node may have condition.
+	we make sure that this condition is evaluated before activating a given iteration value"
+
+	transition source = node ifFalse: [ ^ true ].
+	^ (self activationOf: node) shouldFollowTransition: transition with: value
+]
+
+{ #category : #services }
 FBParallelExecutor >> step [
 
-	| transition lastValue activation values |
+	| transition lastValue values |
 	transition := pending removeFirst.
 	values := transition source lastValueIn: self.
-	activation := self newActivation: transition.
 	lastValue := values at: index.
-	activation argument: lastValue.
-	self activate: activation.
+	(self shouldFollowTransition: transition with: lastValue) ifTrue: [
+		self activateTransition: transition with: lastValue ].
 	(pending isEmpty and: [ index < list size ]) ifTrue: [
 		index := index + 1.
 		pending addAll: node outgoing ].
-	pending isEmpty ifTrue: [ "when everything has been executed, the parallel activation is done"
-		(self activationOf: node) done.
-		 self stop ]
+	pending isEmpty ifFalse: [ ^ self ].
+	(self activationOf: node) done.
+	self stop
 ]

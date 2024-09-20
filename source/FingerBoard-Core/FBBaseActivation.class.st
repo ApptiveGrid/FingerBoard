@@ -123,6 +123,11 @@ FBBaseActivation >> output [
 	^ self node outputFor: self
 ]
 
+{ #category : #'as yet unclassified' }
+FBBaseActivation >> shouldFollowTransition: aTransition with: value [
+	^ (aTransition conditionMatches: value) 
+]
+
 { #category : #accessing }
 FBBaseActivation >> state [
 	^ state
