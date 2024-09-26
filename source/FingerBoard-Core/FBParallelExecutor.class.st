@@ -109,7 +109,7 @@ FBParallelExecutor >> node: aFBParallelNode [
 { #category : #services }
 FBParallelExecutor >> outputFor: anActivation [
 
-	anActivation isDone ifTrue: [  ^ anActivation value first].
+	(self activationOf: node) isDone ifTrue: [  ^ anActivation value first].
 	^ anActivation value at: self index .
 ]
 
