@@ -1,16 +1,18 @@
 Class {
-	#name : #FBExclusiveGateway,
-	#superclass : #FBGateway,
-	#category : #'FingerBoard-Core-Model'
+	#name : 'FBExclusiveGateway',
+	#superclass : 'FBGateway',
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FBExclusiveGateway class >> typeName [
 
 	^ #exclusiveGateway
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 FBExclusiveGateway >> asRoassalShape [
 	| composite color |
 	composite := RSComposite new.
@@ -39,7 +41,7 @@ FBExclusiveGateway >> asRoassalShape [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBExclusiveGateway >> defaultBehaviorClass [
 	^ FBExclusiveGatewayBehavior 
 ]

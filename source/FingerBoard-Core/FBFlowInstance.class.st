@@ -1,6 +1,6 @@
 Class {
-	#name : #FBFlowInstance,
-	#superclass : #Object,
+	#name : 'FBFlowInstance',
+	#superclass : 'Object',
 	#instVars : [
 		'id',
 		'flow',
@@ -8,19 +8,22 @@ Class {
 		'executors',
 		'announcer',
 		'events',
-		'activations'
+		'activations',
+		'metadata'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlowInstance >> aboutToTransition: aNode [
 	"subclasses can overwrite this method to act before a transition
 	is taken. This enables checks if a transition is possible before
 	adding an activation for it"
 ]
 
-{ #category : #convenience }
+{ #category : 'convenience' }
 FBFlowInstance >> activate: anActivation [ 
 	self addEvent: (FBNodeActivationStarted new
 		activation: anActivation).
@@ -30,7 +33,7 @@ FBFlowInstance >> activate: anActivation [
 
 ]
 
-{ #category : #convenience }
+{ #category : 'convenience' }
 FBFlowInstance >> activateProtected: activation [
 	[ [ self activate: activation ]
 		on: FBError  
@@ -48,25 +51,25 @@ FBFlowInstance >> activateProtected: activation [
 			error pass ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> activationClass [
 	^ flow activationClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> activationOfNode: aFBNode [
 	^ self activations 
 		detect: [ :each | each node = aFBNode ]
 		ifNone: [ Error signal: 'no activation found for node' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> activations [ 
 	^ activations ifNil: [ 
 		activations := OrderedCollection new ]
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 FBFlowInstance >> addEvent: aFBFlowEvent [
 
 	self events add: (aFBFlowEvent
@@ -75,108 +78,108 @@ FBFlowInstance >> addEvent: aFBFlowEvent [
 	self announce: aFBFlowEvent
 ]
 
-{ #category : #announcements }
+{ #category : 'announcements' }
 FBFlowInstance >> announce: aFBModelEvent [
 	self announcer announce: aFBModelEvent 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> announcer [
 	^ announcer ifNil: [ 
 		announcer := Announcer new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> atEnd [
 	^ (executor = self rootExecutor) and: [  
 		executors allSatisfy: [ :each | each atEnd ]
 		].
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 FBFlowInstance >> buildRootExecutor [
 	^ FBFlowExecutor new 
 			flowInstance: self;
 			scheduleStart 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> events [
 	^ events ifNil: [ 
 		events := OrderedCollection new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> eventsOfActivation: aFBActivation [ 
 	^ self events select: [ :each | (each isKindOf: FBNodeActivationEvent) and: [ each activation = aFBActivation ] ]
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 FBFlowInstance >> eventsOfNode: aFBNode [
 	^ (self activationOfNode: aFBNode) ifNotNil: [ :activation | activation events ]
 ]
 
-{ #category : #executing }
+{ #category : 'executing' }
 FBFlowInstance >> execute [ 
 	[ self executor hasPending ] whileTrue: [
 		executor step ]
 
 ]
 
-{ #category : #executing }
+{ #category : 'executing' }
 FBFlowInstance >> executeWith: anObject [
 	self executor initialValue: anObject.
 	self execute
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> executor [ 
 	^ executor ifNil: [ 
 		executor := self buildRootExecutor.
 		executors add: executor ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> executors [
 
 	^ executors
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> flow [
 	^ flow
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> flow: aFBFlow [ 
 	flow := aFBFlow 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> initialValue: anObject [
 	self executor initialValue: anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBFlowInstance >> initialize [ 
 	super initialize.
 	id := FBIdGenerator current newId.
 	executors := OrderedCollection new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlowInstance >> inspectionFlow [
 	<inspectorPresentationOrder: 0 title: 'flow'>
 	^ SpRoassal3InspectorPresenter  new 
@@ -187,49 +190,81 @@ FBFlowInstance >> inspectionFlow [
 		yourself
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBFlowInstance >> isDone [
 	^ executor isDone
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBFlowInstance >> isRootExecutor [
 
 	^ self rootExecutor = self executor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
+FBFlowInstance >> metadata [
+	
+	^ metadata ifNil: [metadata := FBProperties new]
+]
+
+{ #category : 'accessing' }
+FBFlowInstance >> metadataAt: aString [ 
+	^ self metadata at: aString
+]
+
+{ #category : 'accessing' }
+FBFlowInstance >> metadataAt: key ifAbsent: aBlock [
+	^ self metadata 
+		at: key 
+		ifAbsent: aBlock
+]
+
+{ #category : 'accessing' }
+FBFlowInstance >> metadataAt: key ifPresent: aBlock [
+	^ self metadata 
+		at: key 
+		ifPresent: aBlock
+]
+
+{ #category : 'accessing' }
+FBFlowInstance >> metadataAt: key put: anObject [ 
+	self metadata  
+		at: key 
+		put: anObject
+]
+
+{ #category : 'accessing' }
 FBFlowInstance >> nextNode [
 	^ self nextTransition target
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> nextTransition [
 	^ executor firstPending
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> parallelExecutorFrom: aNode ifAbsent: aBlock [
 
 	^ executors detect: [ :each | each isParallel and: [each node = aNode] ] ifNone: aBlock 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> pending [
 	^ self executor pending
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlowInstance >> popExecutor: anExecutor [ 
 	executor := anExecutor
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBFlowInstance >> printOn: aStream [ 
 	aStream << 'flow instance id=' << id asString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlowInstance >> pushExecutor: anExecutor [
  
 	executors add: anExecutor.
@@ -239,17 +274,17 @@ FBFlowInstance >> pushExecutor: anExecutor [
 		yourself
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 FBFlowInstance >> rootExecutor [
 	^ executor rootExecutor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> start [
 	^ flow start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> state [
 
 	(executor isNil or: [self rootExecutor isCreated]) ifTrue: [ ^ #created ].
@@ -260,12 +295,12 @@ FBFlowInstance >> state [
 
 ]
 
-{ #category : #executing }
+{ #category : 'executing' }
 FBFlowInstance >> step [
 	^ self executor step
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstance >> suspended [
 
 	^ executors flatCollect:  [ :each | each suspended ]

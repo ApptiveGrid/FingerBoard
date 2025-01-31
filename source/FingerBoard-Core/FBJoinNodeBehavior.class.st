@@ -1,10 +1,12 @@
 Class {
-	#name : #FBJoinNodeBehavior,
-	#superclass : #FBNodeBehavior,
-	#category : #'FingerBoard-Core-Model'
+	#name : 'FBJoinNodeBehavior',
+	#superclass : 'FBNodeBehavior',
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #execution }
+{ #category : 'execution' }
 FBJoinNodeBehavior >> execute [ 
 	| executor |
 	executor := activation flowInstance executor.

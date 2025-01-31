@@ -1,10 +1,12 @@
 Class {
-	#name : #FBStartEventBehavior,
-	#superclass : #FBNodeBehavior,
-	#category : #'FingerBoard-Core-Behavior'
+	#name : 'FBStartEventBehavior',
+	#superclass : 'FBNodeBehavior',
+	#category : 'FingerBoard-Core-Behavior',
+	#package : 'FingerBoard-Core',
+	#tag : 'Behavior'
 }
 
-{ #category : #execution }
+{ #category : 'execution' }
 FBStartEventBehavior >> execute [
 
 	"a start event is an entry event that should pass its argument to 

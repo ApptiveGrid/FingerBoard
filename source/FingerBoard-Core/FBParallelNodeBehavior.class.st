@@ -1,10 +1,12 @@
 Class {
-	#name : #FBParallelNodeBehavior,
-	#superclass : #FBNodeBehavior,
-	#category : #'FingerBoard-Core-Behavior'
+	#name : 'FBParallelNodeBehavior',
+	#superclass : 'FBNodeBehavior',
+	#category : 'FingerBoard-Core-Behavior',
+	#package : 'FingerBoard-Core',
+	#tag : 'Behavior'
 }
 
-{ #category : #execution }
+{ #category : 'execution' }
 FBParallelNodeBehavior >> execute [
 
 	(activation argument isCollection and: [

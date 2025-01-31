@@ -1,22 +1,24 @@
 Class {
-	#name : #FBNodeActivationStarted,
-	#superclass : #FBNodeActivationEvent,
-	#category : #'FingerBoard-Core-Event'
+	#name : 'FBNodeActivationStarted',
+	#superclass : 'FBNodeActivationEvent',
+	#category : 'FingerBoard-Core-Event',
+	#package : 'FingerBoard-Core',
+	#tag : 'Event'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBNodeActivationStarted >> message [
 
 	^ 'activation started'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBNodeActivationStarted >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << ' activated'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeActivationStarted >> type [
 
 	^ #activationStarted

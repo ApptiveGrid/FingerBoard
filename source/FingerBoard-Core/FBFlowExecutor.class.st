@@ -1,20 +1,22 @@
 Class {
-	#name : #FBFlowExecutor,
-	#superclass : #FBBaseExecutor,
+	#name : 'FBFlowExecutor',
+	#superclass : 'FBBaseExecutor',
 	#instVars : [
 		'initialValue',
 		'state',
 		'otherExecutor'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowExecutor >> atEnd [
 	^ self isDone 
 ]
 
-{ #category : #executing }
+{ #category : 'executing' }
 FBFlowExecutor >> execute [
 	[ pending isEmpty ] whileFalse: [
 		self step ]
@@ -22,30 +24,30 @@ FBFlowExecutor >> execute [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowExecutor >> initialValue [
 	^ initialValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowExecutor >> initialValue: anObject [
 	initialValue := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlowExecutor >> newActivation [ 
 	^ self activationClass new
 		executor: self
 ]
 
-{ #category : #executing }
+{ #category : 'executing' }
 FBFlowExecutor >> newActivation: transition [ 
 	^ self newActivation 
 		node: transition target;
 		yourself
 ]
 
-{ #category : #executing }
+{ #category : 'executing' }
 FBFlowExecutor >> step [
 	| transition activation lastValue |
 	flowInstance aboutToTransition: pending first.

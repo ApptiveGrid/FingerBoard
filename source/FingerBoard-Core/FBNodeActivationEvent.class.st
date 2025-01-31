@@ -1,25 +1,27 @@
 Class {
-	#name : #FBNodeActivationEvent,
-	#superclass : #FBFlowInstanceEvent,
+	#name : 'FBNodeActivationEvent',
+	#superclass : 'FBFlowInstanceEvent',
 	#instVars : [
 		'activation'
 	],
-	#category : #'FingerBoard-Core-Event'
+	#category : 'FingerBoard-Core-Event',
+	#package : 'FingerBoard-Core',
+	#tag : 'Event'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeActivationEvent >> activation [
 
 	^ activation
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeActivationEvent >> activation: anObject [
 
 	activation := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBNodeActivationEvent >> printOn: aStream [ 
 	super printOn: aStream.
 	activation node printOn: aStream.

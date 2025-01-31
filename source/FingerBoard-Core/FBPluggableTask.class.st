@@ -1,13 +1,15 @@
 Class {
-	#name : #FBPluggableTask,
-	#superclass : #FBTask,
+	#name : 'FBPluggableTask',
+	#superclass : 'FBTask',
 	#instVars : [
 		'block'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FBPluggableTask >> activateWith: anActivation [ 	
 	
 	block cull: anActivation.
@@ -15,32 +17,32 @@ FBPluggableTask >> activateWith: anActivation [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBPluggableTask >> block [
 
 	^ block
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBPluggableTask >> block: anObject [
 
 	block := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBPluggableTask >> evaluateTo: aString [ 
 	self
 		block: [ :activation |
 			activation value: (activation asScriptScopeDuring: [ :scope |  aString asApptiveScript valueIn: scope ]) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBPluggableTask >> initialize [ 
 	super initialize.
 	block := [  ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBPluggableTask >> value: anInteger [ 
 	block := [ :activation | activation value: anInteger  ]
 ]
