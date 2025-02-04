@@ -1,23 +1,25 @@
 Class {
-	#name : #FBWaitForCondition,
-	#superclass : #FBWait,
+	#name : 'FBWaitForCondition',
+	#superclass : 'FBWait',
 	#instVars : [
 		'condition'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBWaitForCondition >> condition: aBlock [
 	condition := aBlock 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBWaitForCondition >> defaultBehaviorClass [
 	^ FBWaitForConditionBehavior 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBWaitForCondition >> evaluateConditionWith: anObject [
 	^ condition value: anObject 
 ]

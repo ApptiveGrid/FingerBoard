@@ -1,30 +1,32 @@
 Class {
-	#name : #FBParallelActivation,
-	#superclass : #FBBaseActivation,
+	#name : 'FBParallelActivation',
+	#superclass : 'FBBaseActivation',
 	#instVars : [
 		'values',
 		'arguments',
 		'metadata'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelActivation >> argument [ 
 	^ arguments at: executor index
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelActivation >> argument: anObject [ 
 	arguments at: executor index put: anObject 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelActivation >> arguments [
 	^ arguments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelActivation >> done [
 
 	"the parallel activation is done only after processing the last elements of the input list"
@@ -33,7 +35,7 @@ FBParallelActivation >> done [
 		 ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBParallelActivation >> initializeValues: anInteger [
 
 	arguments := Array new: anInteger.
@@ -41,21 +43,21 @@ FBParallelActivation >> initializeValues: anInteger [
 	metadata := Array new: anInteger.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBParallelActivation >> metadataAt: key ifAbsent: aBlock [
 
 	^ (self metadataAtIndex: executor index) at: key 
 		ifAbsent: aBlock
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBParallelActivation >> metadataAt: key put: anObject [ 
 
 	(self metadataAtIndex: executor index) at: key 
 		put: anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBParallelActivation >> metadataAtIndex: index [
 
 	^ (metadata at: index) ifNil: [
@@ -65,18 +67,18 @@ FBParallelActivation >> metadataAtIndex: index [
 				   yourself) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBParallelActivation >> metadataSchema [
 	^ node metadataSchema
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelActivation >> output [
 
 	^ executor outputFor: self
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBParallelActivation >> printOn: aStream [ 
 	aStream << 'parallel activation: '.
 	node printOn: aStream.
@@ -87,17 +89,17 @@ FBParallelActivation >> printOn: aStream [
 	
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 FBParallelActivation >> value [
 	^ values
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelActivation >> value: anObject [ 
 	values at: executor index put: anObject 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelActivation >> values: aCollection [ 
 	values := aCollection
 ]

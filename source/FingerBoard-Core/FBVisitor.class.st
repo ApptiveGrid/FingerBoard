@@ -1,37 +1,39 @@
 Class {
-	#name : #FBVisitor,
-	#superclass : #Object,
-	#category : #'FingerBoard-Core-Base'
+	#name : 'FBVisitor',
+	#superclass : 'Object',
+	#category : 'FingerBoard-Core-Base',
+	#package : 'FingerBoard-Core',
+	#tag : 'Base'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBVisitor >> visit: aFBObject [
 	^ aFBObject acceptFingerBoard: self
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBVisitor >> visitAll: aCollection [ 
 	^ aCollection collect: [ :each |
 		self visit: each ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBVisitor >> visitFlow: aFBFlow [ 
 	^ self visit: aFBFlow start
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBVisitor >> visitNode: aFBNode [
 	self visitAll: aFBNode outgoing.
 	^ aFBNode 
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBVisitor >> visitStartEvent: aFBStartEvent [ 
 	^ self visitNode: aFBStartEvent 
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBVisitor >> visitTransition: aFBTransition [ 
 	^ self visitNode: aFBTransition target
 ]

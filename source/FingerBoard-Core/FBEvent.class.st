@@ -1,16 +1,18 @@
 Class {
-	#name : #FBEvent,
-	#superclass : #FBNode,
-	#category : #'FingerBoard-Core-Model'
+	#name : 'FBEvent',
+	#superclass : 'FBNode',
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBEvent class >> isAbstract [
 
 	^ self == FBEvent
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FBEvent >> activateWith: aFBActivation [
 
 	super activateWith: aFBActivation.

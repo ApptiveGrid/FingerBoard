@@ -1,23 +1,25 @@
 Class {
-	#name : #FBActivationMetadata,
-	#superclass : #FBProperties,
+	#name : 'FBActivationMetadata',
+	#superclass : 'FBProperties',
 	#instVars : [
 		'activation'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivationMetadata >> activation: aFBActivation [ 
 	activation := aFBActivation 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivationMetadata >> previous [
 	^ activation previous metadata 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBActivationMetadata >> printOn: aStream [ 
 	aStream << 'env: '.
 	activation printOn: aStream

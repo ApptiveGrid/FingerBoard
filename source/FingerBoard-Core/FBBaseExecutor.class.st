@@ -1,162 +1,164 @@
 Class {
-	#name : #FBBaseExecutor,
-	#superclass : #Object,
+	#name : 'FBBaseExecutor',
+	#superclass : 'Object',
 	#instVars : [
 		'flowInstance',
 		'pending',
 		'suspended',
 		'suspendedExecutor'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #executing }
+{ #category : 'executing' }
 FBBaseExecutor >> activate: activation [
 	self activations add: activation.
 	flowInstance activateProtected: activation 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseExecutor >> activationBefore: aFBActivation [ 
 
 	^ self activations before: aFBActivation 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> activationClass [
 	^ flowInstance activationClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> activationOf: aFBNode [
 	^ (self activations reverse 
 				detect: [ :each | each node = aFBNode ]).
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> activations [
 	^ flowInstance activations
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 FBBaseExecutor >> addEvent: anEvent [ 
 	flowInstance addEvent: anEvent 
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 FBBaseExecutor >> addPending: aFBNode [ 
 	pending add: aFBNode 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> addWaiting: aNode [
 	suspended add: aNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> firstPending [
 	^ pending first
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> flow [
 	^ flowInstance flow
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> flowInstance [
 
 	^ flowInstance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> flowInstance: aFBFlowInstance [ 
 	flowInstance := aFBFlowInstance.
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBBaseExecutor >> hasErrors [
 	^ self activations anySatisfy: [ :each | each hasError ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBBaseExecutor >> hasPending [
 	^ pending notEmpty 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBBaseExecutor >> initialize [ 
 	super initialize.
 	pending := OrderedCollection new.
 	suspended := OrderedCollection new
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBBaseExecutor >> isCreated [ 
 	^ (pending size = 1) and: [ pending first = flowInstance start ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> isDone [
 	^ pending isEmpty & suspended isEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBBaseExecutor >> isParallel [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBBaseExecutor >> isRunning [
 	^ pending notEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBBaseExecutor >> isWaiting [
 	^ pending isEmpty & suspended notEmpty
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> lastValueOf: aFBNode [
 	^ (self activationOf: aFBNode) value.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> pending [
 	^ pending
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 FBBaseExecutor >> rootExecutor [
 	^ suspendedExecutor 
 		ifNotNil: [ suspendedExecutor rootExecutor ]
 		ifNil: [ self ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseExecutor >> scheduleStart [
 	pending add: flowInstance start.
 	flowInstance addEvent: FBFlowInstanceStarted new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> stop [
 	flowInstance popExecutor: suspendedExecutor 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseExecutor >> suspended [
 	^ suspended 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> suspendedExecutor [ 
 	^ suspendedExecutor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseExecutor >> suspendedExecutor: anObject [
 
 	suspendedExecutor := anObject

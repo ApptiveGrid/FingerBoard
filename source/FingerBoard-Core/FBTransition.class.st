@@ -1,108 +1,110 @@
 Class {
-	#name : #FBTransition,
-	#superclass : #Object,
+	#name : 'FBTransition',
+	#superclass : 'Object',
 	#instVars : [
 		'id',
 		'source',
 		'target',
 		'condition'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FBTransition class >> source: aSourceNode target: aTargetNode [ 
 	^ self new 
 		source: aSourceNode;
 		target: aTargetNode
 ]
 
-{ #category : #associating }
+{ #category : 'associating' }
 FBTransition >> --> aNode [ 
 	^ target --> aNode
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBTransition >> acceptFingerBoard: aVisitor [ 
 	^ aVisitor visitTransition: self
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 FBTransition >> addTo: aFBNode [
 	source := aFBNode.
 	aFBNode addOutgoing: self.
 	^ target
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBTransition >> attach [ 
 	source addOutgoing: self.
 	target addIncoming: self.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransition >> condition [
 	^ condition 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransition >> condition: anObject [
 
 	condition := anObject 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBTransition >> conditionMatches: anObject [
 	condition ifNil: [ ^ true ].
 	^ condition value: anObject 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBTransition >> detach [ 
 	source removeOutgoing: self.
 	target removeIncoming: self.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBTransition >> hasCondition [
 	^ condition notNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransition >> id [
 
 	^ id
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBTransition >> initialize [ 
 	super initialize.
 	id := FBIdGenerator current newId
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBTransition >> printOn: aStream [ 
 	source printOn: aStream.
 	aStream << ' --> '.
 	target printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransition >> source [
 	^ source
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransition >> source: aFBNode [
 	source := aFBNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransition >> target [
 	^ target
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransition >> target: aFBNode [ 
 	target := aFBNode
 ]

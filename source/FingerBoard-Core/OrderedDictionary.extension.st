@@ -1,6 +1,6 @@
-Extension { #name : #OrderedDictionary }
+Extension { #name : 'OrderedDictionary' }
 
-{ #category : #'*FingerBoard-Core' }
+{ #category : '*FingerBoard-Core' }
 OrderedDictionary >> asPropertySchema [
 	| propertySchema |
 	propertySchema := FBPropertySchema new.

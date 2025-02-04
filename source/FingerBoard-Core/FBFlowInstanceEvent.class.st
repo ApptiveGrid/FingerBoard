@@ -1,25 +1,27 @@
 Class {
-	#name : #FBFlowInstanceEvent,
-	#superclass : #FBFlowEvent,
+	#name : 'FBFlowInstanceEvent',
+	#superclass : 'FBFlowEvent',
 	#instVars : [
 		'flowInstance'
 	],
-	#category : #'FingerBoard-Core-Event'
+	#category : 'FingerBoard-Core-Event',
+	#package : 'FingerBoard-Core',
+	#tag : 'Event'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstanceEvent >> flowInstance [
 
 	^ flowInstance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstanceEvent >> flowInstance: anObject [
 
 	flowInstance := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBFlowInstanceEvent >> printOn: aStream [ 
 	aStream << flowInstance id asString.
 	aStream << ': '

@@ -1,59 +1,61 @@
 Class {
-	#name : #FBFlowEvent,
-	#superclass : #Object,
+	#name : 'FBFlowEvent',
+	#superclass : 'Object',
 	#instVars : [
 		'timestamp'
 	],
-	#category : #'FingerBoard-Core-Event'
+	#category : 'FingerBoard-Core-Event',
+	#package : 'FingerBoard-Core',
+	#tag : 'Event'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBFlowEvent class >> handlesAnnouncement: anAnnouncement [
 	^ anAnnouncement class includesBehavior: self 
 ]
 
-{ #category : #conversion }
+{ #category : 'conversion' }
 FBFlowEvent >> asAnnouncement [
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowEvent >> initialize [
 
 	super initialize.
 	timestamp := DateAndTime now
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowEvent >> logTrace [
 
 	^ self subclassResponsibility 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowEvent >> message [
 
 	^ self subclassResponsibility 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowEvent >> name [
 
 	^ self subclassResponsibility 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBFlowEvent >> prepareForDelivery [
 	"nothing to do"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowEvent >> timestamp [
 
 	^ timestamp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowEvent >> type [
 
 	^ self subclassResponsibility 

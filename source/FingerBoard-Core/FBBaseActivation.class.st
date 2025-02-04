@@ -1,6 +1,6 @@
 Class {
-	#name : #FBBaseActivation,
-	#superclass : #Object,
+	#name : 'FBBaseActivation',
+	#superclass : 'Object',
 	#instVars : [
 		'executor',
 		'node',
@@ -8,15 +8,17 @@ Class {
 		'id',
 		'timestamp'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #activation }
+{ #category : 'activation' }
 FBBaseActivation >> activate [
 	node activateWith: self 
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 FBBaseActivation >> addEvent: aFBFlowEvent [
 
 	self flowInstance addEvent: (aFBFlowEvent
@@ -24,72 +26,72 @@ FBBaseActivation >> addEvent: aFBFlowEvent [
 			 yourself)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> done [
 	state := #done
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> errored [ 
 	state := #error
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 FBBaseActivation >> events [
 	^ self flowInstance eventsOfActivation: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseActivation >> executor [
 
 	^ executor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseActivation >> executor: aFBFlowExecutor [ 
 	executor := aFBFlowExecutor 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseActivation >> flow [
 	^ executor flow
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 FBBaseActivation >> flowInstance [
 	^ executor flowInstance 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> followAll: aCollection [
 	aCollection do: [ :transition |
 		 self followTransition: transition ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> followAllOutgoing [
 	self node outgoing do: [ :transition |
 		 self followTransition: transition ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> followTransition: aTransition [
 	(aTransition conditionMatches: self value) ifTrue: [ 
 		executor flowInstance executor addPending: aTransition ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBBaseActivation >> hasError [
 	^ state = #error
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseActivation >> id [
 
 	^ id
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBBaseActivation >> initialize [ 
 	super initialize.
 	id := FBIdGenerator current newId.
@@ -97,43 +99,43 @@ FBBaseActivation >> initialize [
 	state := #created
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseActivation >> instance [
 	^ executor flowInstance
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> isDone [
 	^ state = #done
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseActivation >> node [
 	^ node
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseActivation >> node: aFBNode [
 	node := aFBNode
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 FBBaseActivation >> output [
 
 	^ self node outputFor: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> shouldFollowTransition: aTransition with: value [
 	^ (aTransition conditionMatches: value) 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBBaseActivation >> state [
 	^ state
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> stateBorder [
 	| map border |
 	map := { 
@@ -150,7 +152,7 @@ FBBaseActivation >> stateBorder [
 		
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBBaseActivation >> waitForNode: aNode [
 	state := #waiting.
 	executor addWaiting: aNode

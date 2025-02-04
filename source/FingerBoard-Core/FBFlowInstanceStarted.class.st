@@ -1,21 +1,23 @@
 Class {
-	#name : #FBFlowInstanceStarted,
-	#superclass : #FBFlowInstanceEvent,
-	#category : #'FingerBoard-Core-Event'
+	#name : 'FBFlowInstanceStarted',
+	#superclass : 'FBFlowInstanceEvent',
+	#category : 'FingerBoard-Core-Event',
+	#package : 'FingerBoard-Core',
+	#tag : 'Event'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBFlowInstanceStarted >> message [
 	^ 'instance started'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBFlowInstanceStarted >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << 'instance started'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlowInstanceStarted >> type [
 
 	^ #instanceStarted

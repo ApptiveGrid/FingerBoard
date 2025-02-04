@@ -1,18 +1,19 @@
 Class {
-	#name : #FBPropertySchema,
-	#superclass : #Object,
+	#name : 'FBPropertySchema',
+	#superclass : 'Object',
 	#instVars : [
 		'properties'
 	],
-	#category : #'FingerBoard-Core'
+	#category : 'FingerBoard-Core',
+	#package : 'FingerBoard-Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBPropertySchema >> at: key [ 
 	^ properties at: key
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBPropertySchema >> at: key ifPresent: presentBlock ifAbsent: absentBlock [
 	^ properties 
 		at: key 
@@ -20,18 +21,18 @@ FBPropertySchema >> at: key ifPresent: presentBlock ifAbsent: absentBlock [
 		ifAbsent: absentBlock 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBPropertySchema >> at: key put: aType [ 
 	^ properties at: key put: aType 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBPropertySchema >> initialize [ 
 	super initialize.
 	properties := OrderedDictionary new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBPropertySchema >> keys [
 	^ properties keys
 ]

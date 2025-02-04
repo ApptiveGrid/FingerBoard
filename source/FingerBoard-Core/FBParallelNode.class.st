@@ -1,20 +1,22 @@
 Class {
-	#name : #FBParallelNode,
-	#superclass : #FBTask,
-	#category : #'FingerBoard-Core-Model'
+	#name : 'FBParallelNode',
+	#superclass : 'FBTask',
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelNode >> activationClass [ 
 	^ FBParallelActivation  
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelNode >> defaultBehaviorClass [
 	^ FBParallelNodeBehavior 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelNode >> outputFor: anActivation [
 	"unlike other nodes, the parallel node output return the current input value being processed.
 	if no execution in progress, returns the first element of the input value"

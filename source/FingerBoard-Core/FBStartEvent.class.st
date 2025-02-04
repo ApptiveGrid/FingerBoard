@@ -1,54 +1,56 @@
 Class {
-	#name : #FBStartEvent,
-	#superclass : #FBEvent,
-	#category : #'FingerBoard-Core-Event'
+	#name : 'FBStartEvent',
+	#superclass : 'FBEvent',
+	#category : 'FingerBoard-Core-Event',
+	#package : 'FingerBoard-Core',
+	#tag : 'Event'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FBStartEvent class >> typeName [
 
 	^ #start
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBStartEvent >> acceptFingerBoard: aFBVisitor [ 
 	^ aFBVisitor visitStartEvent: self 
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 FBStartEvent >> addIncoming: aTransition [ 
 	FBCannotAddTransition signal: 'a start node cannot have incming transitions'
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 FBStartEvent >> addOutgoing: aTransition [ 
 	outgoing isEmpty ifFalse: [ 
 		FBCannotAddTransition signal: 'a start node can only have 1 outgoing transition' ].
 	super addOutgoing: aTransition 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBStartEvent >> defaultBehaviorClass [
 	^ FBStartEventBehavior
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBStartEvent >> initialize [ 
 	super initialize.
 	name := 'start'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBStartEvent >> lastValueIn: aFBFlowExecutor [ 
 	^ aFBFlowExecutor initialValue 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBStartEvent >> source [
 	^ self 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBStartEvent >> target [
 	^ self
 ]

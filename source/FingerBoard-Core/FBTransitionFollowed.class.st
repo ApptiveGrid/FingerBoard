@@ -1,19 +1,21 @@
 Class {
-	#name : #FBTransitionFollowed,
-	#superclass : #FBFlowInstanceEvent,
+	#name : 'FBTransitionFollowed',
+	#superclass : 'FBFlowInstanceEvent',
 	#instVars : [
 		'transition',
 		'value'
 	],
-	#category : #'FingerBoard-Core-Event'
+	#category : 'FingerBoard-Core-Event',
+	#package : 'FingerBoard-Core',
+	#tag : 'Event'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBTransitionFollowed >> message [
 	^ 'transition followed from ', transition source printString , ' to ' , transition target printString , ' with ' , value printString
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBTransitionFollowed >> printOn: aStream [ 
 	super printOn: aStream.
 	aStream << 'transition followed '.
@@ -22,31 +24,31 @@ FBTransitionFollowed >> printOn: aStream [
 	value printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransitionFollowed >> transition [
 
 	^ transition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransitionFollowed >> transition: anObject [
 
 	transition := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransitionFollowed >> type [
 
 	^ #transitionFollowed
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransitionFollowed >> value [
 
 	^ value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTransitionFollowed >> value: anObject [
 
 	value := anObject

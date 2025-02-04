@@ -1,6 +1,6 @@
-Extension { #name : #Array }
+Extension { #name : 'Array' }
 
-{ #category : #'*FingerBoard-Core' }
+{ #category : '*FingerBoard-Core' }
 Array >> asPropertySchema [
 	^ self asOrderedDictionary asPropertySchema
 ]

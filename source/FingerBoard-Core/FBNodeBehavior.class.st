@@ -1,75 +1,77 @@
 Class {
-	#name : #FBNodeBehavior,
-	#superclass : #Object,
+	#name : 'FBNodeBehavior',
+	#superclass : 'Object',
 	#instVars : [
 		'activation'
 	],
-	#category : #'FingerBoard-Core-Behavior'
+	#category : 'FingerBoard-Core-Behavior',
+	#package : 'FingerBoard-Core',
+	#tag : 'Behavior'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior class >> metadataSchema [
 	^ FBPropertySchema new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBNodeBehavior class >> propertySchema [
 	^ FBPropertySchema new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior >> activation [
 
 	^ activation
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior >> activation: anObject [
 
 	activation := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior >> argument [
 	^ activation argument
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 FBNodeBehavior >> execute [ 
 	activation flowInstance executor stop  
 ]
 
-{ #category : #finalization }
+{ #category : 'finalization' }
 FBNodeBehavior >> executor [ 
 	^ activation executor
 ]
 
-{ #category : #moving }
+{ #category : 'moving' }
 FBNodeBehavior >> followTransition: aFBTransition [ 
 	activation followTransition: aFBTransition 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior >> metadata [
 	^ activation metadata
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior >> metadataSchema [
 	^ activation metadataSchema
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior >> node [
 	^ activation node
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior >> outgoing [
 	^ self node outgoing
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBNodeBehavior >> value: anObject [
 	activation value: anObject
 ]

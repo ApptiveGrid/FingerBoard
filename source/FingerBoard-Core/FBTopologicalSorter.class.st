@@ -1,31 +1,33 @@
 Class {
-	#name : #FBTopologicalSorter,
-	#superclass : #Object,
+	#name : 'FBTopologicalSorter',
+	#superclass : 'Object',
 	#instVars : [
 		'nodes',
 		'visited',
 		'sorted'
 	],
-	#category : #'FingerBoard-Core-Base'
+	#category : 'FingerBoard-Core-Base',
+	#package : 'FingerBoard-Core',
+	#tag : 'Base'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBTopologicalSorter >> hasBeenVisited: aFBNode [
 	^ visited includes: aFBNode 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBTopologicalSorter >> hasCycle [
 	^ self isAcyclic not
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBTopologicalSorter >> initialize [ 
 	super initialize.
 	self reset
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBTopologicalSorter >> isAcyclic [
 	sorted ifEmpty: [ self topologicalSort ].
 	^ nodes allSatisfy: [ :node |
@@ -33,18 +35,18 @@ FBTopologicalSorter >> isAcyclic [
 			(sorted indexOf: transition source) < (sorted indexOf: transition target) ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTopologicalSorter >> nodes: aCollection [ 
 	nodes := aCollection
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBTopologicalSorter >> reset [ 
 	visited := Set new.
 	sorted := OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBTopologicalSorter >> topologicalSort [
 	| topNodes |
 	"visit all nodes"
@@ -57,7 +59,7 @@ FBTopologicalSorter >> topologicalSort [
 	sorted := sorted reverse
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBTopologicalSorter >> unvisitedTopNodes [
 	"top nodes are nodes that have no incoming transition that hasn't been visitied. "
 	^ nodes select: [ :node | 
@@ -67,7 +69,7 @@ FBTopologicalSorter >> unvisitedTopNodes [
 					self hasBeenVisited: transition source ]) isEmpty ] ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBTopologicalSorter >> visitNode: aFBNode [
 	"we want to visit all nodes only once"
 	(self hasBeenVisited: aFBNode) ifTrue: [ ^ self ]. 

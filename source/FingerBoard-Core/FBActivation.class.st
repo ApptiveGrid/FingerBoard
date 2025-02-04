@@ -1,30 +1,32 @@
 Class {
-	#name : #FBActivation,
-	#superclass : #FBBaseActivation,
+	#name : 'FBActivation',
+	#superclass : 'FBBaseActivation',
 	#instVars : [
 		'value',
 		'metadata',
 		'argument'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #activation }
+{ #category : 'activation' }
 FBActivation >> activate [ 
 	node activateWith: self.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> argument [
 	^ argument
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> argument: aCollection [ 
 	argument := aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> metadata [
 	^ metadata ifNil: [ 
 		metadata := FBActivationMetadata new 
@@ -33,36 +35,36 @@ FBActivation >> metadata [
 			yourself ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> metadataAt: aString [ 
 	^ self metadata at: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> metadataAt: key ifAbsent: aBlock [
 	^ self metadata 
 		at: key 
 		ifAbsent: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> metadataAt: key put: anObject [ 
 	self metadata  
 		at: key 
 		put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> metadataSchema [
 	^ node metadataSchema
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> previous [
 	^ executor activationBefore: self 
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 FBActivation >> printOn: aStream [ 
 	aStream << 'activation: '.
 	node printOn: aStream.
@@ -73,24 +75,24 @@ FBActivation >> printOn: aStream [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> returnValue: anInteger [ 
 	self shouldBeImplemented.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBActivation >> suspend [
 	state := #waiting.
 	executor addWaiting: node
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> value [
 
 	^ value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBActivation >> value: anObject [
 
 	value := anObject

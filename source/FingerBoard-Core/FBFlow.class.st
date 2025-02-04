@@ -1,6 +1,6 @@
 Class {
-	#name : #FBFlow,
-	#superclass : #Object,
+	#name : 'FBFlow',
+	#superclass : 'Object',
 	#instVars : [
 		'name',
 		'start',
@@ -10,22 +10,24 @@ Class {
 		'activationClass',
 		'transitionClass'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow class >> activationClass [ 
 	^ activationClass ifNil: [
 		activationClass := self defaultActivationClass ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow class >> activationClass: anObject [
 
 	activationClass := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlow class >> complex [
 	<sampleInstance>
 	| start end one two three four five six seven eight nine |
@@ -49,17 +51,17 @@ FBFlow class >> complex [
 	^ FBFlow new start: start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow class >> defaultActivationClass [
 	^ FBActivation 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow class >> defaultTransitionClass [
 	^ FBTransition 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlow class >> gatewayedFlow [ 
 	<sampleInstance>
 	| start end bigger smaller gateway value |
@@ -75,7 +77,7 @@ FBFlow class >> gatewayedFlow [
 	^ FBFlow new start: start
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlow class >> parallelFlowJoined [ 
 	<sampleInstance>
 	| start end parallel p1 p2 join |
@@ -89,7 +91,7 @@ FBFlow class >> parallelFlowJoined [
 	^ FBFlow new start: start
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlow class >> parallelFlowOpen [
 	<sampleInstance>
 	| start end parallel p1 p2 |
@@ -101,7 +103,7 @@ FBFlow class >> parallelFlowOpen [
 	^ FBFlow new start: start
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlow class >> parallelFlowWaiting [
 	<sampleInstance>
 	| start end parallel p1 wait |
@@ -115,7 +117,7 @@ FBFlow class >> parallelFlowWaiting [
 	^ FBFlow new start: start
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlow class >> simpleFlow [ 
 	<sampleInstance>
 	| start end intermediate |
@@ -125,7 +127,7 @@ FBFlow class >> simpleFlow [
 	^ FBFlow new start: start
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlow class >> simpleFlowWithError [
 	<sampleInstance>
 	| start end intermediate |
@@ -135,7 +137,7 @@ FBFlow class >> simpleFlowWithError [
 	^ FBFlow new start: start
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlow class >> simpleFlowWithSystemError [
 	<sampleInstance>
 	| start end intermediate |
@@ -145,7 +147,7 @@ FBFlow class >> simpleFlowWithSystemError [
 	^ FBFlow new start: start
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlow class >> simpleWaitFlow [ 
 	<sampleInstance>
 	| start end wait |
@@ -156,19 +158,19 @@ FBFlow class >> simpleWaitFlow [
 	^ FBFlow new start: start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow class >> transitionClass [ 
 	^ transitionClass ifNil: [
 		transitionClass := self defaultTransitionClass ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow class >> transitionClass: anObject [
 
 	transitionClass := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlow class >> withCycle [
 	<sampleInstance>
 	| start end one two three four five six seven eight nine |
@@ -194,7 +196,7 @@ FBFlow class >> withCycle [
 	^ FBFlow new start: start
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlow class >> withCycleForce [
 	<sampleInstance>
 	| start end one two three four five six seven eight nine |
@@ -222,17 +224,17 @@ FBFlow class >> withCycleForce [
 	^ FBFlow new start: start
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBFlow >> acceptFingerBoard: aFBVisitor [ 
 	^ aFBVisitor visitFlow: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> activationClass [ 
 	^ self class activationClass
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 FBFlow >> addNode: aFBNode [
 	nodesMap 
 		at: aFBNode id 
@@ -243,74 +245,74 @@ FBFlow >> addNode: aFBNode [
 	 
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 FBFlow >> basicRemoveNode: aNode [ 
 	nodesMap removeKey: aNode id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> end [
 	start ifNil: [ Error signal: 'Cannot find end without a start node being present' ].
 	^ start findEnd
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBFlow >> initialize [ 
 	super initialize.
 	nodesMap := OrderedDictionary new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> name: anObject [
 
 	name := anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FBFlow >> newInstance [
 	^ FBFlowInstance new 
 		flow: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlow >> nodeWithId: aString [ 
 	^ self 
 		nodeWithId: aString  
 		ifAbsent: [ FBNodeNotFound signal: 'Node with id ', aString asString, ' not found' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 FBFlow >> nodeWithId: aString ifAbsent: aBlock [
 	^ nodesMap 
 		at: aString 
 		ifAbsent: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> nodeWithName: aString [ 
 	^ nodesMap values 
 		detect: [ :each | each name = aString ]
 		ifNone: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> nodes [
 	^ nodesMap values
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 FBFlow >> removeNode: aNode [ 
 	aNode detach.
 	self basicRemoveNode: aNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> start [
 	^ start ifNil: [ 
 		start := (FBStartEvent named: #start) 
@@ -318,25 +320,25 @@ FBFlow >> start [
 			yourself ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> start: aFBStartEvent [ 
 	aFBStartEvent flow: self.
 	start := aFBStartEvent 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> transitionClass [ 
 	^ self class transitionClass 
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 FBFlow >> transitionWithId: aString [ 
 	^ self 
 		transitionWithId: aString 
 		ifAbsent: [ FBTranstionNotFound signal: 'transition with id ', aString asString, ' not found' ]
 ]
 
-{ #category : #querying }
+{ #category : 'querying' }
 FBFlow >> transitionWithId: aString ifAbsent: aBlock [
 	nodesMap do: [ :node | 
 		node outgoing 
@@ -345,7 +347,7 @@ FBFlow >> transitionWithId: aString ifAbsent: aBlock [
 	^ aBlock value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBFlow >> validate [ 
 	(FBTopologicalSorter new 	
 		nodes: nodesMap values;

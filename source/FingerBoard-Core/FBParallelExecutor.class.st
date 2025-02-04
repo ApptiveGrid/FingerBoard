@@ -1,16 +1,18 @@
 Class {
-	#name : #FBParallelExecutor,
-	#superclass : #FBBaseExecutor,
+	#name : 'FBParallelExecutor',
+	#superclass : 'FBBaseExecutor',
 	#instVars : [
 		'list',
 		'node',
 		'index',
 		'map'
 	],
-	#category : #'FingerBoard-Core-Model'
+	#category : 'FingerBoard-Core-Model',
+	#package : 'FingerBoard-Core',
+	#tag : 'Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelExecutor >> activate: activation [
 
 	"unlike default behavior, the activation is already added to the list when being instantiated.
@@ -18,7 +20,7 @@ FBParallelExecutor >> activate: activation [
 	flowInstance activateProtected: activation 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 FBParallelExecutor >> activateTransition: aTransition with: value [
 
 	| activation |
@@ -27,17 +29,17 @@ FBParallelExecutor >> activateTransition: aTransition with: value [
 	self activate: activation
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelExecutor >> activationClass [
 	^ node activationClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelExecutor >> atEnd [ 
 	^((index = list size) and: [ pending isEmpty ])and:[suspended isEmpty]
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 FBParallelExecutor >> execute [ 
 	[   
 		[ pending isEmpty ] whileFalse: [
@@ -48,12 +50,12 @@ FBParallelExecutor >> execute [
  	] repeat
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelExecutor >> index [
 	^ index
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 FBParallelExecutor >> initialize [ 
 	super initialize.
 	index := 1.
@@ -61,32 +63,32 @@ FBParallelExecutor >> initialize [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBParallelExecutor >> isLastIndex [
 
 	^ index = list size
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 FBParallelExecutor >> isParallel [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelExecutor >> list: aCollection [ 
 	list := aCollection.
 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 FBParallelExecutor >> newActivation [
 	^ self activationClass new
 		executor: self;
 		initializeValues: list size 
 ]
 
-{ #category : #stepping }
+{ #category : 'stepping' }
 FBParallelExecutor >> newActivation: transition [
 	^ map 
 		at: transition
@@ -95,25 +97,25 @@ FBParallelExecutor >> newActivation: transition [
 				node: transition target) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelExecutor >> node [
 	^ node 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBParallelExecutor >> node: aFBParallelNode [ 
 	node := aFBParallelNode.
 	pending addAll: node outgoing 
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 FBParallelExecutor >> outputFor: anActivation [
 
 	(self activationOf: node) isDone ifTrue: [  ^ anActivation value first].
 	^ anActivation value at: self index .
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 FBParallelExecutor >> shouldFollowTransition: transition with: value [
 	"this parallel executor has been instantiated right after activating a parallel node.
 	the transition following the parallel node may have condition.
@@ -123,7 +125,7 @@ FBParallelExecutor >> shouldFollowTransition: transition with: value [
 	^ (self activationOf: node) shouldFollowTransition: transition with: value
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 FBParallelExecutor >> step [
 
 	| transition lastValue values |

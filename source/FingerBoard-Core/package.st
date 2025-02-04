@@ -1,1 +1,1 @@
-Package { #name : #'FingerBoard-Core' }
+Package { #name : 'FingerBoard-Core' }

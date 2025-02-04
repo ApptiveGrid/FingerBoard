@@ -1,10 +1,12 @@
 Class {
-	#name : #FBExclusiveGatewayBehavior,
-	#superclass : #FBNodeBehavior,
-	#category : #'FingerBoard-Core-Behavior'
+	#name : 'FBExclusiveGatewayBehavior',
+	#superclass : 'FBNodeBehavior',
+	#category : 'FingerBoard-Core-Behavior',
+	#package : 'FingerBoard-Core',
+	#tag : 'Behavior'
 }
 
-{ #category : #execution }
+{ #category : 'execution' }
 FBExclusiveGatewayBehavior >> execute [
 	activation value: self argument.
 	activation done.

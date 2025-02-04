@@ -1,19 +1,21 @@
 Class {
-	#name : #FBCollectNodesVisitor,
-	#superclass : #FBVisitor,
+	#name : 'FBCollectNodesVisitor',
+	#superclass : 'FBVisitor',
 	#instVars : [
 		'nodes'
 	],
-	#category : #'FingerBoard-Core-Base'
+	#category : 'FingerBoard-Core-Base',
+	#package : 'FingerBoard-Core',
+	#tag : 'Base'
 }
 
-{ #category : #accesing }
+{ #category : 'accesing' }
 FBCollectNodesVisitor >> nodes [
 	^ nodes ifNil: [ 
 		nodes := Set new ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 FBCollectNodesVisitor >> visitNode: aFBNode [
 	super visitNode: aFBNode.
 	self nodes add: aFBNode 
