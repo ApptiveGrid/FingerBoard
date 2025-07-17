@@ -128,7 +128,7 @@ FBFlowInstance >> execute [
 
 { #category : 'executing' }
 FBFlowInstance >> executeWith: anObject [
-	self executor initialValue: anObject.
+	self initialValue: anObject.
 	self execute
 ]
 
