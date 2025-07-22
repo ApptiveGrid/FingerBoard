@@ -1,10 +1,11 @@
 Class {
-	#name : #FBFlowTest,
-	#superclass : #FBTest,
-	#category : #'FingerBoard-Core-Tests'
+	#name : 'FBFlowTest',
+	#superclass : 'FBTest',
+	#category : 'FingerBoard-Core-Tests',
+	#package : 'FingerBoard-Core-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testAllNodes [ 
 	| flow |
 	flow := FBFlow simpleFlow. 
@@ -12,7 +13,7 @@ FBFlowTest >> testAllNodes [
 	self assert: flow end class equals: FBEndEvent 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testCreateFlow [ 
 	| start end intermediate flow |
 	start := FBStartEvent new.
@@ -25,7 +26,7 @@ FBFlowTest >> testCreateFlow [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testCreateFlowEarlyStart [
 	| start end intermediate flow |
 	start := FBStartEvent new.
@@ -40,7 +41,7 @@ FBFlowTest >> testCreateFlowEarlyStart [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testEndNodeManyIncoming [
 	| flow |
 	flow := FBFlow simpleFlow.
@@ -49,7 +50,7 @@ FBFlowTest >> testEndNodeManyIncoming [
 		raise: FBCannotAddTransition 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testEndNodeNoOutgoing [
 	| flow |
 	flow := FBFlow simpleFlow.
@@ -58,7 +59,7 @@ FBFlowTest >> testEndNodeNoOutgoing [
 		raise: FBCannotAddTransition 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testExecuteGatewayedFlow [ 
 	| instance |
 	instance := FBFlow gatewayedFlow newInstance.
@@ -66,7 +67,7 @@ FBFlowTest >> testExecuteGatewayedFlow [
 	self assert: instance atEnd 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testExecuteSimpleFlow [ 
 	| instance |
 	instance := FBFlow simpleFlow newInstance.
@@ -74,7 +75,7 @@ FBFlowTest >> testExecuteSimpleFlow [
 	self assert: instance atEnd 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testFlowWithCycle [
 	
 	self 
@@ -83,7 +84,7 @@ FBFlowTest >> testFlowWithCycle [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testIsCyclic [ 
 	| flow |
 	flow := FBFlow withCycleForce.
@@ -92,7 +93,7 @@ FBFlowTest >> testIsCyclic [
 		raise: FBFlowIsCyclic  
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testIsNotCyclic [ 
 	| flow |
 	flow := FBFlow complex.
@@ -101,7 +102,7 @@ FBFlowTest >> testIsNotCyclic [
 		raise: FBFlowIsCyclic  
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testNodeWithId [
 	| flow id |
 	flow := FBFlow simpleFlow.
@@ -109,7 +110,7 @@ FBFlowTest >> testNodeWithId [
 	self assert: (flow nodeWithId: id) equals: flow start
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testNodeWithIdError [
 	| flow |
 	flow := FBFlow simpleFlow.
@@ -118,7 +119,7 @@ FBFlowTest >> testNodeWithIdError [
 		raise: FBNodeNotFound 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testParallelNodeEmptyList [
 	| flow instance |
 	flow := FBFlow parallelFlowOpen.
@@ -131,7 +132,7 @@ FBFlowTest >> testParallelNodeEmptyList [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testParallelNodeJoined [
 	| flow instance |
 	flow := FBFlow parallelFlowJoined.
@@ -141,7 +142,7 @@ FBFlowTest >> testParallelNodeJoined [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testParallelNodeOpenEnd [
 	| flow instance |
 	flow := FBFlow parallelFlowOpen.
@@ -155,7 +156,7 @@ FBFlowTest >> testParallelNodeOpenEnd [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testParallelNodeStepping [
 	| flow instance activation |
 	flow := FBFlow parallelFlowOpen.
@@ -166,7 +167,7 @@ FBFlowTest >> testParallelNodeStepping [
 	self deny: instance state equals: #done.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testParallelNodeWaiting [
 	| flow instance |
 	flow := FBFlow parallelFlowWaiting.
@@ -179,7 +180,7 @@ FBFlowTest >> testParallelNodeWaiting [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testRemoveNode [
 	| flow intermediate |
 	flow := FBFlow simpleFlow.
@@ -188,7 +189,7 @@ FBFlowTest >> testRemoveNode [
 	self assert: flow nodes size equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testRemoveNodeFlow [
 	| flow intermediate |
 	flow := FBFlow simpleFlow.
@@ -197,7 +198,7 @@ FBFlowTest >> testRemoveNodeFlow [
 	self assert: flow nodes size equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testRemoveTransitionWithId [
 	| flow transition t |
 	flow := FBFlow simpleFlow.
@@ -208,7 +209,7 @@ FBFlowTest >> testRemoveTransitionWithId [
 	self assert: t isNil
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testStartNodeNoIncoming [
 	| flow |
 	flow := FBFlow simpleFlow.
@@ -217,7 +218,7 @@ FBFlowTest >> testStartNodeNoIncoming [
 		raise: FBCannotAddTransition 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testStartNodeOneOutgoing [
 	| flow |
 	flow := FBFlow simpleFlow.
@@ -226,7 +227,7 @@ FBFlowTest >> testStartNodeOneOutgoing [
 		raise: FBCannotAddTransition 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowTest >> testTransitionWithId [
 	| flow transition |
 	flow := FBFlow simpleFlow.

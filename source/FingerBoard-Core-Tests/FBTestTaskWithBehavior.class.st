@@ -1,15 +1,16 @@
 Class {
-	#name : #FBTestTaskWithBehavior,
-	#superclass : #FBTask,
-	#category : #'FingerBoard-Core-Tests'
+	#name : 'FBTestTaskWithBehavior',
+	#superclass : 'FBTask',
+	#category : 'FingerBoard-Core-Tests',
+	#package : 'FingerBoard-Core-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTestTaskWithBehavior >> defaultBehaviorClass [ 
 	^ FBTestTaskBehavior 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTestTaskWithBehavior >> value [
 	^ 10 atRandom 
 ]

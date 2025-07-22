@@ -1,10 +1,11 @@
 Class {
-	#name : #FBNodeTest,
-	#superclass : #FBTest,
-	#category : #'FingerBoard-Core-Tests'
+	#name : 'FBNodeTest',
+	#superclass : 'FBTest',
+	#category : 'FingerBoard-Core-Tests',
+	#package : 'FingerBoard-Core-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBNodeTest >> testNewNodeHasId [
 	| node |
 	node := FBNode new.
@@ -12,7 +13,7 @@ FBNodeTest >> testNewNodeHasId [
 	self assert: node id notEmpty
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBNodeTest >> testNodePropertiesDefined [
 	| node schema |
 	node := FBTestTaskWithBehavior  new.
@@ -21,7 +22,7 @@ FBNodeTest >> testNodePropertiesDefined [
 	self assert: schema keys size equals: 2.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBNodeTest >> testNodePropertiesUndefined [
 	| node schema |
 	node := FBTestTask new.
@@ -30,7 +31,7 @@ FBNodeTest >> testNodePropertiesUndefined [
 	self assert: schema keys size equals: 0
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBNodeTest >> testNodeSetProperty [
 	| node |
 	node := FBTestTaskWithBehavior  new.

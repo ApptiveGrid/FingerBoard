@@ -1,10 +1,11 @@
 Class {
-	#name : #FBActivationTest,
-	#superclass : #FBTest,
-	#category : #'FingerBoard-Core-Tests'
+	#name : 'FBActivationTest',
+	#superclass : 'FBTest',
+	#category : 'FingerBoard-Core-Tests',
+	#package : 'FingerBoard-Core-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBActivationTest >> testEnvironment [
 	| activation node |
 	node := FBTestTaskWithBehavior new.
@@ -13,7 +14,7 @@ FBActivationTest >> testEnvironment [
 	self assert: (activation metadata at: #status) equals: '200'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBActivationTest >> testEnvironmentSchema [
 	| activation node |
 	node := FBTestTaskWithBehavior new.

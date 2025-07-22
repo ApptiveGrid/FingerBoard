@@ -1,10 +1,11 @@
 Class {
-	#name : #FBFlowInstanceTest,
-	#superclass : #FBTest,
-	#category : #'FingerBoard-Core-Tests'
+	#name : 'FBFlowInstanceTest',
+	#superclass : 'FBTest',
+	#category : 'FingerBoard-Core-Tests',
+	#package : 'FingerBoard-Core-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testActivationsAreDone [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -12,7 +13,7 @@ FBFlowInstanceTest >> testActivationsAreDone [
 	self assert: (flowInstance activations allSatisfy: [ :each | each state = #isDone ])
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testActivationsWithGatewayAreDone [
 	| flowInstance |
 	flowInstance := FBFlow gatewayedFlow newInstance.
@@ -22,7 +23,7 @@ FBFlowInstanceTest >> testActivationsWithGatewayAreDone [
 	self assert: (flowInstance activations allSatisfy: [ :each | each state = #done ])
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testCompleted [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -32,7 +33,7 @@ FBFlowInstanceTest >> testCompleted [
 	self assert: flowInstance atEnd equals: true
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testCreateFlowInstance [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -41,38 +42,38 @@ FBFlowInstanceTest >> testCreateFlowInstance [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testFlowAnnouncements [ 
 	| flowInstance events |
 	flowInstance := FBFlow simpleFlow newInstance.
 	flowInstance initialValue: 7. 
 	events := OrderedCollection new.
 	flowInstance announcer 
-		when: FBNodeActivationStarted  do: [ :e | events add: e ].
+		when: FBNodeActivationStarted  do: [ :e | events add: e ] for: self.
 	flowInstance execute.
 	self assert: events size equals: flowInstance flow nodes size 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testFlowAnnouncementsWithError [
 	| flowInstance events |
 	flowInstance := FBFlow simpleFlowWithError newInstance.
 	flowInstance initialValue: 7.
 	events := OrderedCollection new.
 	flowInstance announcer 
-		when: FBFlowEvent do: [ :e | events add: e ].
+		when: FBFlowEvent do: [ :e | events add: e ] for: self .
 	flowInstance execute.
 	self assert: events last class equals: FBNodeActivationErrored.
 	self assert: flowInstance activations last state equals: #error 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
 	| flowInstance events |
 	flowInstance := FBFlow simpleFlowWithSystemError newInstance.
 	events := OrderedCollection new.
 	flowInstance announcer 
-		when: FBFlowEvent do: [ :e | events add: e ].
+		when: FBFlowEvent do: [ :e | events add: e ] for: self .
 	flowInstance initialValue: 7.
 	self 
 		should: [ flowInstance execute ]
@@ -80,7 +81,7 @@ FBFlowInstanceTest >> testFlowAnnouncementsWithSystemError [
 	self assert: events size equals: 7 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testInstanceStateCreated [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -88,7 +89,7 @@ FBFlowInstanceTest >> testInstanceStateCreated [
 	self assert: flowInstance state equals: #created
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testInstanceStateDone [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -97,7 +98,7 @@ FBFlowInstanceTest >> testInstanceStateDone [
 	self assert: flowInstance state equals: #done
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testInstanceStateError [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlowWithError newInstance.
@@ -106,7 +107,7 @@ FBFlowInstanceTest >> testInstanceStateError [
 	self assert: flowInstance state equals: #error
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testInstanceStateRunning [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -115,7 +116,7 @@ FBFlowInstanceTest >> testInstanceStateRunning [
 	self assert: flowInstance state equals: #running
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testInstanceStateWaiting [
 	| flowInstance |
 	flowInstance := FBFlow simpleWaitFlow newInstance.
@@ -124,7 +125,7 @@ FBFlowInstanceTest >> testInstanceStateWaiting [
 	self assert: flowInstance state equals: #waiting
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testListActivationEvents [
 	| flowInstance events |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -134,7 +135,7 @@ FBFlowInstanceTest >> testListActivationEvents [
 	self assert: events size equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testListNodeEvents [
 	| flowInstance events node |
 	flowInstance := FBFlow simpleFlow newInstance.
@@ -145,7 +146,7 @@ FBFlowInstanceTest >> testListNodeEvents [
 	self assert: events size equals: 2
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testSimpleWaitCompletion [
 	| instance |
 	instance := FBFlow simpleWaitFlow newInstance. 
@@ -154,7 +155,7 @@ FBFlowInstanceTest >> testSimpleWaitCompletion [
 	self assert: instance isDone
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testSimpleWaitSuspension [ 
 	| instance |
 	instance := FBFlow simpleWaitFlow newInstance. 
@@ -163,7 +164,7 @@ FBFlowInstanceTest >> testSimpleWaitSuspension [
 	self deny: instance isDone
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 FBFlowInstanceTest >> testStepping [
 	| flowInstance |
 	flowInstance := FBFlow simpleFlow newInstance.

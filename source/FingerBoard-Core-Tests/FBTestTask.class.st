@@ -1,10 +1,11 @@
 Class {
-	#name : #FBTestTask,
-	#superclass : #FBTask,
-	#category : #'FingerBoard-Core-Tests'
+	#name : 'FBTestTask',
+	#superclass : 'FBTask',
+	#category : 'FingerBoard-Core-Tests',
+	#package : 'FingerBoard-Core-Tests'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 FBTestTask >> value [
 	^ 10 atRandom 
 ]
