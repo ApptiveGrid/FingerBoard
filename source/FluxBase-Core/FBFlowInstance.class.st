@@ -180,9 +180,9 @@ FBFlowInstance >> initialize [
 ]
 
 { #category : 'as yet unclassified' }
-FBFlowInstance >> inspectionFlow [
+FBFlowInstance >> inspectionFlow: aBuilder [ 
 	<inspectorPresentationOrder: 0 title: 'flow'>
-	^ SpRoassal3InspectorPresenter  new 
+	^ aBuilder newRoassal 
 		canvas: (FBFlowMapBuilder new 
 			nodes: flow nodes;
 			activations: self rootExecutor activations;

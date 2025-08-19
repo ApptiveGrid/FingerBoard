@@ -202,9 +202,9 @@ FBNode >> initialize [
 ]
 
 { #category : 'as yet unclassified' }
-FBNode >> inspectionFlow [
+FBNode >> inspectionFlow: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'flow'>
-	^ SpRoassal3InspectorPresenter  new 
+	^ aBuilder newRoassal 
 		canvas: (FBFlowMapBuilder new 
 			nodes: self neighbourNodes;
 			build )

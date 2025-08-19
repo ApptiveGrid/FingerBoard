@@ -1,9 +1,9 @@
 Extension { #name : 'FBFlow' }
 
 { #category : '*FluxBase-Roassal' }
-FBFlow >> inspectionFlow [
+FBFlow >> inspectionFlow: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'flow'>
-	^ SpRoassal3InspectorPresenter  new 
+	^ aBuilder newRoassal 
 		canvas: (FBFlowMapBuilder new 
 			nodes: self nodes;
 			build )
